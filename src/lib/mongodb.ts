@@ -20,6 +20,8 @@ async function connectToDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      family: 4, // Force IPv4, helps with ECONNREFUSED in Node 18+
+      serverSelectionTimeoutMS: 5000,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI as string, opts).then((mongoose) => {

@@ -24,6 +24,9 @@ export default function Navbar() {
           </div>
           
           <div className="flex items-center gap-6">
+            <Link href="/programs" className="text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors">
+              Programs
+            </Link>
             {session ? (
               <>
                 <Link href="/dashboard" className="text-sm font-medium hover:text-emerald-400 transition-colors">
