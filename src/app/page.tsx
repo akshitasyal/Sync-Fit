@@ -19,10 +19,16 @@ export default function Home() {
       {/* 1. HERO SECTION */}
       <section className="relative min-h-[90vh] flex flex-col xl:flex-row items-center pt-24 pb-16 overflow-hidden bg-[#0b0c10]">
         {/* Full background image for desktop (fading left) */}
-        <div 
-          className="absolute right-0 top-0 bottom-0 w-full xl:w-2/3 z-0 bg-cover bg-center opacity-40 xl:opacity-100"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2000&auto=format&fit=crop')" }} 
-        />
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="absolute inset-0 z-0 w-full h-full object-cover opacity-60 pointer-events-none"
+        >
+          <source src="/Home-page.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         {/* Gradient mapping onto the image to match GymPro style deep dark left side */}
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0b0c10] via-[#0b0c10]/95 to-transparent xl:w-3/4 hidden xl:block" />
         <div className="absolute inset-0 z-10 bg-[#0b0c10]/80 xl:hidden" />
@@ -34,9 +40,9 @@ export default function Home() {
             {/* Tagline Badge with Avatars */}
             <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full py-1.5 px-2 pr-6 mb-8 mt-8">
               <div className="flex -space-x-2">
-                <img src="https://i.pravatar.cc/100?img=3" alt="User" className="w-7 h-7 rounded-full border-2 border-[#111]" />
-                <img src="https://i.pravatar.cc/100?img=4" alt="User" className="w-7 h-7 rounded-full border-2 border-[#111]" />
-                <img src="https://i.pravatar.cc/100?img=5" alt="User" className="w-7 h-7 rounded-full border-2 border-[#111]" />
+                <img src="/images/avatar-3.jpg" alt="User" className="w-7 h-7 rounded-full border-2 border-[#111]" />
+                <img src="/images/avatar-4.jpg" alt="User" className="w-7 h-7 rounded-full border-2 border-[#111]" />
+                <img src="/images/avatar-5.jpg" alt="User" className="w-7 h-7 rounded-full border-2 border-[#111]" />
               </div>
               <span className="text-white text-sm font-medium tracking-wide">Smart Planning. Real Results.</span>
             </div>
@@ -90,24 +96,21 @@ export default function Home() {
             
             {/* Left Intersecting Image Grid */}
             <div className="w-full lg:w-1/2 relative">
-              <div className="relative z-10 w-[85%] rounded-[30px] overflow-hidden rounded-bl-[100px] shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=1000&auto=format&fit=crop" alt="Muscular man working out" className="w-full h-auto object-cover aspect-[4/5]"/>
-                <div className="absolute inset-0 bg-black/10"></div>
+              <div className="rounded-2xl overflow-hidden glass-panel-dark p-2 animate-float">
+                <img src="/images/muscular-man.jpg" alt="Muscular man working out" className="w-full h-auto object-cover aspect-[4/5]"/>
               </div>
               
               {/* Overlapping smaller image */}
-              <div className="absolute -bottom-12 -right-4 md:-right-12 z-20 w-[60%] rounded-[30px] overflow-hidden border-8 border-white shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="Woman lifting weights" className="w-full h-auto object-cover aspect-[4/5]"/>
+              <div className="rounded-2xl overflow-hidden glass-panel p-2 animate-float-delayed mt-12">
+                <img src="/images/woman-lifting.jpg" alt="Woman lifting weights" className="w-full h-auto object-cover aspect-[4/5]"/>
               </div>
 
               {/* Bottom Left Floating Box (Google Reviews style) */}
               <div className="absolute -bottom-6 left-6 z-30 bg-white shadow-xl rounded-2xl p-4 flex items-center gap-4">
-                <div className="flex -space-x-2">
-                  <img src="https://i.pravatar.cc/100?img=1" alt="User" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
-                  <img src="https://i.pravatar.cc/100?img=2" alt="User" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
-                </div>
-                <div>
-                  <div className="flex text-[#c1ff00] text-sm">★★★★★</div>
+                <div className="flex -space-x-3 mt-4 justify-center">
+                  <img src="/images/avatar-1.jpg" alt="User" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
+                  <img src="/images/avatar-2.jpg" alt="User" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
+                  <div className="w-10 h-10 rounded-full border-2 border-white bg-emerald-500 shadow-sm flex items-center justify-center text-xs font-bold text-white">★★★★★</div>
                   <p className="text-sm font-bold text-gray-900 leading-tight">Trusted by<br/>4.9/5 Users</p>
                 </div>
               </div>

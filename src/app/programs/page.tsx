@@ -13,8 +13,8 @@ export default function ProgramsPage() {
         <section className="relative w-full h-[55vh] min-h-[500px] flex flex-col items-center justify-center rounded-[30px] overflow-hidden mb-16">
           {/* Background Image */}
           <div 
-            className="absolute inset-0 z-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('https://html.awaikenthemes.com/gympro/images/page-header-bg.jpg')" }} 
+            className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay"
+            style={{ backgroundImage: "url('/images/page-header-bg.jpg')" }} 
           />
           {/* Accurate gradient overlay: fading into deep black at the bottom */}
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 via-black/50 to-[#0a0a0a]" />
