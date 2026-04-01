@@ -32,7 +32,14 @@ export default function ExportPage() {
     }
   };
 
-  if (loading) return <div className="p-10 text-white">Loading export data...</div>;
+  if (loading) return (
+    <div className="flex-grow flex items-center justify-center bg-[#f8f7f5]">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-10 h-10 rounded-full border-4 border-gray-200 border-t-[#c1ff00] animate-spin" />
+        <p className="text-gray-400 text-sm">Loading your blueprint…</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-white text-black p-10 print:p-0">
