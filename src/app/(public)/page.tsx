@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"; 
 import { 
   ArrowRightIcon, 
   CheckCircleIcon, 
@@ -18,7 +18,6 @@ export default function Home() {
       
       {/* 1. HERO SECTION */}
       <section className="relative min-h-[90vh] flex flex-col xl:flex-row items-center pt-24 pb-16 overflow-hidden bg-[#0b0c10]">
-        {/* Full background image for desktop (fading left) */}
         <video 
           autoPlay 
           loop 
@@ -29,15 +28,12 @@ export default function Home() {
           <source src="/Home-page.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        {/* Gradient mapping onto the image to match GymPro style deep dark left side */}
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0b0c10] via-[#0b0c10]/95 to-transparent xl:w-3/4 hidden xl:block" />
         <div className="absolute inset-0 z-10 bg-[#0b0c10]/80 xl:hidden" />
 
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 flex flex-col xl:flex-row items-center justify-between gap-16 mt-10">
           
-          {/* Hero Left Content */}
           <div className="w-full xl:w-3/5 text-left">
-            {/* Tagline Badge with Avatars */}
             <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full py-1.5 px-2 pr-6 mb-8 mt-8">
               <div className="flex -space-x-2">
                 <img src="/images/avatar-3.jpg" alt="User" className="w-7 h-7 rounded-full border-2 border-[#111]" />
@@ -47,17 +43,14 @@ export default function Home() {
               <span className="text-white text-sm font-medium tracking-wide">Smart Planning. Real Results.</span>
             </div>
 
-            {/* Main Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.2] mb-6 tracking-tight">
-              An AI Fitness System Built to Transform <br className="hidden md:block"/> Your Lifestyle
+              An AI Fitness System Built to Transform <br className="hidden md:block"/>Your Lifestyle
             </h1>
 
-            {/* Subtext */}
             <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
               Sync-Fit combines fuzzy logic, smart nutrition planning, and adaptive workouts to deliver personalized fitness results based on your body, goals, and habits.
             </p>
 
-            {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-5">
               <Link 
                 href="/signup" 
@@ -74,7 +67,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Hero Right Floating Card */}
           <div className="w-full xl:w-2/5 flex justify-center xl:justify-end xl:translate-y-20">
             <div className="bg-[#1a1c23] border border-white/10 p-10 rounded-[30px] shadow-2xl max-w-md w-full relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#c1ff00]/10 blur-[50px] rounded-full"></div>
@@ -85,7 +77,6 @@ export default function Home() {
               </p>
             </div>
           </div>
-
         </div>
       </section>
 
@@ -94,18 +85,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
             
-            {/* Left Intersecting Image Grid */}
             <div className="w-full lg:w-1/2 relative">
               <div className="rounded-2xl overflow-hidden glass-panel-dark p-2 animate-float">
                 <img src="/images/muscular-man.jpg" alt="Muscular man working out" className="w-full h-auto object-cover aspect-[4/5]"/>
               </div>
-              
-              {/* Overlapping smaller image */}
               <div className="rounded-2xl overflow-hidden glass-panel p-2 animate-float-delayed mt-12">
                 <img src="/images/woman-lifting.jpg" alt="Woman lifting weights" className="w-full h-auto object-cover aspect-[4/5]"/>
               </div>
-
-              {/* Bottom Left Floating Box (Google Reviews style) */}
               <div className="absolute -bottom-6 left-6 z-30 bg-white shadow-xl rounded-2xl p-4 flex items-center gap-4">
                 <div className="flex -space-x-3 mt-4 justify-center">
                   <img src="/images/avatar-1.jpg" alt="User" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
@@ -116,7 +102,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Content Area */}
             <div className="w-full lg:w-1/2 mt-16 lg:mt-0">
               <div className="inline-flex items-center gap-2 mb-4">
                 <div className="w-2 h-2 rounded-full bg-[#c1ff00]"></div>
@@ -128,10 +113,9 @@ export default function Home() {
               </h2>
               
               <p className="text-gray-600 text-lg leading-relaxed mb-10">
-                Sync-Fit is more than just a fitness app — it’s an adaptive system that understands your goals, energy levels, and lifestyle. From beginners to advanced users, we generate personalized diet and workout plans that evolve with you.
+                Sync-Fit is more than just a fitness app — it&apos;s an adaptive system that understands your goals, energy levels, and lifestyle. From beginners to advanced users, we generate personalized diet and workout plans that evolve with you.
               </p>
 
-              {/* Features inline grid */}
               <div className="grid sm:grid-cols-2 gap-8 mb-12">
                 <div>
                   <div className="w-14 h-14 rounded-full bg-[#c1ff00] flex items-center justify-center mb-5">
@@ -149,11 +133,10 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Highlight Box bordered */}
               <div className="relative border-2 border-[#c1ff00] rounded-3xl p-8 bg-[#fdfdfc] mb-10">
                 <ul className="space-y-4">
                   <li className="flex items-center gap-3 text-[#111111] font-medium text-lg">
-                    <CheckCircleIcon className="w-6 h-6 text-[#c1ff00] fill-[#c1ff00] text-black" /> Personalized diet & meal plans
+                    <CheckCircleIcon className="w-6 h-6 text-[#c1ff00] fill-[#c1ff00] text-black" /> Personalized diet &amp; meal plans
                   </li>
                   <li className="flex items-center gap-3 text-[#111111] font-medium text-lg">
                     <CheckCircleIcon className="w-6 h-6 text-[#c1ff00] fill-[#c1ff00] text-black" /> Smart workout intensity adjustment
@@ -162,8 +145,6 @@ export default function Home() {
                     <CheckCircleIcon className="w-6 h-6 text-[#c1ff00] fill-[#c1ff00] text-black" /> Real-time progress tracking
                   </li>
                 </ul>
-
-                {/* Circular Stamp (Decorative) */}
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-[#c1ff00] rounded-full flex items-center justify-center text-center font-bold text-xs uppercase shadow-xl animate-[spin_10s_linear_infinite]">
                   <span className="tracking-widest absolute inset-0 rounded-full border border-black border-dashed m-2 opacity-30"></span>
                   Start<br/>Now
@@ -186,7 +167,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#111111] mb-6">
-              Everything You Need to Stay Fit & Consistent
+              Everything You Need to Stay Fit &amp; Consistent
             </h2>
             <div className="w-20 h-1.5 bg-[#c1ff00] mx-auto rounded-full"></div>
           </div>
@@ -232,58 +213,32 @@ export default function Home() {
             <div className="space-y-8">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">Why Sync-Fit is Different</h2>
               
-              <div className="flex items-start gap-4">
-                <div className="mt-1 flex-shrink-0 w-8 h-8 rounded-full bg-[#c1ff00] flex items-center justify-center">
-                   <CheckCircleIcon className="w-5 h-5 text-black solid" />
+              {[
+                { title: "AI + Fuzzy Logic based decisions", desc: "Our core intelligence doesn't just guess; it infers from complex biometrics." },
+                { title: "Personalized, not generic plans", desc: "Your plan is yours alone. Calculated dynamically based on your unique profile." },
+                { title: "Adaptive system that learns from user", desc: "Stagnation is eliminated as routines automatically shift as you grow stronger." },
+                { title: "Complete fitness ecosystem", desc: "Seamlessly blending diet tracking and workout milestones into one platform." },
+              ].map((item) => (
+                <div key={item.title} className="flex items-start gap-4">
+                  <div className="mt-1 flex-shrink-0 w-8 h-8 rounded-full bg-[#c1ff00] flex items-center justify-center">
+                    <CheckCircleIcon className="w-5 h-5 text-black" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white mb-1">{item.title}</h4>
+                    <p className="text-gray-400">{item.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white mb-1">AI + Fuzzy Logic based decisions</h4>
-                  <p className="text-gray-400">Our core intelligence doesn't just guess; it infers from complex biometrics.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                 <div className="mt-1 flex-shrink-0 w-8 h-8 rounded-full bg-[#c1ff00] flex items-center justify-center">
-                   <CheckCircleIcon className="w-5 h-5 text-black solid" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white mb-1">Personalized, not generic plans</h4>
-                  <p className="text-gray-400">Your plan is yours alone. Calculated dynamically based on your unique profile.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                 <div className="mt-1 flex-shrink-0 w-8 h-8 rounded-full bg-[#c1ff00] flex items-center justify-center">
-                   <CheckCircleIcon className="w-5 h-5 text-black solid" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white mb-1">Adaptive system that learns from user</h4>
-                  <p className="text-gray-400">Stagnation is eliminated as routines automatically shift as you grow stronger.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                 <div className="mt-1 flex-shrink-0 w-8 h-8 rounded-full bg-[#c1ff00] flex items-center justify-center">
-                   <CheckCircleIcon className="w-5 h-5 text-black solid" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white mb-1">Complete fitness ecosystem</h4>
-                  <p className="text-gray-400">Seamlessly blending diet tracking and workout milestones into one platform.</p>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Gamification Box */}
             <div className="bg-gradient-to-br from-[#1a1c23] to-[#0b0c10] border border-white/10 rounded-[40px] p-10 lg:p-14 relative overflow-hidden">
               <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#c1ff00]/10 blur-[80px] rounded-full"></div>
-              
               <div className="relative z-10 text-center">
                 <div className="w-20 h-20 bg-[#c1ff00] rounded-full mx-auto flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(193,255,0,0.3)]">
                   <TrophyIcon className="w-10 h-10 text-black" />
                 </div>
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Stay Motivated with Smart Rewards</h3>
                 <p className="text-gray-400 mb-10 text-lg">Push higher, stay extremely consistent, and watch your rank climb.</p>
-                
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex justify-around">
                   <div className="text-center">
                     <div className="text-[#c1ff00] text-2xl font-bold mb-1">🔥 30+</div>
@@ -301,7 +256,6 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -309,10 +263,8 @@ export default function Home() {
 
       {/* 5. FINAL CTA SECTION */}
       <section className="py-32 bg-[#c1ff00] text-center relative overflow-hidden">
-        {/* Dynamic graphical background elements */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" 
              style={{ backgroundImage: "radial-gradient(#000 2px, transparent 2px)", backgroundSize: "40px 40px" }} />
-             
         <div className="max-w-4xl mx-auto px-4 relative z-10">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#111111] mb-6 tracking-tight leading-tight">
             Start Your Smart Fitness Journey Today

@@ -158,31 +158,35 @@ export default function WorkoutPage() {
 
   if (loading || status === "loading") {
     return (
-      <div className="flex-grow flex items-center justify-center bg-slate-950">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+      <div className="flex-grow flex items-center justify-center bg-[#f8f7f5]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 rounded-full border-4 border-gray-200 border-t-[#c1ff00] animate-spin" />
+          <p className="text-gray-400 text-sm font-medium">Loading your training plan…</p>
+        </div>
       </div>
     );
   }
 
-  const activeDay = plan?.days[activeDayIdx];
+  const activeDay = plan?.days?.[activeDayIdx];
 
   return (
-    <div className="flex-grow bg-slate-950 p-6 md:p-12 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto space-y-8 relative z-10">
+    <div className="flex-grow bg-[#f8f7f5] p-6 md:p-10">
+      <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-3">Workout Engine</h1>
-            <p className="text-slate-400 text-lg">AI-distributed training splits based on your intensity profile.</p>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-[#c1ff00]" />
+              <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Training</span>
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-[#111111] tracking-tight">Workout Engine</h1>
+            <p className="text-gray-500 text-sm mt-1">AI-distributed training splits based on your intensity profile.</p>
           </div>
           
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <button 
               onClick={generatePlan}
               disabled={generating}
-              className="flex items-center gap-2 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-800 text-white font-bold rounded-2xl transition-all shadow-lg shadow-emerald-500/20"
+              className="flex items-center gap-2 px-6 py-3 bg-[#c1ff00] hover:bg-[#a9e000] disabled:opacity-50 text-[#111111] font-bold rounded-xl transition-all shadow-[0_4px_14px_rgba(193,255,0,0.35)] hover:-translate-y-0.5"
             >
               <ArrowPathIcon className={`w-5 h-5 ${generating ? 'animate-spin' : ''}`} />
               {plan ? "Regenerate Week" : "Generate Plan"}
@@ -191,11 +195,11 @@ export default function WorkoutPage() {
         </div>
 
         {error && (
-          <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-2xl flex items-center gap-3">
-             <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></div>
+          <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl flex items-center gap-3 text-sm">
+             <div className="w-2 h-2 rounded-full bg-red-500" />
              {error}
              {error === "No exercises in database" && (
-               <button onClick={seedExercises} className="ml-auto underline font-bold">Seed Exercises Now</button>
+               <button onClick={seedExercises} className="ml-auto font-bold underline">Seed Exercises Now</button>
              )}
           </div>
         )}
@@ -203,71 +207,71 @@ export default function WorkoutPage() {
         {plan && (
           <div className="space-y-8">
             {/* Days Navigation */}
-            <div className="flex overflow-x-auto pb-4 gap-3 no-scrollbar">
+            <div className="flex overflow-x-auto pb-2 gap-2 no-scrollbar">
               {plan.days.map((day, idx) => (
                 <button
                   key={day.date}
                   onClick={() => setActiveDayIdx(idx)}
-                  className={`flex-shrink-0 px-6 py-4 rounded-2xl border transition-all flex flex-col items-center min-w-[120px] ${
+                  className={`flex-shrink-0 px-5 py-3 rounded-xl border transition-all flex flex-col items-center min-w-[100px] ${
                     activeDayIdx === idx 
-                      ? "bg-emerald-500/20 border-emerald-500 text-white shadow-xl shadow-emerald-500/10" 
-                      : "bg-slate-900/50 border-white/5 text-slate-500 hover:border-white/10 hover:bg-slate-900"
+                      ? "bg-[#c1ff00] border-[#c1ff00] text-[#111111] shadow-[0_4px_14px_rgba(193,255,0,0.3)]" 
+                      : "bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50"
                   }`}
                 >
-                  <span className={`text-[10px] uppercase font-bold tracking-widest mb-1 ${activeDayIdx === idx ? "text-emerald-400" : "text-slate-600"}`}>
+                  <span className={`text-[10px] uppercase font-bold tracking-widest mb-1 ${activeDayIdx === idx ? "text-[#111111]" : "text-gray-400"}`}>
                     {day.dayOfWeek.slice(0, 3)}
                   </span>
                   <span className="text-lg font-black">{new Date(day.date).getDate()}</span>
                   {day.isCompleted && (
-                    <CheckCircleSolid className="w-4 h-4 text-emerald-400 mt-2" />
+                    <CheckCircleSolid className={`w-4 h-4 mt-1.5 ${activeDayIdx === idx ? "text-black" : "text-[#c1ff00]"}`} />
                   )}
                 </button>
               ))}
             </div>
 
             {/* Day Focus Header */}
-            <div className="glass-panel-dark p-8 rounded-3xl border border-white/5 overflow-hidden relative">
-               <div className="absolute top-0 right-0 p-8 opacity-5">
-                  <BoltIcon className="w-32 h-32 text-white" />
+            <div className="bg-white border border-gray-100 p-7 rounded-[30px] shadow-sm overflow-hidden relative">
+               <div className="absolute top-0 right-0 p-8 opacity-[0.04] pointer-events-none">
+                  <BoltIcon className="w-32 h-32 text-[#111111]" />
                </div>
-               <div className="flex items-center gap-4 mb-2">
-                  <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-tighter rounded-full border border-emerald-500/20">
+               <div className="flex items-center gap-3 mb-2">
+                  <span className="px-3 py-1 bg-[#c1ff00]/10 text-[#111111] text-[10px] font-bold uppercase tracking-tighter rounded-full border border-[#c1ff00]/30">
                      Today's Target
                   </span>
                   {activeDay?.isCompleted && (
-                    <span className="text-emerald-400 text-sm font-bold flex items-center gap-1">
-                       <CheckCircleSolid className="w-4 h-4" /> Goal Reached
+                    <span className="text-sm font-bold text-[#111111] flex items-center gap-1">
+                       <CheckCircleSolid className="w-4 h-4 text-[#111111]" /> Complete!
                     </span>
                   )}
                </div>
-               <h2 className="text-4xl font-black text-white">{activeDay?.focus}</h2>
+               <h2 className="text-3xl font-black text-[#111111]">{activeDay?.focus}</h2>
             </div>
 
             {/* Exercises Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {activeDay?.focus === "Rest" ? (
-                <div className="col-span-full py-20 text-center glass-panel-dark rounded-3xl border border-white/5">
-                   <p className="text-slate-400 text-xl font-medium">Rest Day - Time for recovery!</p>
-                   <p className="text-slate-600 text-sm mt-2 font-light">Your muscles grow while you sleep and rest, not just when you train.</p>
+                <div className="col-span-full py-16 text-center bg-white border border-gray-100 rounded-[30px] shadow-sm">
+                   <p className="text-[#111111] text-xl font-bold">Rest Day</p>
+                   <p className="text-gray-400 text-sm mt-2">Your muscles grow while you sleep and rest, not just when you train.</p>
                 </div>
               ) : (
                 activeDay?.exercises.map((ex) => (
                   <div 
                     key={ex.exerciseId._id} 
-                    className={`glass-panel-dark rounded-3xl p-6 border transition-all group flex flex-col gap-6 ${
-                      ex.completed ? "border-emerald-500/50 bg-emerald-500/5 opacity-80" : "border-white/5 hover:border-white/20"
+                    className={`bg-white rounded-[30px] p-6 border shadow-sm transition-all group flex flex-col gap-5 ${
+                      ex.completed ? "border-[#c1ff00]/40 bg-[#c1ff00]/5" : "border-gray-100 hover:shadow-xl"
                     }`}
                   >
                     <div className="flex justify-between items-start">
-                      <div className="space-y-1">
-                        <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md ${
-                          ex.exerciseId.difficulty === "high" ? "bg-rose-500/20 text-rose-400" :
-                          ex.exerciseId.difficulty === "medium" ? "bg-amber-500/20 text-amber-400" :
-                          "bg-emerald-500/20 text-emerald-400"
+                      <div className="space-y-1.5">
+                        <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg ${
+                          ex.exerciseId.difficulty === "high" ? "bg-red-50 text-red-500 border border-red-100" :
+                          ex.exerciseId.difficulty === "medium" ? "bg-amber-50 text-amber-600 border border-amber-100" :
+                          "bg-[#c1ff00]/10 text-[#111111] border border-[#c1ff00]/30"
                         }`}>
                           {ex.exerciseId.difficulty}
                         </span>
-                        <h3 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors leading-tight">
+                        <h3 className="text-lg font-bold text-[#111111] group-hover:text-black transition-colors leading-tight">
                           {ex.exerciseId.name}
                         </h3>
                       </div>
@@ -276,46 +280,48 @@ export default function WorkoutPage() {
                         className="transition-transform active:scale-90"
                       >
                         {ex.completed ? (
-                          <CheckCircleSolid className="w-8 h-8 text-emerald-500" />
+                          <div className="w-8 h-8 bg-[#c1ff00] rounded-full flex items-center justify-center">
+                            <CheckCircleSolid className="w-5 h-5 text-black" />
+                          </div>
                         ) : (
-                          <CheckCircleIcon className="w-8 h-8 text-slate-700 hover:text-emerald-500 transition-colors" />
+                          <CheckCircleIcon className="w-8 h-8 text-gray-300 hover:text-[#c1ff00] transition-colors" />
                         )}
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-3">
                        {ex.duration ? (
-                         <div className="bg-slate-900/50 p-4 rounded-2xl border border-white/5">
-                            <span className="text-slate-500 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1.5 mb-1">
+                         <div className="bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                            <span className="text-gray-400 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1.5 mb-1">
                                <ClockIcon className="w-3 h-3" /> Duration
                             </span>
-                            <span className="text-white font-black text-lg">{ex.duration}m</span>
+                            <span className="text-[#111111] font-black text-lg">{ex.duration}m</span>
                          </div>
                        ) : (
-                         <div className="bg-slate-900/50 p-4 rounded-2xl border border-white/5">
-                            <span className="text-slate-500 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1.5 mb-1">
+                         <div className="bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                            <span className="text-gray-400 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1.5 mb-1">
                                <ListBulletIcon className="w-3 h-3" /> Sets
                             </span>
-                            <span className="text-white font-black text-lg">{ex.sets}</span>
+                            <span className="text-[#111111] font-black text-lg">{ex.sets}</span>
                          </div>
                        )}
                        {!ex.duration && (
-                         <div className="bg-slate-900/50 p-4 rounded-2xl border border-white/5">
-                            <span className="text-slate-500 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1.5 mb-1">
+                         <div className="bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                            <span className="text-gray-400 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1.5 mb-1">
                                <AcademicCapIcon className="w-3 h-3" /> Reps
                             </span>
-                            <span className="text-white font-black text-lg">{ex.reps}</span>
+                            <span className="text-[#111111] font-black text-lg">{ex.reps}</span>
                          </div>
                        )}
-                       <div className="bg-slate-900/50 p-4 rounded-2xl border border-white/5 col-span-2">
-                          <span className="text-slate-500 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1.5 mb-1">
+                       <div className="bg-gray-50 p-3.5 rounded-xl border border-gray-100 col-span-2">
+                          <span className="text-gray-400 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1.5 mb-1">
                              <MuscleIcon category={ex.exerciseId.category} /> Targeted Muscle
                           </span>
-                          <span className="text-white font-bold capitalize">{ex.exerciseId.category}</span>
+                          <span className="text-[#111111] font-bold capitalize">{ex.exerciseId.category}</span>
                        </div>
                     </div>
 
-                    <p className="text-slate-500 text-sm italic line-clamp-2">
+                    <p className="text-gray-400 text-sm italic line-clamp-2">
                       {ex.exerciseId.instructions}
                     </p>
                   </div>
@@ -326,20 +332,20 @@ export default function WorkoutPage() {
         )}
 
         {!plan && !loading && (
-          <div className="glass-panel-dark rounded-[40px] p-20 text-center space-y-8 border border-white/5 max-w-2xl mx-auto mt-20">
-             <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto text-emerald-500">
-                <BoltIcon className="w-12 h-12" />
+          <div className="bg-white rounded-[30px] border border-dashed border-gray-200 p-20 text-center space-y-6 max-w-xl mx-auto mt-10">
+             <div className="w-20 h-20 bg-[#c1ff00] rounded-full flex items-center justify-center mx-auto">
+                <BoltIcon className="w-10 h-10 text-black" />
              </div>
-             <div className="space-y-3">
-                <h2 className="text-3xl font-black text-white">No Workout Plan Active</h2>
-                <p className="text-slate-400 text-lg">Your AI training blueprint hasn't been calibrated yet. Click the button below to generate your first weekly split.</p>
+             <div className="space-y-2">
+                <h2 className="text-2xl font-black text-[#111111]">No Workout Plan Active</h2>
+                <p className="text-gray-400">Your AI training blueprint hasn&apos;t been calibrated yet. Click below to generate your first weekly split.</p>
              </div>
              <button 
                 onClick={generatePlan}
                 disabled={generating}
-                className="px-10 py-5 bg-white text-slate-950 font-black rounded-3xl hover:bg-emerald-400 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                className="px-8 py-4 bg-[#c1ff00] hover:bg-[#a9e000] text-[#111111] font-black rounded-xl transition-all hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(193,255,0,0.35)] disabled:opacity-50"
              >
-                {generating ? "Calibrating..." : "Initialize Training Plan"}
+                {generating ? "Calibrating…" : "Initialize Training Plan"}
              </button>
           </div>
         )}

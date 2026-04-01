@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
 import Meal from "@/models/Meal";
@@ -19,37 +20,70 @@ const getNext7Days = () => {
 
 export const generateWeeklyMealPlan = async (userEmail: string) => {
   await connectToDatabase();
+  try {
+    const db = mongoose.connection.db;
+    if (db) await db.collection("mealplans").dropIndex("userEmail_1_date_1");
+  } catch (e) {}
+
   const user = await User.findOne({ email: userEmail }).lean() as any;
   if (!user || !user.recommendations) throw new Error("Profile incomplete");
 
   let targetCals = user.recommendations.recommendedCalories;
   let dietPref = user.dietPreference || "Balanced Diet";
 
-  if (user.isFastingMode) {
-    dietPref = "Fasting";
-    targetCals = targetCals * 0.9; // 10% reduction for fasting days
-  }
+  let calsMap: Record<string, number>;
+  let dailySlots: string[];
 
-  // Constraints per day (25% / 30% / 30% / 15%)
-  const calsMap = {
-    breakfast: targetCals * 0.25,
-    lunch: targetCals * 0.30,
-    dinner: targetCals * 0.30,
-    snack: targetCals * 0.15
-  };
+  if (user.isFastingMode) {
+    dietPref = "fasting";
+    targetCals = targetCals * 0.9; // 10% reduction for fasting days
+    // Fasting distribution: 30% / 40% / 30%
+    calsMap = {
+      breakfast: targetCals * 0.30,
+      lunch: targetCals * 0.40,
+      dinner: targetCals * 0.30
+    };
+    dailySlots = ["breakfast", "lunch", "dinner"];
+  } else {
+    // Normal Constraints per day (25% / 30% / 30% / 15%)
+    calsMap = {
+      breakfast: targetCals * 0.25,
+      lunch: targetCals * 0.30,
+      dinner: targetCals * 0.30,
+      snack: targetCals * 0.15
+    };
+    dailySlots = ["breakfast", "lunch", "dinner", "snack"];
+  }
 
   const dislikedIds = user.dislikedMeals?.map((id: any) => id.toString()) || [];
 
-  let mealPool = await Meal.find({ 
-    dietType: dietPref,
-    _id: { $nin: dislikedIds }
-  }).lean() as any[];
-  
-  if (mealPool.length === 0) {
-    mealPool = await Meal.find({ _id: { $nin: dislikedIds } }).lean() as any[];
+  const query: any = { _id: { $nin: dislikedIds } };
+
+  if (user.isFastingMode) {
+    // Fasting meals are tagged with "Fasting" and are vegetarian-safe
+    query.tags = { $in: ["Fasting"] };
+    query.dietType = { $in: ["vegan", "vegetarian"] };
+  } else {
+    const rawPref = (user.dietPreference || "non-vegetarian").toLowerCase().trim();
+    
+    // Normalize all stored dietPreference variants → strict enum
+    const isVegan = rawPref === "vegan";
+    const isVegetarian = rawPref === "vegetarian" || rawPref === "vegetarian diet";
+    // Everything else (Non-Vegetarian, Balanced Diet, keto, high-protein, etc.) → all meals
+    
+    if (isVegan) {
+      query.dietType = { $in: ["vegan"] };
+    } else if (isVegetarian) {
+      query.dietType = { $in: ["vegan", "vegetarian"] };
+    } else {
+      query.dietType = { $in: ["vegan", "vegetarian", "non-vegetarian"] };
+    }
   }
+
+  let mealPool = await Meal.find(query).lean() as any[];
   
-  if (mealPool.length === 0) throw new Error("No available meals matching preferences");
+  // STRICT REQUIREMENT: No fallback if filtered results are empty.
+  if (mealPool.length === 0) throw new Error("No available meals matching preferences and strict diet filtering rules");
 
   const weekDays = getNext7Days();
   const weekStartDate = weekDays[0].date;
@@ -84,15 +118,7 @@ export const generateWeeklyMealPlan = async (userEmail: string) => {
       return choice;
     };
 
-    const dailySlots = ["fasting", "breakfast", "lunch", "dinner", "snack"];
     for (const slot of dailySlots) {
-      if (slot === "fasting") {
-        selectedMeals.push({
-          slot,
-          mealId: null
-        });
-        continue;
-      }
       const choice = pickMeal(slot);
       selectedMeals.push({
         mealId: choice._id,

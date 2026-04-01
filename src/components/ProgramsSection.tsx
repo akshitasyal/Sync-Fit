@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import {
   BuildingLibraryIcon,
   ScaleIcon,
@@ -15,6 +16,7 @@ const programs = [
     title: "Smart Strength Training",
     description: "AI-powered strength programs tailored to your fitness level using fuzzy logic and personalized intensity recommendations.",
     icon: BuildingLibraryIcon,
+    href: "/strength-training",
     bgImage: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800&auto=format&fit=crop"
   },
   {
@@ -22,6 +24,7 @@ const programs = [
     title: "Intelligent Weight Loss Plan",
     description: "Dynamic fat-loss plans combining calorie optimization, adaptive workouts, and personalized meal strategies.",
     icon: ScaleIcon,
+    href: "/weight-loss",
     bgImage: "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop"
   },
   {
@@ -29,6 +32,7 @@ const programs = [
     title: "Cardio & Endurance Optimization",
     description: "Boost stamina with smart cardio routines adjusted based on your energy levels and recovery patterns.",
     icon: HeartIcon,
+    href: "/programs",
     bgImage: "https://images.unsplash.com/photo-1540496905036-5937c1064743?q=80&w=800&auto=format&fit=crop"
   },
   {
@@ -36,6 +40,7 @@ const programs = [
     title: "Adaptive Fitness Programs",
     description: "Flexible training plans that evolve with your progress, feedback, and consistency scores.",
     icon: UserGroupIcon,
+    href: "/adaptive-fitness",
     bgImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop"
   },
   {
@@ -43,6 +48,7 @@ const programs = [
     title: "Muscle Gain System",
     description: "High-protein diet integration with optimized strength training for maximum muscle growth and recovery.",
     icon: SparklesIcon,
+    href: "/muscle-gain",
     bgImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop"
   },
   {
@@ -50,6 +56,7 @@ const programs = [
     title: "Beginner Smart Start",
     description: "Safe and guided plans for beginners with simplified meals, lighter workouts, and gradual progression.",
     icon: StarIcon,
+    href: "/beginner-start",
     bgImage: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
   }
 ];
@@ -58,12 +65,11 @@ export default function ProgramsSection() {
   return (
     <section className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {programs.map((program) => (
-            <div
+            <Link
               key={program.id}
+              href={program.href}
               className="group relative overflow-hidden bg-[#f8f7f5] rounded-[30px] p-10 min-h-[420px] flex flex-col transition-all duration-300"
             >
               {/* Hover Background Image Layer */}
@@ -74,7 +80,7 @@ export default function ProgramsSection() {
               {/* Hover Dark Overlay Layer */}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />
 
-              {/* Content Context Layer */}
+              {/* Content Layer */}
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex justify-between items-start mb-10">
                   <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#c1ff00] transition-transform duration-300 group-hover:-translate-y-1">
@@ -94,7 +100,7 @@ export default function ProgramsSection() {
                   </p>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-gray-200 group-hover:border-white/30 transition-colors duration-300 flex items-center justify-between cursor-pointer">
+                <div className="mt-8 pt-6 border-t border-gray-200 group-hover:border-white/30 transition-colors duration-300 flex items-center justify-between">
                   <span className="font-bold text-[#111111] group-hover:text-white transition-colors duration-300">
                     View Plan
                   </span>
@@ -103,7 +109,7 @@ export default function ProgramsSection() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -12,7 +12,7 @@ export async function GET() {
     await connectToDatabase();
     const user = await User.findOne({ email: session.user.email }).lean();
     
-    return NextResponse.json({ data: user }, { status: 200 });
+    return NextResponse.json({ message: "Success", data: user }, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ message: err.message }, { status: 500 });
   }

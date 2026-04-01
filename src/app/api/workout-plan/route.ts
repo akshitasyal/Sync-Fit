@@ -17,9 +17,9 @@ export async function GET() {
       .populate("days.exercises.exerciseId")
       .lean();
 
-    if (!plan) return NextResponse.json({ message: "No workout plan found" }, { status: 404 });
+    if (!plan) return NextResponse.json({ message: "No workout plan found", data: null }, { status: 200 });
 
-    return NextResponse.json(plan, { status: 200 });
+    return NextResponse.json({ message: "Success", data: plan }, { status: 200 });
   } catch (err: any) {
     console.error("GET WorkoutPlan error:", err);
     return NextResponse.json({ message: err.message }, { status: 500 });
