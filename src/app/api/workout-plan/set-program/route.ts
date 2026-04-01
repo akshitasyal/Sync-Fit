@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
 import WorkoutPlan from "@/models/WorkoutPlan";
-import { generateWeeklyWorkoutPlan } from "@/lib/workoutPlanner";
+import { workoutService } from "@/services/workoutService";
 
 const VALID_PROGRAMS = ["strength", "weight-loss", "cardio", "adaptive", "muscle-gain", "beginner"];
 
@@ -40,15 +40,13 @@ export async function PATCH(req: Request) {
       }
     );
 
-    // 2 — Delete current week's plan so we generate fresh
+    // 2 — Delete current week's plan so we generate fresh (optional, but keep for now)
     const weekStartDate = new Date().toISOString().split("T")[0];
     await WorkoutPlan.deleteOne({ userEmail: session.user.email, weekStartDate });
 
     // 3 — Generate new plan for the chosen program
-    const newPlan = await generateWeeklyWorkoutPlan(session.user.email, program);
-    const populated = await WorkoutPlan.findById(newPlan._id)
-      .populate("days.exercises.exerciseId")
-      .lean();
+    const newPlan = await workoutService.generateWeeklyWorkoutPlan(session.user.email, program);
+    const populated = await workoutService.getWorkoutPlanById(newPlan._id as string);
 
     return NextResponse.json(
       { message: `Program set to "${program}" and new plan generated.`, data: populated, program },

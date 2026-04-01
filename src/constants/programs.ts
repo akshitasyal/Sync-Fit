@@ -1,0 +1,58 @@
+export const PROGRAMS = [
+  {
+    id: "strength",
+    label: "Smart Strength",
+    emoji: "🏋️",
+    desc: "Progressive overload with compound barbell lifts",
+    color: "from-blue-500 to-indigo-600",
+    accent: "bg-blue-50 border-blue-200 text-blue-700",
+    badge: "bg-blue-100 text-blue-700",
+  },
+  {
+    id: "muscle-gain",
+    label: "Muscle Gain",
+    emoji: "💪",
+    desc: "Hypertrophy splits for maximum muscle growth",
+    color: "from-purple-500 to-violet-600",
+    accent: "bg-purple-50 border-purple-200 text-purple-700",
+    badge: "bg-purple-100 text-purple-700",
+  },
+  {
+    id: "weight-loss",
+    label: "Weight Loss",
+    emoji: "🔥",
+    desc: "HIIT circuits and metabolic conditioning",
+    color: "from-orange-500 to-red-500",
+    accent: "bg-orange-50 border-orange-200 text-orange-700",
+    badge: "bg-orange-100 text-orange-700",
+  },
+  {
+    id: "cardio",
+    label: "Cardio",
+    emoji: "🏃",
+    desc: "Aerobic endurance and interval training",
+    color: "from-sky-400 to-cyan-500",
+    accent: "bg-sky-50 border-sky-200 text-sky-700",
+    badge: "bg-sky-100 text-sky-700",
+  },
+  {
+    id: "beginner",
+    label: "Beginner Start",
+    emoji: "⭐",
+    desc: "Bodyweight + light resistance for newcomers",
+    color: "from-[#c1ff00] to-lime-500",
+    accent: "bg-lime-50 border-lime-200 text-lime-700",
+    badge: "bg-lime-100 text-lime-700",
+  },
+  {
+    id: "adaptive",
+    label: "Adaptive",
+    emoji: "♿",
+    desc: "Low-impact mobility and resistance band work",
+    color: "from-teal-400 to-emerald-500",
+    accent: "bg-teal-50 border-teal-200 text-teal-700",
+    badge: "bg-teal-100 text-teal-700",
+  },
+] as const;
+
+export type ProgramId = typeof PROGRAMS[number]["id"];

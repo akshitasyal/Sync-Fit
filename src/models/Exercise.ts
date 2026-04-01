@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { IExercise } from "@/types/workout";
 
 const ExerciseSchema = new mongoose.Schema({
   name: { type: String, required: true },

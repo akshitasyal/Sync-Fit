@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useFasting } from "@/hooks/useFasting";
 
 interface FastingToggleProps {
   initialStatus: boolean;
@@ -10,44 +11,16 @@ interface FastingToggleProps {
 }
 
 export default function FastingToggle({ initialStatus, onToggle, compact = false }: FastingToggleProps) {
-  const [isFasting, setIsFasting] = useState(initialStatus);
-  const [phase, setPhase] = useState<"idle" | "saving" | "generating" | "done">("idle");
-  const router = useRouter();
+  const {
+    isFasting,
+    phase,
+    isLoading,
+    toggleFasting,
+  } = useFasting(initialStatus);
 
-  const toggleFasting = async () => {
-    if (phase !== "idle") return;
-    const next = !isFasting;
-
-    try {
-      // Phase 1 — persist preference
-      setPhase("saving");
-      const res = await fetch("/api/profile", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ isFastingMode: next }),
-      });
-      if (!res.ok) throw new Error("Failed to save");
-
-      setIsFasting(next);
-      onToggle?.(next);
-
-      // Phase 2 — regenerate meal plan (which also rebuilds shopping list)
-      setPhase("generating");
-      await fetch("/api/meal-plan/generate", { method: "POST" });
-
-      // Phase 3 — done
-      setPhase("done");
-      setTimeout(() => {
-        setPhase("idle");
-        router.refresh();
-      }, 1200);
-    } catch (err) {
-      console.error(err);
-      setPhase("idle");
-    }
+  const handleToggle = async () => {
+    await toggleFasting(onToggle);
   };
-
-  const isLoading = phase === "saving" || phase === "generating";
 
   const statusLabel = {
     idle: isFasting ? "Fasting Mode ON" : "Fasting Mode",
@@ -60,7 +33,7 @@ export default function FastingToggle({ initialStatus, onToggle, compact = false
   if (compact) {
     return (
       <button
-        onClick={toggleFasting}
+        onClick={handleToggle}
         disabled={isLoading}
         id="fasting-mode-toggle"
         aria-label="Toggle fasting mode"
@@ -126,7 +99,7 @@ export default function FastingToggle({ initialStatus, onToggle, compact = false
 
       {/* Toggle switch */}
       <button
-        onClick={toggleFasting}
+        onClick={handleToggle}
         disabled={isLoading}
         id="fasting-mode-toggle"
         aria-label="Toggle fasting mode"

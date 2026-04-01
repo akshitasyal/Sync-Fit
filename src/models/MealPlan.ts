@@ -1,21 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface IMealPlan extends Document {
-  userEmail: string;
-  weekStartDate: string; // YYYY-MM-DD representing Monday
-  days: {
-    date: string;
-    dayOfWeek: string;
-    meals: {
-      mealId?: mongoose.Types.ObjectId;
-      slot: string; // "breakfast", "lunch", "dinner", "snack"
-    }[];
-    totalCalories: number;
-    totalProtein: number;
-    totalCarbs: number;
-    totalFat: number;
-  }[];
-}
+import mongoose, { Schema } from "mongoose";
+import { IMealPlan } from "@/types/meal";
 
 const MealPlanSchema = new Schema(
   {

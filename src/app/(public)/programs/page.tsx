@@ -1,5 +1,5 @@
-import ProgramsSection from "@/components/ProgramsSection";
-import ProgramsHero from "@/components/ProgramsHero";
+import ProgramsSection from "@/components/programs/ProgramsSection";
+import ProgramsHero from "@/components/programs/ProgramsHero";
 
 export const metadata = {
   title: "Programs | Sync-Fit",

@@ -1,11 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface IProgress extends Document {
-  userEmail: string;
-  date: string; // YYYY-MM-DD
-  weight: number;
-  caloricIntake?: number;
-}
+import mongoose, { Schema } from "mongoose";
+import { IProgress } from "@/types/user";
 
 const ProgressSchema = new Schema(
   {

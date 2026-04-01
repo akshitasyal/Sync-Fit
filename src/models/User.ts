@@ -1,33 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface IUser extends Document {
-  name: string;
-  email: string;
-  password?: string;
-  gender?: "male" | "female" | "other";
-  age?: number;
-  height?: number; // in cm
-  weight?: number; // in kg
-  energyLevel?: "low" | "medium" | "high";
-  sleepQuality?: "poor" | "average" | "good";
-  goal?: "weight loss" | "maintenance" | "muscle gain";
-  recommendations?: {
-    bmi: number;
-    recommendedCalories: number;
-    dietType: string;
-    workoutIntensity: string;
-  };
-  dietPreference?: string; // diet TYPE: Vegetarian | Non-Vegetarian | Vegan
-  dietGoal?: string;       // macro GOAL: High-Protein | Low-Carb | Keto | Balanced Diet
-  favoriteMeals?: mongoose.Types.ObjectId[];
-  dislikedMeals?: mongoose.Types.ObjectId[];
-  dislikedExercises?: mongoose.Types.ObjectId[];
-  workoutFeedback?: "too-easy" | "perfect" | "too-hard";
-  experienceLevel?: "beginner" | "intermediate" | "advanced";
-  isFastingMode?: boolean;
-  selectedProgram?: "strength" | "weight-loss" | "cardio" | "adaptive" | "muscle-gain" | "beginner";
-  programStartDate?: string;
-}
+import mongoose, { Schema } from "mongoose";
+import { IUser } from "@/types/user";
 
 const UserSchema: Schema = new Schema(
   {

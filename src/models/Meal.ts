@@ -1,20 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface IMeal extends Document {
-  name: string;
-  type?: "cutting" | "maintenance" | "bulking" | string;
-  dietType: "vegan" | "vegetarian" | "non-vegetarian";
-  tags?: string[];
-  category?: "breakfast" | "lunch" | "dinner" | "snack" | "pre-workout" | "post-workout" | "fasting";
-  calories?: number;
-  protein?: number;
-  carbs?: number;
-  fat?: number;
-  ingredients?: string[];
-  preparationSteps?: string[];
-  imageUrl?: string;
-  isFastingMeal?: boolean;
-}
+import mongoose, { Schema } from "mongoose";
+import { IMeal } from "@/types/meal";
 
 const MealSchema: Schema = new Schema(
   {

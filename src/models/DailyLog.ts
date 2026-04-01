@@ -1,19 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface IDailyLog extends Document {
-  userEmail: string;
-  date: string; // YYYY-MM-DD
-  mealsConsumed: {
-    name: string;
-    calories: number;
-    protein?: number;
-    carbs?: number;
-    fats?: number;
-    timestamp: Date;
-  }[];
-  totalCalories: number;
-  targetCalories: number;
-}
+import mongoose, { Schema } from "mongoose";
+import { IDailyLog } from "@/types/user";
 
 const DailyLogSchema: Schema = new Schema(
   {

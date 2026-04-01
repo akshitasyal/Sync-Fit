@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { generateWeeklyMealPlan } from "@/lib/mealPlanner";
+import { mealService } from "@/services/mealService";
 
 export async function POST() {
   try {
@@ -9,7 +9,7 @@ export async function POST() {
     if (!session || !session.user)
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-    const plan = await generateWeeklyMealPlan(session.user.email as string);
+    const plan = await mealService.generateWeeklyMealPlan(session.user.email as string);
     return NextResponse.json({ message: "Weekly plan generated", data: plan }, { status: 200 });
 
   } catch (error: any) {

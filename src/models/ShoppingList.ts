@@ -1,16 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface IShoppingListItem {
-  name: string;
-  quantity: number;
-  category: string;
-  isChecked: boolean;
-}
-
-export interface IShoppingList extends Document {
-  userEmail: string;
-  items: IShoppingListItem[];
-}
+import mongoose, { Schema } from "mongoose";
+import { IShoppingList } from "@/types/meal";
 
 const ShoppingListSchema: Schema = new Schema(
   {

@@ -6,96 +6,44 @@ import { useEffect, useState } from "react";
 import { BeakerIcon, ArrowPathIcon, XMarkIcon, ArrowPathRoundedSquareIcon, HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 
-interface Meal {
-  _id: string;
-  name: string;
-  type: string;
-  category: string;
-  dietType: string[];
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
-  ingredients: string[];
-  preparationSteps: string[];
-}
-
-interface MealPlanData {
-  _id: string;
-  weekStartDate: string;
-  days: {
-    date: string;
-    dayOfWeek: string;
-    totalCalories: number;
-    totalProtein: number;
-    totalCarbs: number;
-    totalFat: number;
-    meals: {
-      mealId: Meal;
-      slot: string;
-    }[];
-  }[];
-}
+import { useMealPlan } from "@/hooks/useMealPlan";
+import { useProfile } from "@/hooks/useProfile";
+import { IMeal, IMealPlan } from "@/types/meal";
 
 export default function MealPlan() {
   const { status, data: session } = useSession();
   const router = useRouter();
-  const [mealPlan, setMealPlan] = useState<MealPlanData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [selectedDayIndex, setSelectedDayIndex] = useState(0);
-  const [isFasting, setIsFasting] = useState(false);
-  const [selectedMealSlot, setSelectedMealSlot] = useState<{ meal: Meal, slot: string, dayDate: string } | null>(null);
+
+  const {
+    mealPlan,
+    loading: planLoading,
+    isGenerating,
+    error: planError,
+    selectedDayIndex,
+    setSelectedDayIndex,
+    generateMealPlan,
+    fetchMealPlan,
+  } = useMealPlan();
+
+  const {
+    profile,
+    loading: profileLoading,
+    error: profileError,
+  } = useProfile();
+
+  const [selectedMealSlot, setSelectedMealSlot] = useState<{ meal: IMeal, slot: string, dayDate: string } | null>(null);
   const [isReplacing, setIsReplacing] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
     if (status === "unauthenticated") router.push("/login");
-    else if (status === "authenticated") {
-      fetchMealPlan();
-      fetchProfile();
-    }
-  }, [status]);
+  }, [status, router]);
 
-  const fetchProfile = async () => {
-    try {
-      const res = await fetch("/api/profile");
-      if (res.ok) {
-        const body = await res.json();
-        setFavorites(body.data?.favoriteMeals || []);
-        setIsFasting(body.data?.isFastingMode || false);
-      }
-    } catch (e) { }
-  };
-
-  const fetchMealPlan = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch("/api/meal-plan");
-      if (!res.ok) throw new Error("Failed to fetch plan");
-      const { data } = await res.json();
-      setMealPlan(data);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (profile) {
+      setFavorites(profile.favoriteMeals || []);
     }
-  };
-
-  const generateMealPlan = async () => {
-    try {
-      setIsGenerating(true);
-      const res = await fetch("/api/meal-plan/generate", { method: "POST" });
-      if (!res.ok) throw new Error("Generation failed");
-      await fetchMealPlan();
-      setSelectedDayIndex(0);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setIsGenerating(false);
-    }
-  };
+  }, [profile]);
 
   const handleReplaceMeal = async () => {
     if (!selectedMealSlot || !mealPlan) return;
@@ -113,12 +61,12 @@ export default function MealPlan() {
       });
       if (!res.ok) throw new Error("Failed to replace");
       const { data } = await res.json();
-      setMealPlan(data);
+      await fetchMealPlan();
 
       const updatedDay = data.days.find((d: any) => d.date === selectedMealSlot.dayDate);
       const updatedSlot = updatedDay?.meals.find((m: any) => m.slot === selectedMealSlot.slot);
-      if (updatedSlot) {
-        setSelectedMealSlot({ meal: updatedSlot.mealId, slot: updatedSlot.slot, dayDate: selectedMealSlot.dayDate });
+      if (updatedSlot && typeof updatedSlot.mealId !== 'string') {
+        setSelectedMealSlot({ meal: updatedSlot.mealId as IMeal, slot: updatedSlot.slot, dayDate: selectedMealSlot.dayDate });
       }
     } catch (err: any) {
       alert(err.message);
@@ -142,7 +90,11 @@ export default function MealPlan() {
     } catch (e) { console.error(e); }
   };
 
-  if (loading || status === "loading") {
+  const loading = planLoading || profileLoading || status === "loading";
+  const error = planError || profileError;
+  const isFasting = profile?.isFastingMode || false;
+
+  if (loading) {
     return (
       <div className="flex-grow flex items-center justify-center bg-[#f8f7f5] h-full">
         <div className="flex flex-col items-center gap-4">
@@ -205,7 +157,7 @@ export default function MealPlan() {
           <>
             {/* Day Tabs */}
             <div className="flex overflow-x-auto pb-2 no-scrollbar gap-2 max-w-full">
-              {mealPlan.days.map((day, idx) => (
+              {mealPlan.days.map((day, idx: number) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedDayIndex(idx)}
@@ -241,15 +193,15 @@ export default function MealPlan() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                  {activeDay.meals.map((item, idx) => {
-                    const meal = item.mealId;
+                  {activeDay.meals.map((item, idx: number) => {
+                    const meal = typeof item.mealId !== 'string' ? item.mealId as IMeal : null;
                     const isRestSlot = item.slot === "fasting";
                     if (!meal && !isRestSlot) return null;
                     const isFav = meal ? favorites.includes(meal._id) : false;
                     return (
                       <div
                         key={idx}
-                        onClick={() => !isRestSlot && setSelectedMealSlot({ meal, slot: item.slot, dayDate: activeDay.date })}
+                        onClick={() => !isRestSlot && meal && setSelectedMealSlot({ meal, slot: item.slot, dayDate: activeDay.date })}
                         className={`bg-white border border-gray-100 rounded-[30px] overflow-hidden shadow-sm flex flex-col relative group ${
                           isRestSlot ? 'opacity-60' : 'cursor-pointer hover:shadow-xl hover:-translate-y-1'
                         } transition-all duration-300`}
@@ -325,13 +277,13 @@ export default function MealPlan() {
             </div>
 
             <div className="space-y-6">
-              {selectedMealSlot.meal.ingredients?.length > 0 && (
+              {selectedMealSlot.meal.ingredients && selectedMealSlot.meal.ingredients.length > 0 && (
                 <div>
                   <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 pb-2 border-b border-gray-100 flex items-center gap-2">
                     <BeakerIcon className="w-4 h-4" /> Ingredients
                   </h4>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {selectedMealSlot.meal.ingredients.map((item, i) => (
+                    {selectedMealSlot.meal.ingredients.map((item: string, i: number) => (
                       <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
                         <div className="w-1.5 h-1.5 rounded-full bg-[#c1ff00] flex-shrink-0" />
                         {item}
@@ -341,13 +293,13 @@ export default function MealPlan() {
                 </div>
               )}
 
-              {selectedMealSlot.meal.preparationSteps?.length > 0 && (
+              {selectedMealSlot.meal.preparationSteps && selectedMealSlot.meal.preparationSteps.length > 0 && (
                 <div>
                   <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 pb-2 border-b border-gray-100 flex items-center gap-2">
                     <ArrowPathIcon className="w-4 h-4" /> Instructions
                   </h4>
                   <ol className="space-y-4">
-                    {selectedMealSlot.meal.preparationSteps.map((step, i) => (
+                    {selectedMealSlot.meal.preparationSteps.map((step: string, i: number) => (
                       <li key={i} className="flex gap-3">
                         <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#c1ff00] flex items-center justify-center font-black text-xs text-black">{i + 1}</span>
                         <p className="text-sm text-gray-600 leading-relaxed mt-0.5">{step}</p>

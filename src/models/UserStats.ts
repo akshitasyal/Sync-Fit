@@ -1,13 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface IUserStats extends Document {
-  userEmail: string;
-  points: number;
-  level: number;
-  streak: number;
-  badges: string[];
-  lastActiveDate?: string;
-}
+import mongoose, { Schema } from "mongoose";
+import { IUserStats } from "@/types/user";
 
 const UserStatsSchema: Schema = new Schema(
   {

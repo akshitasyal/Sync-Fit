@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { IWorkoutPlan } from "@/types/workout";
 
 const WorkoutPlanSchema = new mongoose.Schema({
   userEmail: { type: String, required: true, index: true },

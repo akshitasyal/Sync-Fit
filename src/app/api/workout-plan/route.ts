@@ -1,22 +1,14 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import connectToDatabase from "@/lib/mongodb";
-import WorkoutPlan from "@/models/WorkoutPlan";
-import { generateWeeklyWorkoutPlan } from "@/lib/workoutPlanner";
+import { workoutService } from "@/services/workoutService";
 
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-    await connectToDatabase();
-    // Get the most recent plan for the user
-    const plan = await WorkoutPlan.findOne({ userEmail: session.user.email })
-      .sort({ createdAt: -1 })
-      .populate("days.exercises.exerciseId")
-      .lean();
-
+    const plan = await workoutService.getWorkoutPlan(session.user.email as string);
     if (!plan) return NextResponse.json({ message: "No workout plan found", data: null }, { status: 200 });
 
     return NextResponse.json({ message: "Success", data: plan }, { status: 200 });
@@ -31,8 +23,9 @@ export async function POST() {
     const session = await getServerSession(authOptions);
     if (!session || !session.user) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-    const plan = await generateWeeklyWorkoutPlan(session.user.email as string);
-    const populatedPlan = await WorkoutPlan.findById(plan._id).populate("days.exercises.exerciseId").lean();
+    const plan = await workoutService.generateWeeklyWorkoutPlan(session.user.email as string);
+    // getWorkoutPlan also populates
+    const populatedPlan = await workoutService.getWorkoutPlan(session.user.email as string);
 
     return NextResponse.json({ message: "Workout plan generated successfully", data: populatedPlan }, { status: 200 });
   } catch (err: any) {
