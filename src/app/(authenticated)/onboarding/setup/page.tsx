@@ -48,7 +48,8 @@ export default function OnboardingSetup() {
     energyLevel: "medium",
     sleepQuality: "average",
     goal: "maintenance",
-    dietPreference: "Balanced Diet",
+    dietPreference: "Non-Vegetarian", // Diet TYPE
+    dietGoal: "Balanced Diet",        // Macro GOAL
     experienceLevel: "beginner",
   });
 
@@ -67,7 +68,8 @@ export default function OnboardingSetup() {
             energyLevel: data.energyLevel || "medium",
             sleepQuality: data.sleepQuality || "average",
             goal: data.goal || "maintenance",
-            dietPreference: data.dietPreference || "Balanced Diet",
+            dietPreference: data.dietPreference || "Non-Vegetarian",
+            dietGoal: data.dietGoal || "Balanced Diet",
             experienceLevel: data.experienceLevel || "beginner",
           }));
         }
@@ -104,6 +106,7 @@ export default function OnboardingSetup() {
           sleepQuality: form.sleepQuality,
           goal: form.goal,
           dietPreference: form.dietPreference,
+          dietGoal: form.dietGoal,
           experienceLevel: form.experienceLevel,
         }),
       });
@@ -347,12 +350,16 @@ export default function OnboardingSetup() {
                     <option value="muscle gain">💪 Build Muscle</option>
                   </select>
                 </Field>
-                <Field label="Diet Preference">
+                <Field label="Diet Type">
                   <select className={inputCls} value={form.dietPreference} onChange={(e) => set("dietPreference", e.target.value)}>
-                    <option value="Balanced Diet">🥗 Balanced Diet</option>
+                    <option value="Non-Vegetarian">🍗 Non-Vegetarian</option>
                     <option value="Vegetarian">🌿 Vegetarian</option>
                     <option value="Vegan">🌱 Vegan (100% Plant-based)</option>
-                    <option value="Non-Vegetarian">🍗 Non-Vegetarian</option>
+                  </select>
+                </Field>
+                <Field label="Macro Goal">
+                  <select className={inputCls} value={form.dietGoal} onChange={(e) => set("dietGoal", e.target.value)}>
+                    <option value="Balanced Diet">🥗 Balanced Diet</option>
                     <option value="High-Protein">💪 High-Protein</option>
                     <option value="Low-Carb">📉 Low-Carb</option>
                     <option value="Keto">🥑 Ketogenic</option>

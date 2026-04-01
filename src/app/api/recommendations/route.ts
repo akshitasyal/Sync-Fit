@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     }
 
     const data = await req.json();
-    const { age, height, weight, gender, energyLevel, sleepQuality, goal, dietPreference, experienceLevel } = data;
+    const { age, height, weight, gender, energyLevel, sleepQuality, goal, dietPreference, dietGoal, experienceLevel } = data;
 
     if (!age || !height || !weight || !energyLevel || !sleepQuality || !goal) {
       return NextResponse.json({ message: "Missing fields" }, { status: 400 });
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     const updatedUser = await User.findOneAndUpdate(
       { email: userEmail },
       {
-        age, height, weight, gender, energyLevel, sleepQuality, goal, dietPreference, experienceLevel,
+        age, height, weight, gender, energyLevel, sleepQuality, goal, dietPreference, dietGoal, experienceLevel,
         recommendations: {
           bmi: parseFloat(bmi.toFixed(1)),
           recommendedCalories: fuzzyOutputs.recommendedCalories,

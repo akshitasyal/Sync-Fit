@@ -98,30 +98,41 @@ const fastingMeals = [
 export async function GET() {
   try {
     await connectToDatabase();
-    await Meal.deleteMany({});
 
     const allMeals = [...veganMeals, ...vegetarianMeals, ...nonVegMeals, ...fastingMeals];
-    const inserted = await Meal.insertMany(allMeals);
+
+    // Upsert by name — safe to run multiple times without duplicates
+    let inserted = 0, skipped = 0;
+    for (const meal of allMeals) {
+      const exists = await Meal.findOne({ name: meal.name }).lean();
+      if (exists) { skipped++; continue; }
+      await Meal.create(meal);
+      inserted++;
+    }
 
     const counts = {
-      total: inserted.length,
-      vegan: veganMeals.length,
-      vegetarian: vegetarianMeals.length,
-      "non-vegetarian": nonVegMeals.length,
-      fasting: fastingMeals.length,
+      total: allMeals.length,
+      inserted,
+      skipped,
+      byDiet: {
+        vegan: veganMeals.length,
+        vegetarian: vegetarianMeals.length,
+        "non-vegetarian": nonVegMeals.length,
+        fasting: fastingMeals.length,
+      },
       byCategory: {
         breakfast: allMeals.filter((m) => m.category === "breakfast").length,
-        lunch: allMeals.filter((m) => m.category === "lunch").length,
-        dinner: allMeals.filter((m) => m.category === "dinner").length,
-        snack: allMeals.filter((m) => m.category === "snack").length,
+        lunch:     allMeals.filter((m) => m.category === "lunch").length,
+        dinner:    allMeals.filter((m) => m.category === "dinner").length,
+        snack:     allMeals.filter((m) => m.category === "snack").length,
       },
     };
 
-    console.log("[seed-meals] Seeded:", counts);
+    console.log("[seed-meals] Result:", counts);
 
     return NextResponse.json({
       success: true,
-      message: `✅ Seeded ${inserted.length} meals successfully.`,
+      message: `✅ Inserted ${inserted} new meals. Skipped ${skipped} duplicates.`,
       breakdown: counts,
     });
   } catch (err: any) {

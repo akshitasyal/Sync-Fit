@@ -39,37 +39,47 @@ const dietTypeFilter = (tier: "vegan" | "vegetarian" | "all"): string[] => {
 async function fetchMealPool(
   dietFilter: string[],
   dislikedIds: string[],
-  isFasting: boolean
+  isFasting: boolean,
+  goalTag: string | null
 ): Promise<{ pool: any[]; filterUsed: string }> {
 
   const base: any = {
-    _id: { $nin: dislikedIds },
     dietType: { $in: dietFilter },
   };
 
-  // Fasting mode: must have Fasting tag
   if (isFasting) {
     base.tags = { $in: ["Fasting"] };
   }
 
-  // Step 1 — strict: exact diet + disliked exclusion + fasting tag
-  let pool = await Meal.find(base).lean() as any[];
-  console.log(`[MealPlanner] Step 1 (strict): ${pool.length} meals found. dietTypes: ${dietFilter}`);
+  // Step 0 — ideal: diet + goal tag + no disliked (skip for fasting)
+  if (!isFasting && goalTag) {
+    const step0 = await Meal.find({
+      ...base,
+      _id: { $nin: dislikedIds },
+      tags: { $in: [goalTag] },
+    }).lean() as any[];
+    console.log(`[MealPlanner] Step 0 (diet+goal=${goalTag}): ${step0.length} meals`);
+    if (step0.length >= 4) return { pool: step0, filterUsed: `diet+goal(${goalTag})` };
+  }
+
+  // Step 1 — strict: diet + disliked exclusion + fasting tag
+  let pool = await Meal.find({
+    ...base,
+    _id: { $nin: dislikedIds },
+  }).lean() as any[];
+  console.log(`[MealPlanner] Step 1 (strict diet): ${pool.length} meals. dietTypes: ${dietFilter}`);
   if (pool.length >= 4) return { pool, filterUsed: "strict" };
 
   // Step 2 — relax disliked list (keep diet + fasting constraint)
-  if (dislikedIds.length > 0) {
-    const relaxed = { ...base };
-    delete relaxed._id; // remove disliked exclusion
-    if (!isFasting) delete relaxed.tags; // only keep fasting tag if fasting
-    pool = await Meal.find({ dietType: { $in: dietFilter }, ...(isFasting ? { tags: { $in: ["Fasting"] } } : {}) }).lean() as any[];
-    console.log(`[MealPlanner] Step 2 (relaxed disliked): ${pool.length} meals found.`);
-    if (pool.length >= 4) return { pool, filterUsed: "relaxed-disliked" };
-  }
+  pool = await Meal.find({
+    ...base,
+  }).lean() as any[];
+  console.log(`[MealPlanner] Step 2 (relax disliked): ${pool.length} meals.`);
+  if (pool.length >= 4) return { pool, filterUsed: "relaxed-disliked" };
 
   // Step 3 — broadest: just diet type, no other constraints
   pool = await Meal.find({ dietType: { $in: dietFilter } }).lean() as any[];
-  console.log(`[MealPlanner] Step 3 (diet-only): ${pool.length} meals found.`);
+  console.log(`[MealPlanner] Step 3 (diet-only): ${pool.length} meals.`);
   return { pool, filterUsed: "diet-only" };
 }
 
@@ -88,20 +98,33 @@ export const generateWeeklyMealPlan = async (userEmail: string) => {
   if (!user || !user.recommendations) throw new Error("Profile incomplete");
 
   // ── Diet resolution ──────────────────────────────────────────────────────
+  // dietPreference = TYPE: Vegan | Vegetarian | Non-Vegetarian
+  // dietGoal       = MACRO: High-Protein | Low-Carb | Keto | Balanced Diet
   const dietTier = user.isFastingMode
-    ? "vegetarian" // fasting → vegetarian-safe
-    : normalizeDiet(user.dietPreference || "Balanced Diet");
+    ? "vegetarian"
+    : normalizeDiet(user.dietPreference || "Non-Vegetarian");
 
   const allowedDietTypes = dietTypeFilter(dietTier);
   const dislikedIds = user.dislikedMeals?.map((id: any) => id.toString()) || [];
 
-  console.log(`[MealPlanner] User: ${userEmail} | Diet: ${user.dietPreference} → tier: ${dietTier} | Fasting: ${user.isFastingMode}`);
+  // dietGoal maps to tag for optional secondary filter
+  const goalTagMap: Record<string, string> = {
+    "high-protein": "High-Protein",
+    "low-carb":     "Low-Carb",
+    "keto":         "Keto",
+    "balanced diet":"Balanced Diet",
+  };
+  const rawGoal = (user.dietGoal || "Balanced Diet").toLowerCase();
+  const goalTag = goalTagMap[rawGoal] ?? null;
+
+  console.log(`[MealPlanner] User: ${userEmail} | dietPreference: ${user.dietPreference} → tier: ${dietTier} | dietGoal: ${user.dietGoal} → tag: ${goalTag} | Fasting: ${user.isFastingMode}`);
 
   // ── Progressive fetch ────────────────────────────────────────────────────
   const { pool: mealPool, filterUsed } = await fetchMealPool(
     allowedDietTypes,
     dislikedIds,
-    !!user.isFastingMode
+    !!user.isFastingMode,
+    goalTag
   );
 
   if (mealPool.length === 0) {

@@ -17,7 +17,8 @@ export interface IUser extends Document {
     dietType: string;
     workoutIntensity: string;
   };
-  dietPreference?: string;
+  dietPreference?: string; // diet TYPE: Vegetarian | Non-Vegetarian | Vegan
+  dietGoal?: string;       // macro GOAL: High-Protein | Low-Carb | Keto | Balanced Diet
   favoriteMeals?: mongoose.Types.ObjectId[];
   dislikedMeals?: mongoose.Types.ObjectId[];
   dislikedExercises?: mongoose.Types.ObjectId[];
@@ -44,7 +45,8 @@ const UserSchema: Schema = new Schema(
       dietType: { type: String },
       workoutIntensity: { type: String },
     },
-    dietPreference: { type: String, enum: ["Vegetarian", "Non-Vegetarian", "Vegan", "High-Protein", "Low-Carb", "Keto", "Balanced Diet"], default: "Balanced Diet" },
+    dietPreference: { type: String, enum: ["Vegetarian", "Non-Vegetarian", "Vegan"], default: "Non-Vegetarian" },
+    dietGoal: { type: String, enum: ["Balanced Diet", "High-Protein", "Low-Carb", "Keto"], default: "Balanced Diet" },
     favoriteMeals: [{ type: Schema.Types.ObjectId, ref: "Meal" }],
     dislikedMeals: [{ type: Schema.Types.ObjectId, ref: "Meal" }],
     dislikedExercises: [{ type: Schema.Types.ObjectId, ref: "Exercise" }],

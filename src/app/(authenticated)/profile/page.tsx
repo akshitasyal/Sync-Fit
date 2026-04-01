@@ -52,7 +52,9 @@ export default function ProfilePage() {
   const [form, setForm] = useState({
     age: "", height: "", weight: "", gender: "male",
     energyLevel: "medium", sleepQuality: "average",
-    goal: "maintenance", dietPreference: "Balanced Diet",
+    goal: "maintenance",
+    dietPreference: "Non-Vegetarian", // diet TYPE
+    dietGoal: "Balanced Diet",         // macro GOAL
     experienceLevel: "beginner",
   });
 
@@ -76,7 +78,8 @@ export default function ProfilePage() {
             energyLevel: data.energyLevel || "medium",
             sleepQuality: data.sleepQuality || "average",
             goal: data.goal || "maintenance",
-            dietPreference: data.dietPreference || "Balanced Diet",
+            dietPreference: data.dietPreference || "Non-Vegetarian",
+            dietGoal: data.dietGoal || "Balanced Diet",
             experienceLevel: data.experienceLevel || "beginner",
           });
         }
@@ -105,6 +108,7 @@ export default function ProfilePage() {
           sleepQuality: form.sleepQuality,
           goal: form.goal,
           dietPreference: form.dietPreference,
+          dietGoal: form.dietGoal,
           experienceLevel: form.experienceLevel,
         }),
       });
@@ -213,6 +217,11 @@ export default function ProfilePage() {
                   {user?.dietPreference && (
                     <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${dietBadgeColor[user.dietPreference] || "bg-gray-100 text-gray-600"}`}>
                       {user.dietPreference}
+                    </span>
+                  )}
+                  {user?.dietGoal && (
+                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${dietBadgeColor[user.dietGoal] || "bg-gray-100 text-gray-600"}`}>
+                      {user.dietGoal}
                     </span>
                   )}
                 </div>
@@ -393,23 +402,27 @@ export default function ProfilePage() {
                   <h2 className="text-base font-black text-[#111111]">Fitness Preferences</h2>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <Field label="Fitness Goal">
                   <select className={inputCls} value={form.goal} onChange={(e) => set("goal", e.target.value)}>
-                    <option value="weight loss">Lose Weight</option>
-                    <option value="maintenance">Stay Fit</option>
-                    <option value="muscle gain">Build Muscle</option>
+                    <option value="weight loss">🔥 Lose Weight</option>
+                    <option value="maintenance">⚖️ Stay Fit</option>
+                    <option value="muscle gain">💪 Build Muscle</option>
                   </select>
                 </Field>
-                <Field label="Diet Preference">
+                <Field label="Diet Type">
                   <select className={inputCls} value={form.dietPreference} onChange={(e) => set("dietPreference", e.target.value)}>
-                    <option value="Balanced Diet">Balanced Diet</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Vegan">Vegan</option>
-                    <option value="Non-Vegetarian">Non-Vegetarian</option>
-                    <option value="High-Protein">High-Protein</option>
-                    <option value="Low-Carb">Low-Carb</option>
-                    <option value="Keto">Ketogenic</option>
+                    <option value="Non-Vegetarian">🍗 Non-Vegetarian</option>
+                    <option value="Vegetarian">🌿 Vegetarian</option>
+                    <option value="Vegan">🌱 Vegan</option>
+                  </select>
+                </Field>
+                <Field label="Macro Goal">
+                  <select className={inputCls} value={form.dietGoal} onChange={(e) => set("dietGoal", e.target.value)}>
+                    <option value="Balanced Diet">🥗 Balanced Diet</option>
+                    <option value="High-Protein">💪 High-Protein</option>
+                    <option value="Low-Carb">📉 Low-Carb</option>
+                    <option value="Keto">🥑 Keto</option>
                   </select>
                 </Field>
               </div>
