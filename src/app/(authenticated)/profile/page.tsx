@@ -161,7 +161,7 @@ export default function ProfilePage() {
               <div className="w-2 h-2 rounded-full bg-[#c1ff00]" />
               <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Account</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-[#111111] tracking-tight">My Profile</h1>
+
             <p className="text-gray-500 text-sm mt-1">
               {session?.user?.email}
             </p>

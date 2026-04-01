@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import defaultAuthMiddleware from "next-auth/middleware";
 
 export function proxy(req: NextRequest, ctx: any) {
@@ -11,5 +11,10 @@ export const config = {
     "/nutrition/:path*",
     "/training/:path*",
     "/onboarding/:path*",
+    "/profile",
+    "/profile/:path*",
+    "/grocery-list/:path*",
+    "/workout/:path*",
+    "/export/:path*",
   ],
 };

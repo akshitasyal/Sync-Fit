@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { 
   BoltIcon, 
   FireIcon, 
@@ -15,12 +16,27 @@ import Link from "next/link";
 
 export default function TodayPage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
   const [data, setData] = useState<any>(null);
   const [loggedData, setLoggedData] = useState<any>({ mealsConsumed: [], totalCalories: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newMeal, setNewMeal] = useState({ name: "", calories: "" });
+
+  // Profile guard — redirect new users who haven't completed setup
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/profile")
+        .then((r) => r.json())
+        .then(({ data }) => {
+          if (!data?.recommendations) {
+            router.replace("/onboarding/setup");
+          }
+        })
+        .catch(() => {}); // fail-open: don't block if API errors
+    }
+  }, [status]);
 
   useEffect(() => {
     if (status === "authenticated") {
