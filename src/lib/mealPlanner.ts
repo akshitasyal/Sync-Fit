@@ -3,8 +3,21 @@ import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
 import Meal from "@/models/Meal";
 import MealPlan from "@/models/MealPlan";
+import ShoppingList from "@/models/ShoppingList";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
+
+const categorizeIngredient = (name: string) => {
+  const n = name.toLowerCase();
+  if (n.includes("chicken") || n.includes("beef") || n.includes("turkey") || n.includes("fish") || n.includes("tofu") || n.includes("shrimp") || n.includes("salmon") || n.includes("egg") || n.includes("paneer")) return "Proteins";
+  if (n.includes("spinach") || n.includes("broccoli") || n.includes("kale") || n.includes("pepper") || n.includes("onion") || n.includes("garlic") || n.includes("carrot") || n.includes("tomato") || n.includes("cucumber") || n.includes("lettuce") || n.includes("mushroom")) return "Vegetables";
+  if (n.includes("milk") || n.includes("cheese") || n.includes("yogurt") || n.includes("butter") || n.includes("curd") || n.includes("ghee")) return "Dairy";
+  if (n.includes("rice") || n.includes("quinoa") || n.includes("oats") || n.includes("pasta") || n.includes("bread") || n.includes("potato") || n.includes("sweet potato") || n.includes("sabudana") || n.includes("kuttu") || n.includes("rajgira") || n.includes("singhara") || n.includes("samak") || n.includes("flour") || n.includes("wheat") || n.includes("millet")) return "Grains & Carbs";
+  if (n.includes("fruit") || n.includes("apple") || n.includes("banana") || n.includes("mango") || n.includes("berry") || n.includes("lemon")) return "Fruits";
+  if (n.includes("oil") || n.includes("avocado") || n.includes("nut") || n.includes("seed") || n.includes("almond") || n.includes("walnut") || n.includes("makhana") || n.includes("peanut")) return "Fats & Oils";
+  return "Pantry & Others";
+};
+
 
 const getNext7Days = () => {
   const days = [];
@@ -23,9 +36,13 @@ const getNext7Days = () => {
 /** Normalize whatever the user stored as dietPreference → internal enum */
 const normalizeDiet = (raw: string): "vegan" | "vegetarian" | "all" => {
   const v = raw.toLowerCase().trim();
-  if (v === "vegan") return "vegan";
-  if (v === "vegetarian" || v === "vegetarian diet") return "vegetarian";
-  return "all"; // Non-Vegetarian, Balanced Diet, Keto, High-Protein, Low-Carb, etc.
+  if (v.includes("vegan")) return "vegan";
+  
+  // If it's "Vegetarian" or "Lacto-Vegetarian" etc. (but NOT "non-vegetarian")
+  if (v.includes("veg") && !v.includes("non")) return "vegetarian";
+  
+  // Fallback for everything else (Meat, High-Protein, etc.)
+  return "all";
 };
 
 /** Build the dietType $in array for a given diet tier — NEVER crosses diet boundary */
@@ -48,7 +65,9 @@ async function fetchMealPool(
   };
 
   if (isFasting) {
-    base.tags = { $in: ["Fasting"] };
+    base.isFastingMeal = true;
+  } else {
+    base.isFastingMeal = { $ne: true };
   }
 
   // Step 0 — ideal: diet + goal tag + no disliked (skip for fasting)
@@ -62,24 +81,24 @@ async function fetchMealPool(
     if (step0.length >= 4) return { pool: step0, filterUsed: `diet+goal(${goalTag})` };
   }
 
-  // Step 1 — strict: diet + disliked exclusion + fasting tag
+  // Step 1 — strict: diet + disliked exclusion + fasting flag
   let pool = await Meal.find({
     ...base,
     _id: { $nin: dislikedIds },
   }).lean() as any[];
-  console.log(`[MealPlanner] Step 1 (strict diet): ${pool.length} meals. dietTypes: ${dietFilter}`);
+  console.log(`[MealPlanner] Step 1 (strict diet+fastingFlag): ${pool.length} meals. dietTypes: ${dietFilter}`);
   if (pool.length >= 4) return { pool, filterUsed: "strict" };
 
-  // Step 2 — relax disliked list (keep diet + fasting constraint)
+  // Step 2 — relax disliked list (keep diet + fasting flag)
   pool = await Meal.find({
     ...base,
   }).lean() as any[];
   console.log(`[MealPlanner] Step 2 (relax disliked): ${pool.length} meals.`);
   if (pool.length >= 4) return { pool, filterUsed: "relaxed-disliked" };
 
-  // Step 3 — broadest: just diet type, no other constraints
-  pool = await Meal.find({ dietType: { $in: dietFilter } }).lean() as any[];
-  console.log(`[MealPlanner] Step 3 (diet-only): ${pool.length} meals.`);
+  // Step 3 — broadest: just diet type + fasting flag, no other constraints
+  pool = await Meal.find(base).lean() as any[];
+  console.log(`[MealPlanner] Step 3 (base query): ${pool.length} meals.`);
   return { pool, filterUsed: "diet-only" };
 }
 
@@ -161,6 +180,7 @@ export const generateWeeklyMealPlan = async (userEmail: string) => {
   const weekStartDate = weekDays[0].date;
   const weeklyData = [];
   const globalUsedIds = new Set<string>();
+  const shoppingMap = new Map<string, { name: string; quantity: number; category: string }>();
 
   const pickMeal = (slot: string): any => {
     // Try category match first
@@ -205,6 +225,18 @@ export const generateWeeklyMealPlan = async (userEmail: string) => {
       totalProtein  += meal.protein  || 0;
       totalCarbs    += meal.carbs    || 0;
       totalFat      += meal.fat      || 0;
+
+      // Group ingredients for Shopping List
+      if (meal.ingredients) {
+        for (const ing of meal.ingredients) {
+          const key = ing.toLowerCase().trim();
+          if (!shoppingMap.has(key)) {
+            shoppingMap.set(key, { name: ing, quantity: 1, category: categorizeIngredient(ing) });
+          } else {
+            shoppingMap.get(key)!.quantity += 1;
+          }
+        }
+      }
     }
 
     weeklyData.push({
@@ -227,6 +259,14 @@ export const generateWeeklyMealPlan = async (userEmail: string) => {
     plan = new MealPlan({ userEmail, weekStartDate, days: weeklyData });
     await plan.save();
   }
+
+  // ── Upsert Shopping List ──────────────────────────────────────────────────
+  const items = Array.from(shoppingMap.values());
+  await ShoppingList.findOneAndUpdate(
+    { userEmail },
+    { userEmail, items },
+    { upsert: true, new: true }
+  );
 
   console.log(`[MealPlanner] Plan saved for ${userEmail} | Week: ${weekStartDate}`);
   return plan;

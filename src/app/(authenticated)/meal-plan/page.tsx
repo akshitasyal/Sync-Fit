@@ -168,7 +168,7 @@ export default function MealPlan() {
             <div className="flex items-center gap-3 mt-1">
               <p className="text-gray-500 text-sm">7-day algorithmic distribution tailored to your diet type.</p>
               {isFasting && (
-                <span className="bg-amber-100 text-amber-700 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter border border-amber-200 animate-pulse">Fasting Plan Active</span>
+                <span className="bg-amber-100 text-amber-700 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter border border-amber-200 flex items-center gap-1">🌙 Fasting Mode Active</span>
               )}
             </div>
           </div>
@@ -184,24 +184,15 @@ export default function MealPlan() {
 
         {error && <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm">{error}</div>}
 
-        {isFasting && mealPlan && mealPlan.days?.[0]?.meals?.[0]?.mealId && (
-            <div className="p-5 bg-amber-50 border border-amber-200 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
-                  <ArrowPathRoundedSquareIcon className="w-5 h-5 text-amber-600" />
-                </div>
-                <div>
-                  <h4 className="text-amber-900 font-bold">Fasting Mode Active</h4>
-                  <p className="text-amber-700 text-sm">Your plan may contain non-fasting meals. Regenerate to apply Vrat rules.</p>
-                </div>
+        {isFasting && (
+            <div className="p-5 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0 text-xl">
+                🌙
               </div>
-              <button
-                onClick={generateMealPlan}
-                disabled={isGenerating}
-                className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-all whitespace-nowrap text-sm"
-              >
-                Apply Fasting Plan
-              </button>
+              <div>
+                <h4 className="text-amber-900 font-bold">Fasting Mode is ON</h4>
+                <p className="text-amber-700 text-sm">This plan shows only Vrat / fasting-friendly meals. Shopping list is synced automatically.</p>
+              </div>
             </div>
           )}
 

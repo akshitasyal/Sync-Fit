@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "tsx src/scripts/seed-meals-v2.ts",
+    "seed:fasting": "tsx src/scripts/seed-fasting.ts",
+    "seed:all": "npm run seed && npm run seed:fasting",
+    "fix-db": "tsx src/scripts/fix-db.ts",
+    "clean-eggs": "tsx src/scripts/clean-eggs.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -28,9 +33,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^16.6.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",
+    "tsx": "^4.19.3",
     "typescript": "^5"
   }
 }

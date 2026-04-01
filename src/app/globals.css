@@ -75,11 +75,11 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
   cursor: pointer;
-}
 
-@utility dash-card-hover:hover {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+  &:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
 }
 
 /* Primary CTA — lime green, pill-style */
@@ -91,12 +91,12 @@ body {
   padding: 0.75rem 1.5rem;
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 4px 14px rgba(193, 255, 0, 0.3);
-}
 
-@utility dash-btn-primary:hover {
-  background-color: #a9e000;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(193, 255, 0, 0.4);
+  &:hover {
+    background-color: #a9e000;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(193, 255, 0, 0.4);
+  }
 }
 
 /* Dark secondary button */
@@ -107,10 +107,10 @@ body {
   border-radius: 0.75rem;
   padding: 0.75rem 1.5rem;
   transition: background-color 0.2s ease;
-}
 
-@utility dash-btn-dark:hover {
-  background-color: #333333;
+  &:hover {
+    background-color: #333333;
+  }
 }
 
 /* Light input fields for the dashboard */
@@ -122,11 +122,11 @@ body {
   color: #111111;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   outline: none;
-}
 
-@utility dash-input:focus {
-  border-color: #c1ff00;
-  box-shadow: 0 0 0 3px rgba(193, 255, 0, 0.2);
+  &:focus {
+    border-color: #c1ff00;
+    box-shadow: 0 0 0 3px rgba(193, 255, 0, 0.2);
+  }
 }
 
 /* Lime accent dot used for section labels */
@@ -147,11 +147,14 @@ body {
 }
 
 /* Scrollbar hiding */
-@utility no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
-@utility no-scrollbar::-webkit-scrollbar {
-  display: none;
-}

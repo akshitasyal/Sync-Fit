@@ -4,9 +4,14 @@ const ExerciseSchema = new mongoose.Schema({
   name: { type: String, required: true },
   category: { 
     type: String, 
-    enum: ['chest', 'back', 'legs', 'arms', 'shoulders', 'core', 'cardio'],
+    enum: ['chest', 'back', 'legs', 'arms', 'shoulders', 'core', 'cardio', 'mobility', 'full-body'],
     required: true 
   },
+  // Which programs this exercise belongs to (an exercise can belong to multiple)
+  program: [{
+    type: String,
+    enum: ['strength', 'weight-loss', 'cardio', 'adaptive', 'muscle-gain', 'beginner']
+  }],
   difficulty: {
     type: String,
     enum: ['low', 'medium', 'high'],
@@ -14,7 +19,8 @@ const ExerciseSchema = new mongoose.Schema({
   },
   sets: { type: Number, required: true },
   reps: { type: String, required: true },
-  duration: { type: Number }, // in minutes for cardio
+  rest: { type: Number, default: 60 }, // rest between sets in seconds
+  duration: { type: Number },          // in minutes for cardio
   instructions: { type: String, required: true },
   image: { type: String }
 }, { timestamps: true });

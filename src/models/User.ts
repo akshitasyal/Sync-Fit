@@ -25,6 +25,8 @@ export interface IUser extends Document {
   workoutFeedback?: "too-easy" | "perfect" | "too-hard";
   experienceLevel?: "beginner" | "intermediate" | "advanced";
   isFastingMode?: boolean;
+  selectedProgram?: "strength" | "weight-loss" | "cardio" | "adaptive" | "muscle-gain" | "beginner";
+  programStartDate?: string;
 }
 
 const UserSchema: Schema = new Schema(
@@ -53,6 +55,8 @@ const UserSchema: Schema = new Schema(
     workoutFeedback: { type: String, enum: ["too-easy", "perfect", "too-hard"], default: "perfect" },
     experienceLevel: { type: String, enum: ["beginner", "intermediate", "advanced"], default: "beginner" },
     isFastingMode: { type: Boolean, default: false },
+    selectedProgram: { type: String, enum: ["strength", "weight-loss", "cardio", "adaptive", "muscle-gain", "beginner"], default: null },
+    programStartDate: { type: String, default: null },
   },
   { timestamps: true }
 );

@@ -1,11 +1,11 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { 
-  BoltIcon, 
-  FireIcon, 
+import {
+  BoltIcon,
+  FireIcon,
   CheckCircleIcon,
   CalendarIcon,
   ChevronRightIcon,
@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { CheckCircleIcon as CheckCircleSolid } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import FastingToggle from "../FastingToggle";
 
 export default function TodayPage() {
   const { data: session, status } = useSession();
@@ -23,6 +24,7 @@ export default function TodayPage() {
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newMeal, setNewMeal] = useState({ name: "", calories: "" });
+  const [isFasting, setIsFasting] = useState(false);
 
   // Profile guard — redirect new users who haven't completed setup
   useEffect(() => {
@@ -32,20 +34,15 @@ export default function TodayPage() {
         .then(({ data }) => {
           if (!data?.recommendations) {
             router.replace("/onboarding/setup");
+          } else {
+            setIsFasting(!!data?.isFastingMode);
           }
         })
         .catch(() => {}); // fail-open: don't block if API errors
     }
   }, [status]);
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      fetchTodayData();
-      fetchCalories();
-    }
-  }, [status]);
-
-  const fetchCalories = async () => {
+  const fetchCalories = useCallback(async () => {
     try {
       const res = await fetch("/api/calories");
       const d = await res.json();
@@ -53,16 +50,16 @@ export default function TodayPage() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, []);
 
-  const fetchTodayData = async () => {
+  const fetchTodayData = useCallback(async () => {
     try {
       const today = new Date().toISOString().split("T")[0];
-      
+
       const [mealRes, workoutRes, userRes] = await Promise.all([
         fetch("/api/meal-plan"),
         fetch("/api/workout-plan"),
-        fetch("/api/profile")
+        fetch("/api/profile"),
       ]);
 
       const mealBody = await mealRes.json();
@@ -76,13 +73,30 @@ export default function TodayPage() {
       const todayMeal = meals?.days?.find((d: any) => d.date === today);
       const todayWorkout = workouts?.days?.find((d: any) => d.date === today);
 
+      setIsFasting(!!user?.isFastingMode);
       setData({ todayMeal, todayWorkout, recommendations: user?.recommendations, user });
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchTodayData();
+      fetchCalories();
+    }
+  }, [status, fetchTodayData, fetchCalories]);
+
+  // Called by FastingToggle after it finishes regenerating the plan
+  const handleFastingToggled = useCallback(async (newStatus: boolean) => {
+    setIsFasting(newStatus);
+    // Re-fetch data so the meal list refreshes (the plan rebuild happens inside toggle)
+    setTimeout(() => {
+      fetchTodayData();
+    }, 1500); // wait a tick so the generate endpoint has finished
+  }, [fetchTodayData]);
 
   if (loading || status === "loading") return (
     <div className="flex-grow flex items-center justify-center bg-[#f8f7f5]">
@@ -110,7 +124,7 @@ export default function TodayPage() {
       const res = await fetch("/api/calories", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: newMeal.name, calories: parseInt(newMeal.calories) })
+        body: JSON.stringify({ name: newMeal.name, calories: parseInt(newMeal.calories) }),
       });
       if (res.ok) {
         setIsModalOpen(false);
@@ -124,7 +138,7 @@ export default function TodayPage() {
 
   const slotIcon: Record<string, string> = {
     breakfast: "🌅", lunch: "☀️", dinner: "🌙", snack: "🍎",
-    "pre-workout": "⚡", "post-workout": "💪"
+    "pre-workout": "⚡", "post-workout": "💪",
   };
 
   return (
@@ -134,7 +148,6 @@ export default function TodayPage() {
         {/* ── Page Header ────────────────────────────────────── */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
           <div>
-            {/* Label dot — matches landing page section labels */}
             <div className="flex items-center gap-2 mb-2">
               <div className="w-2 h-2 rounded-full bg-[#c1ff00]" />
               <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Daily Overview</span>
@@ -142,50 +155,80 @@ export default function TodayPage() {
             <h1 className="text-3xl md:text-4xl font-bold text-[#111111] tracking-tight">Today's Focus</h1>
             <p className="text-gray-500 mt-1 flex items-center gap-1.5 text-sm">
               <CalendarIcon className="w-4 h-4" />
-              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+              {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
             </p>
           </div>
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="bg-[#c1ff00] hover:bg-[#a9e000] text-[#111111] font-bold px-6 py-3 rounded-xl transition-all hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(193,255,0,0.35)] active:scale-95 flex items-center gap-2 self-start sm:self-auto"
-          >
-            <FireIcon className="w-4 h-4" />
-            Log Meal
-          </button>
+          <div className="flex items-center gap-3 self-start sm:self-auto">
+            {/* ── Inline Fasting Toggle ── */}
+            <FastingToggle initialStatus={isFasting} onToggle={handleFastingToggled} compact />
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-[#c1ff00] hover:bg-[#a9e000] text-[#111111] font-bold px-6 py-3 rounded-xl transition-all hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(193,255,0,0.35)] active:scale-95 flex items-center gap-2"
+            >
+              <FireIcon className="w-4 h-4" />
+              Log Meal
+            </button>
+          </div>
         </div>
 
-        {/* ── Calorie Progress Card ────────────────────────────── */}
-        <div className="bg-white border border-gray-100 rounded-[30px] p-8 shadow-sm">
-          <div className="flex flex-col md:flex-row justify-between gap-8 items-center">
-            <div className="space-y-3 w-full md:flex-1">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-gray-400">Calorie Intake</p>
-              <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-black text-[#111111]">{actualCalories}</span>
-                <span className="text-gray-400 text-lg">/ {targetCalories} kcal</span>
-              </div>
-              {/* Lime progress bar */}
-              <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-[#c1ff00] rounded-full transition-all duration-1000"
-                  style={{ width: `${calorieProgress}%` }}
-                />
-              </div>
-              <p className="text-xs text-gray-400">{calorieProgress.toFixed(0)}% of daily goal</p>
+        {/* ── Fasting Mode Banner (visible when active) ───────── */}
+        {isFasting && (
+          <div className="relative overflow-hidden bg-gradient-to-r from-amber-500 to-orange-400 rounded-[24px] p-5 flex items-center justify-between gap-4 shadow-[0_8px_24px_rgba(245,158,11,0.35)]">
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white translate-x-1/3 -translate-y-1/3" />
             </div>
-
-            <div className="grid grid-cols-3 gap-3 w-full md:w-auto">
-              {[
-                { label: "Protein", value: `${todayMeal?.totalProtein || 0}g`, color: "text-[#111111]" },
-                { label: "Carbs", value: `${todayMeal?.totalCarbs || 0}g`, color: "text-[#111111]" },
-                { label: "Fat", value: `${todayMeal?.totalFat || 0}g`, color: "text-[#111111]" },
-              ].map(({ label, value, color }) => (
-                <div key={label} className="bg-gray-50 border border-gray-100 px-4 py-4 rounded-2xl text-center">
-                  <p className="text-lg font-black text-[#111111]">{value}</p>
-                  <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400 mt-0.5">{label}</p>
+            <div className="flex items-center gap-4 relative z-10">
+              <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl flex-shrink-0">
+                🌙
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="bg-white/25 text-white text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">Active</span>
                 </div>
-              ))}
+                <h3 className="text-white font-black text-lg leading-tight">Fasting Mode Active</h3>
+                <p className="text-white/80 text-xs">Your plan shows only Vrat-friendly meals. Shopping list is synced.</p>
+              </div>
             </div>
+            <Link
+              href="/nutrition/meal-plan"
+              className="relative z-10 flex-shrink-0 bg-white/20 hover:bg-white/30 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition-all border border-white/30"
+            >
+              View Plan →
+            </Link>
           </div>
+        )}
+
+        {/* ── Calorie Progress Card ────────────────────────────── */}
+        <div className="bg-white border border-gray-100 rounded-[30px] p-6 shadow-sm">
+            <div className="flex flex-col sm:flex-row justify-between gap-6 items-center">
+              <div className="space-y-3 w-full sm:flex-1">
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-gray-400">Calorie Intake</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl font-black text-[#111111]">{actualCalories}</span>
+                  <span className="text-gray-400 text-lg">/ {targetCalories} kcal</span>
+                </div>
+                <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#c1ff00] rounded-full transition-all duration-1000"
+                    style={{ width: `${calorieProgress}%` }}
+                  />
+                </div>
+                <p className="text-xs text-gray-400">{calorieProgress.toFixed(0)}% of daily goal</p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 w-full sm:w-auto">
+                {[
+                  { label: "Protein", value: `${todayMeal?.totalProtein || 0}g` },
+                  { label: "Carbs", value: `${todayMeal?.totalCarbs || 0}g` },
+                  { label: "Fat", value: `${todayMeal?.totalFat || 0}g` },
+                ].map(({ label, value }) => (
+                  <div key={label} className="bg-gray-50 border border-gray-100 px-4 py-4 rounded-2xl text-center">
+                    <p className="text-lg font-black text-[#111111]">{value}</p>
+                    <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400 mt-0.5">{label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
         </div>
 
         {/* ── Two Column: Nutrition + Training ────────────────── */}
@@ -197,6 +240,11 @@ export default function TodayPage() {
               <h2 className="text-lg font-bold text-[#111111] flex items-center gap-2">
                 <FireIcon className="w-5 h-5 text-orange-400" />
                 Nutrition
+                {isFasting && (
+                  <span className="text-[10px] font-black bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full border border-amber-200 uppercase tracking-tight ml-1">
+                    Fasting
+                  </span>
+                )}
               </h2>
               <Link href="/nutrition/meal-plan" className="text-sm font-semibold text-[#111111] flex items-center gap-1 hover:gap-2 transition-all">
                 Full Plan <ChevronRightIcon className="w-4 h-4" />
@@ -205,8 +253,12 @@ export default function TodayPage() {
 
             <div className="space-y-3">
               {todayMeal?.meals.map((m: any, i: number) => (
-                <div key={i} className="bg-white border border-gray-100 p-4 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-11 h-11 rounded-xl bg-[#c1ff00]/10 flex items-center justify-center text-xl flex-shrink-0">
+                <div key={i} className={`border p-4 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow ${
+                  isFasting ? "bg-amber-50/50 border-amber-100" : "bg-white border-gray-100"
+                }`}>
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${
+                    isFasting ? "bg-amber-100" : "bg-[#c1ff00]/10"
+                  }`}>
                     {slotIcon[m.slot] || "🍽️"}
                   </div>
                   <div className="flex-grow min-w-0">
@@ -233,7 +285,7 @@ export default function TodayPage() {
                   <div key={i} className="bg-[#c1ff00]/5 border border-[#c1ff00]/20 p-3.5 rounded-xl flex justify-between items-center">
                     <div>
                       <p className="text-[#111111] font-bold text-sm">{m.name}</p>
-                      <p className="text-gray-400 text-[10px]">{new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                      <p className="text-gray-400 text-[10px]">{new Date(m.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</p>
                     </div>
                     <span className="text-[#111111] font-black text-sm bg-[#c1ff00] px-3 py-1 rounded-lg">{m.calories} kcal</span>
                   </div>
@@ -271,11 +323,11 @@ export default function TodayPage() {
                 <div className="space-y-2">
                   {todayWorkout.exercises.slice(0, 5).map((ex: any, i: number) => (
                     <div key={i} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${ex.completed ? "bg-[#c1ff00]/10 border-[#c1ff00]/30" : "bg-gray-50 border-gray-100"}`}>
-                      {ex.completed 
+                      {ex.completed
                         ? <CheckCircleSolid className="w-5 h-5 text-[#111111] flex-shrink-0" />
                         : <CheckCircleIcon className="w-5 h-5 text-gray-300 flex-shrink-0" />
                       }
-                      <span className={`text-sm font-medium flex-1 ${ex.completed ? 'text-gray-400 line-through' : 'text-[#111111]'}`}>
+                      <span className={`text-sm font-medium flex-1 ${ex.completed ? "text-gray-400 line-through" : "text-[#111111]"}`}>
                         {ex.exerciseId?.name}
                       </span>
                       <span className="text-[10px] font-bold text-gray-400 bg-white px-2 py-0.5 rounded-md border border-gray-100">
@@ -320,10 +372,10 @@ export default function TodayPage() {
             <form onSubmit={handleLogMeal} className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Meal Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
-                  placeholder="e.g. Protein Shake"
+                  placeholder="e.g. Sabudana Khichdi"
                   className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-[#111111] placeholder-gray-300 focus:ring-2 focus:ring-[#c1ff00]/50 focus:border-[#c1ff00] focus:outline-none transition-all"
                   value={newMeal.name}
                   onChange={(e) => setNewMeal({ ...newMeal, name: e.target.value })}
@@ -331,8 +383,8 @@ export default function TodayPage() {
               </div>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Calories (kcal)</label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   required
                   placeholder="0"
                   className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-[#111111] placeholder-gray-300 focus:ring-2 focus:ring-[#c1ff00]/50 focus:border-[#c1ff00] focus:outline-none transition-all"
@@ -340,7 +392,7 @@ export default function TodayPage() {
                   onChange={(e) => setNewMeal({ ...newMeal, calories: e.target.value })}
                 />
               </div>
-              <button 
+              <button
                 type="submit"
                 className="w-full bg-[#c1ff00] hover:bg-[#a9e000] text-[#111111] font-black py-4 rounded-xl transition-all shadow-[0_4px_14px_rgba(193,255,0,0.35)] hover:-translate-y-0.5 mt-2"
               >

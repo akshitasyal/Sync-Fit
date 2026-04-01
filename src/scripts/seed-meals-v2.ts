@@ -1,18 +1,18 @@
+// ── Load .env.local FIRST — must be before any other import that reads env vars ──
 import * as dotenv from "dotenv";
 import { resolve } from "path";
-import mongoose from "mongoose";
+dotenv.config({ path: resolve(process.cwd(), ".env.local"), override: false });
+dotenv.config({ path: resolve(process.cwd(), ".env"), override: false }); // fallback
 
-dotenv.config({ path: resolve(process.cwd(), ".env.local") });
+if (!process.env.MONGODB_URI) {
+  console.error("[seed-meals-v2] ❌ MONGODB_URI is undefined. Check your .env.local file.");
+  process.exit(1);
+}
 
+import connectToDatabase from "../lib/mongodb";
 import Meal from "../models/Meal";
 
-const connectDB = async () => {
-  if (mongoose.connection.readyState >= 1) return;
-  const uri = process.env.MONGODB_URI;
-  if (!uri) throw new Error("Missing MONGODB_URI in .env.local");
-  await mongoose.connect(uri);
-  console.log("✅ Connected to MongoDB");
-};
+
 
 // ═══════════════════════════════════════════════════════════════════
 //  VEGAN — 10 breakfast · 10 lunch · 10 dinner · 4 snack = 34
@@ -68,13 +68,13 @@ const vegetarianMeals = [
   // ── Breakfast ──────────────────────────────────────────────────
   { name: "Paneer Paratha",                      dietType: "vegetarian", category: "breakfast", type: "maintenance", tags: ["High-Protein","Balanced Diet"], calories: 410, protein: 18, carbs: 46, fat: 16, ingredients: ["Wheat Flour","Paneer","Ghee","Spices"],                           preparationSteps: ["Grate paneer + mix with spices.","Stuff into dough.","Cook on tawa with ghee."] },
   { name: "Greek Yogurt with Honey & Walnuts",   dietType: "vegetarian", category: "breakfast", type: "cutting",     tags: ["High-Protein","Keto"],           calories: 285, protein: 20, carbs: 22, fat: 14, ingredients: ["Greek Yogurt","Honey","Walnuts"],                                 preparationSteps: ["Serve yogurt.","Drizzle honey.","Top with walnuts."] },
-  { name: "Vegetarian Omelette",                 dietType: "vegetarian", category: "breakfast", type: "maintenance", tags: ["High-Protein","Keto","Low-Carb"], calories: 325, protein: 22, carbs: 6,  fat: 22, ingredients: ["Eggs","Cheddar Cheese","Spinach","Tomatoes","Butter"],            preparationSteps: ["Whisk eggs.","Cook in butter with fillings.","Fold and serve."] },
+  { name: "Besan Chilla",                        dietType: "vegetarian", category: "breakfast", type: "maintenance", tags: ["High-Protein","Low-Carb"], calories: 310, protein: 18, carbs: 35,  fat: 10, ingredients: ["Chickpea Flour","Spinach","Tomatoes","Onion","Ghee"],           preparationSteps: ["Mix flour with water & veg.","Cook on tawa with ghee.","Fold and serve."] },
   { name: "Idli Sambar",                         dietType: "vegetarian", category: "breakfast", type: "maintenance", tags: ["Balanced Diet"],                 calories: 355, protein: 12, carbs: 66, fat: 4,  ingredients: ["Rice","Urad Dal","Toor Dal","Mixed Vegetables","Tamarind"],        preparationSteps: ["Steam idli batter.","Cook sambar.","Serve together."] },
   { name: "Cheese Tomato Toast",                 dietType: "vegetarian", category: "breakfast", type: "bulking",     tags: ["Balanced Diet"],                 calories: 425, protein: 16, carbs: 46, fat: 18, ingredients: ["Whole Wheat Bread","Cheddar Cheese","Tomatoes","Butter"],          preparationSteps: ["Butter bread.","Add cheese + tomato.","Grill until melted."] },
-  { name: "Egg Bhurji with Paratha",             dietType: "vegetarian", category: "breakfast", type: "bulking",     tags: ["High-Protein","Balanced Diet"],  calories: 440, protein: 20, carbs: 44, fat: 20, ingredients: ["Eggs","Onion","Tomato","Spices","Whole Wheat Paratha","Ghee"],     preparationSteps: ["Scramble eggs with onion + tomato + spices.","Serve with hot paratha."] },
+  { name: "Paneer Bhurji with Paratha",          dietType: "vegetarian", category: "breakfast", type: "bulking",     tags: ["High-Protein","Balanced Diet"],  calories: 440, protein: 22, carbs: 44, fat: 18, ingredients: ["Paneer","Onion","Tomato","Spices","Whole Wheat Paratha","Ghee"], preparationSteps: ["Scramble paneer with onion + tomato + spices.","Serve with hot paratha."] },
   { name: "Masala Dosa",                         dietType: "vegetarian", category: "breakfast", type: "maintenance", tags: ["Balanced Diet"],                 calories: 365, protein: 10, carbs: 62, fat: 10, ingredients: ["Rice","Urad Dal","Potato","Turmeric","Mustard Seeds","Oil"],        preparationSteps: ["Ferment batter.","Spread on tawa.","Fill with potato masala + fold."] },
-  { name: "Boiled Eggs + Whole Wheat Toast",     dietType: "vegetarian", category: "breakfast", type: "cutting",     tags: ["High-Protein","Balanced Diet"],  calories: 290, protein: 16, carbs: 28, fat: 10, ingredients: ["Eggs","Whole Wheat Bread","Butter"],                              preparationSteps: ["Boil eggs.","Toast bread.","Serve together."] },
-  { name: "Banana Pancakes",                     dietType: "vegetarian", category: "breakfast", type: "bulking",     tags: ["Balanced Diet"],                 calories: 380, protein: 10, carbs: 58, fat: 12, ingredients: ["Banana","Eggs","Whole Wheat Flour","Honey","Butter"],              preparationSteps: ["Mash banana + mix with eggs + flour.","Cook small pancakes in butter.","Drizzle honey."] },
+  { name: "Moong Dal Cheela",                    dietType: "vegetarian", category: "breakfast", type: "cutting",     tags: ["High-Protein","Balanced Diet"],  calories: 280, protein: 16, carbs: 38, fat: 8,  ingredients: ["Yellow Lentils","Onion","Coriander","Spices","Ghee"],             preparationSteps: ["Blend soaked lentils.","Cook thin crepes.","Serve with chutney."] },
+  { name: "Eggless Banana Oat Pancakes",         dietType: "vegetarian", category: "breakfast", type: "bulking",     tags: ["Balanced Diet"],                 calories: 380, protein: 10, carbs: 62, fat: 12, ingredients: ["Banana","Rolled Oats","Milk","Honey","Butter"],                   preparationSteps: ["Blend oats, milk, banana.","Cook small pancakes in butter.","Drizzle honey."] },
   { name: "Vermicelli Upma",                     dietType: "vegetarian", category: "breakfast", type: "maintenance", tags: ["Balanced Diet"],                 calories: 320, protein: 8,  carbs: 52, fat: 8,  ingredients: ["Roasted Vermicelli","Vegetables","Mustard Seeds","Curry Leaves","Ghee"], preparationSteps: ["Sauté seeds + veggies in ghee.","Add water + vermicelli.","Cook until absorbed."] },
 
   // ── Lunch ──────────────────────────────────────────────────────
@@ -86,15 +86,15 @@ const vegetarianMeals = [
   { name: "Chole Bhature",                       dietType: "vegetarian", category: "lunch",      type: "bulking",     tags: ["Balanced Diet"],                calories: 620, protein: 18, carbs: 88, fat: 24, ingredients: ["Chickpeas","Maida","Yogurt","Spices","Oil"],                       preparationSteps: ["Cook chole masala.","Deep-fry bhature.","Serve together."] },
   { name: "Cheese & Veggie Quesadilla",          dietType: "vegetarian", category: "lunch",      type: "maintenance", tags: ["High-Protein","Balanced Diet"], calories: 455, protein: 18, carbs: 46, fat: 22, ingredients: ["Flour Tortilla","Cheddar Cheese","Bell Peppers","Corn","Sour Cream"], preparationSteps: ["Fill half tortilla with cheese + veg.","Cook on tawa till golden.","Serve with sour cream."] },
   { name: "Tomato Soup with Garlic Bread",       dietType: "vegetarian", category: "lunch",      type: "cutting",     tags: ["Balanced Diet"],                calories: 310, protein: 8,  carbs: 44, fat: 12, ingredients: ["Tomatoes","Vegetable Broth","Cream","Garlic Bread","Butter"],       preparationSteps: ["Simmer tomatoes in broth.","Blend smooth.","Swirl cream, serve with garlic bread."] },
-  { name: "Egg Fried Rice",                      dietType: "vegetarian", category: "lunch",      type: "maintenance", tags: ["Balanced Diet"],                calories: 420, protein: 16, carbs: 58, fat: 14, ingredients: ["Cooked Rice","Eggs","Mixed Vegetables","Soy Sauce","Sesame Oil"],   preparationSteps: ["Scramble eggs in wok.","Add rice + veg + soy sauce.","Stir-fry on high heat."] },
+  { name: "Tofu & Veg Fried Rice",               dietType: "vegetarian", category: "lunch",      type: "maintenance", tags: ["Balanced Diet"],                calories: 420, protein: 16, carbs: 58, fat: 14, ingredients: ["Cooked Rice","Firm Tofu","Mixed Vegetables","Soy Sauce","Sesame Oil"], preparationSteps: ["Sauté tofu chunks.","Add rice + veg + soy sauce.","Stir-fry on high heat."] },
   { name: "Paneer Tikka Salad",                  dietType: "vegetarian", category: "lunch",      type: "cutting",     tags: ["High-Protein","Low-Carb","Keto"], calories: 335, protein: 26, carbs: 12, fat: 22, ingredients: ["Paneer","Lettuce","Cherry Tomatoes","Cucumber","Lemon Dressing"], preparationSteps: ["Grill marinated paneer.","Toss salad.","Top with grilled paneer + lemon dressing."] },
 
   // ── Dinner ─────────────────────────────────────────────────────
   { name: "Vegetable Korma with Naan",           dietType: "vegetarian", category: "dinner",     type: "bulking",     tags: ["Balanced Diet"],                calories: 605, protein: 16, carbs: 86, fat: 22, ingredients: ["Mixed Vegetables","Cream","Cashews","Naan","Spices"],            preparationSteps: ["Cook veg in creamy cashew gravy.","Serve with garlic naan."] },
   { name: "Stuffed Bell Peppers",                dietType: "vegetarian", category: "dinner",     type: "maintenance", tags: ["Higher-Protein","Balanced Diet"], calories: 355, protein: 18, carbs: 46, fat: 12, ingredients: ["Bell Peppers","Quinoa","Black Beans","Cheddar Cheese","Tomato Sauce"], preparationSteps: ["Halve + deseed peppers.","Stuff with quinoa mix.","Top with cheese + bake."] },
-  { name: "Cauliflower Crust Pizza",             dietType: "vegetarian", category: "dinner",     type: "cutting",     tags: ["Keto","Low-Carb"],               calories: 325, protein: 22, carbs: 16, fat: 20, ingredients: ["Cauliflower","Eggs","Mozzarella Cheese","Tomato Sauce","Vegetables"], preparationSteps: ["Bake cauliflower crust.","Add toppings.","Bake until cheese melts."] },
+  { name: "Veggie Pita Pizza",                   dietType: "vegetarian", category: "dinner",     type: "cutting",     tags: ["Low-Carb"],                      calories: 325, protein: 16, carbs: 40, fat: 12, ingredients: ["Whole Wheat Pita","Mozzarella Cheese","Tomato Sauce","Vegetables"],       preparationSteps: ["Spread sauce on pita.","Add cheese + toppings.","Bake until cheese melts."] },
   { name: "Malai Kofta",                         dietType: "vegetarian", category: "dinner",     type: "bulking",     tags: ["Balanced Diet"],                calories: 555, protein: 14, carbs: 62, fat: 28, ingredients: ["Paneer","Potatoes","Cream","Cashews","Spices"],                    preparationSteps: ["Make koftas + fry.","Simmer in creamy tomato gravy."] },
-  { name: "Vegetarian Pad Thai",                 dietType: "vegetarian", category: "dinner",     type: "maintenance", tags: ["Balanced Diet"],                calories: 455, protein: 16, carbs: 66, fat: 14, ingredients: ["Rice Noodles","Eggs","Peanuts","Bean Sprouts","Tamarind Sauce"],   preparationSteps: ["Stir-fry noodles with sauce.","Scramble eggs.","Mix in sprouts + peanuts."] },
+  { name: "Vegetarian Peanut Noodles",           dietType: "vegetarian", category: "dinner",     type: "maintenance", tags: ["Balanced Diet"],                calories: 450, protein: 16, carbs: 62, fat: 16, ingredients: ["Rice Noodles","Tofu","Peanut Butter","Bean Sprouts","Soy Sauce"],   preparationSteps: ["Stir-fry noodles with peanut sauce.","Add crispy tofu.","Mix in sprouts."] },
   { name: "Paneer Tikka",                        dietType: "vegetarian", category: "dinner",     type: "cutting",     tags: ["High-Protein","Keto","Low-Carb"], calories: 380, protein: 28, carbs: 10, fat: 26, ingredients: ["Paneer","Yogurt","Spices","Bell Peppers","Onion"],                preparationSteps: ["Marinate paneer in spiced yogurt.","Grill on skewers with veg."] },
   { name: "Shahi Paneer with Rice",              dietType: "vegetarian", category: "dinner",     type: "bulking",     tags: ["High-Protein","Balanced Diet"], calories: 540, protein: 22, carbs: 60, fat: 24, ingredients: ["Paneer","Cream","Cashews","Tomato","Spices","Basmati Rice"],       preparationSteps: ["Prepare rich tomato-cashew gravy.","Add paneer cubes.","Serve with basmati."] },
   { name: "Cottage Cheese & Veg Bake",           dietType: "vegetarian", category: "dinner",     type: "cutting",     tags: ["High-Protein","Low-Carb"],       calories: 300, protein: 24, carbs: 14, fat: 16, ingredients: ["Cottage Cheese","Zucchini","Bell Peppers","Tomato","Herbs"],       preparationSteps: ["Layer veg + cottage cheese in baking dish.","Season with herbs.","Bake 25 min."] },
@@ -103,8 +103,8 @@ const vegetarianMeals = [
 
   // ── Snacks ─────────────────────────────────────────────────────
   { name: "Fruit & Nut Yogurt Bowl",             dietType: "vegetarian", category: "snack",      type: "maintenance", tags: ["Balanced Diet"],                calories: 220, protein: 12, carbs: 28, fat: 8,  ingredients: ["Greek Yogurt","Mixed Fruits","Almonds","Honey"],                  preparationSteps: ["Layer yogurt with fruits.","Top with almonds.","Drizzle honey."] },
-  { name: "Mozzarella Sticks with Salsa",        dietType: "vegetarian", category: "snack",      type: "maintenance", tags: ["High-Protein"],                 calories: 260, protein: 14, carbs: 20, fat: 14, ingredients: ["Mozzarella","Breadcrumbs","Egg","Tomato Salsa"],                   preparationSteps: ["Coat mozzarella in egg + breadcrumbs.","Bake until golden.","Serve with salsa."] },
-  { name: "Boiled Egg & Cucumber Slices",        dietType: "vegetarian", category: "snack",      type: "cutting",     tags: ["High-Protein","Keto","Low-Carb"], calories: 130, protein: 10, carbs: 4,  fat: 8,  ingredients: ["Eggs","Cucumber","Salt","Black Pepper"],                         preparationSteps: ["Boil eggs.","Slice cucumber.","Season and serve together."] },
+  { name: "Roasted Masala Makhana",              dietType: "vegetarian", category: "snack",      type: "maintenance", tags: ["High-Protein", "Low-Carb"],     calories: 210, protein: 8,  carbs: 26, fat: 10, ingredients: ["Fox Nuts","Ghee","Turmeric","Black Pepper"],                       preparationSteps: ["Roast makhana in ghee slowly.","Toss with spices until crunchy."] },
+  { name: "Spiced Cucumber & Carrot Sticks",     dietType: "vegetarian", category: "snack",      type: "cutting",     tags: ["Keto","Low-Carb"],               calories: 110, protein: 4,  carbs: 18,  fat: 2,  ingredients: ["Cucumber","Carrot","Chaat Masala","Lemon"],                      preparationSteps: ["Slice veggies into sticks.","Sprinkle chaat masala & lemon juice."] },
   { name: "Paneer Cubes with Mint Chutney",      dietType: "vegetarian", category: "snack",      type: "cutting",     tags: ["High-Protein","Keto"],           calories: 200, protein: 16, carbs: 4,  fat: 14, ingredients: ["Paneer","Mint","Coriander","Green Chilies","Lemon"],               preparationSteps: ["Cut paneer into cubes.","Blend chutney ingredients.","Serve together."] },
 ];
 
@@ -178,7 +178,7 @@ const fastingMeals = [
 // ═══════════════════════════════════════════════════════════════════
 const seedMeals = async () => {
   try {
-    await connectDB();
+    await connectToDatabase();
 
     const allMeals = [...veganMeals, ...vegetarianMeals, ...nonVegMeals, ...fastingMeals];
     let inserted = 0, skipped = 0;
