@@ -4,6 +4,7 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password?: string;
+  gender?: "male" | "female" | "other";
   age?: number;
   height?: number; // in cm
   weight?: number; // in kg
@@ -30,6 +31,7 @@ const UserSchema: Schema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String },
+    gender: { type: String, enum: ["male", "female", "other"] },
     age: { type: Number },
     height: { type: Number },
     weight: { type: Number },

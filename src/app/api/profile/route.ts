@@ -37,3 +37,6 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }
+
+// PUT is an alias for PATCH — support both verbs
+export const PUT = PATCH;

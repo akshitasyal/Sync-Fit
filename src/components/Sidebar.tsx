@@ -13,6 +13,7 @@ import {
   ArrowDownTrayIcon,
   CalendarDaysIcon,
   Cog6ToothIcon,
+  UserCircleIcon,
 } from "@heroicons/react/24/outline";
 
 type NavGroup = {
@@ -45,6 +46,7 @@ const navGroups: NavGroup[] = [
   {
     label: "Account",
     links: [
+      { name: "My Profile", href: "/profile", icon: UserCircleIcon },
       { name: "Profile Setup", href: "/onboarding/setup", icon: Cog6ToothIcon },
     ],
   },
