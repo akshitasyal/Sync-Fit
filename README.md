@@ -2,6 +2,8 @@
 
 A full-stack fitness web application that provides personalized **meal plans, workout programs, and shopping lists** based on user goals, diet preferences, and lifestyle. Sync-Fit combines nutrition and fitness into a single intelligent platform.
 
+![Dashboard](./public/Dashboard.png)
+
 ---
 
 ## 🚀 Features
@@ -84,6 +86,8 @@ Automatically generates grocery lists from meal plans.
 ## 👤 Profile System
 
 Stores and manages user data for personalization.
+
+![Profile](./public/Profile.png)
 
 **Features:**
 
