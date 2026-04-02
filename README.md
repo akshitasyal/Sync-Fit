@@ -6,7 +6,7 @@ A full-stack fitness web application that provides personalized **meal plans, wo
 
 ---
 
-## 🚀 Features
+##  Features
 
 * User Authentication (Login / Register)
 * Personalized Profile Setup (body metrics, goals, diet)
@@ -20,9 +20,9 @@ A full-stack fitness web application that provides personalized **meal plans, wo
 
 ---
 
-# 🧠 Core Modules (Detailed)
+#  Core Modules (Detailed)
 
-## 🍽 Meals System
+##  Meals System
 
 Handles intelligent meal planning based on user diet preferences.
 
@@ -42,7 +42,7 @@ Handles intelligent meal planning based on user diet preferences.
 
 ---
 
-## 🏋️ Workout System
+##  Workout System
 
 Provides structured fitness programs based on user goals.
 
@@ -65,7 +65,7 @@ Provides structured fitness programs based on user goals.
 
 ---
 
-## 🛒 Shopping List System
+##  Shopping List System
 
 Automatically generates grocery lists from meal plans.
 
@@ -83,7 +83,7 @@ Automatically generates grocery lists from meal plans.
 
 ---
 
-## 👤 Profile System
+##  Profile System
 
 Stores and manages user data for personalization.
 
@@ -106,7 +106,7 @@ Stores and manages user data for personalization.
 
 ---
 
-## 🥗 Fasting System
+##  Fasting System
 
 Handles fasting-specific meal plans.
 
@@ -125,7 +125,7 @@ Handles fasting-specific meal plans.
 
 ---
 
-## 📊 Dashboard System
+##  Dashboard System
 
 Central hub for user activity and insights.
 
@@ -141,7 +141,7 @@ Central hub for user activity and insights.
 
 ---
 
-## 🔐 Authentication System
+##  Authentication System
 
 Manages user login and session handling.
 
@@ -153,7 +153,7 @@ Manages user login and session handling.
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 ### Frontend
 
@@ -178,7 +178,7 @@ Manages user login and session handling.
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Sync-Fit
@@ -265,7 +265,7 @@ npm run dev
 
 ---
 
-## 🧪 Seed Data
+##  Seed Data
 
 ```
 npx ts-node scripts/seedMeals.ts
@@ -274,7 +274,7 @@ npx ts-node scripts/seedWorkouts.ts
 
 ---
 
-## 🔥 Future Improvements
+##  Future Improvements
 
 * AI-based meal recommendations
 * Smart calorie tracking
@@ -284,7 +284,7 @@ npx ts-node scripts/seedWorkouts.ts
 
 ---
 
-## 👩‍💻 Author
+##  Author
 
 **Akshita Syal**
 GitHub: https://github.com/akshitasyal
