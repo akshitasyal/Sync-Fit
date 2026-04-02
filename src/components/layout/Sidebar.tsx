@@ -25,7 +25,6 @@ const navGroups: NavGroup[] = [
   {
     label: "Overview",
     links: [
-      { name: "Today", href: "/dashboard/today", icon: CalendarDaysIcon },
       { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
     ],
   },
@@ -47,7 +46,6 @@ const navGroups: NavGroup[] = [
     label: "Account",
     links: [
       { name: "My Profile", href: "/profile", icon: UserCircleIcon },
-      { name: "Profile Setup", href: "/onboarding/setup", icon: Cog6ToothIcon },
     ],
   },
 ];
