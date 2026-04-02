@@ -1,16 +1,26 @@
 const fs = require('fs');
 const path = require('path');
 
-const target = path.join(__dirname, '..', 'src', 'app', '(authenticated)', 'dashboard');
-console.log('Targeting legacy dashboard:', target);
+// Legacy routes identified for removal
+const targets = [
+    path.join(__dirname, '..', 'src', 'app', '(authenticated)', 'dashboard'),
+    path.join(__dirname, '..', 'src', 'app', '(authenticated)', 'today')
+];
 
-if (fs.existsSync(target)) {
-    try {
-        fs.rmSync(target, { recursive: true, force: true });
-        console.log('Successfully deleted legacy dashboard directory.');
-    } catch (err) {
-        console.error('Error deleting directory:', err.message);
+console.log('--- Consolidation Cleanup ---');
+
+targets.forEach(target => {
+    if (fs.existsSync(target)) {
+        console.log(`Targeting legacy route: ${target}`);
+        try {
+            // Using recursive rmSync (native Node.js, Windows-safe)
+            fs.rmSync(target, { recursive: true, force: true });
+            console.log(`Successfully deleted: ${path.basename(target)}`);
+        } catch (err) {
+            console.error(`Error deleting ${path.basename(target)}:`, err.message);
+            console.log('TIP: Stop the dev server (npm run dev) to release file locks.');
+        }
+    } else {
+        console.log(`Legacy route already removed: ${path.basename(target)}`);
     }
-} else {
-    console.log('Legacy dashboard already removed.');
-}
+});
