@@ -15,7 +15,7 @@ import { CheckCircleIcon as CheckCircleSolid } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import FastingToggle from "./FastingToggle";
 
-export default function DashboardPage() {
+export default function TodayPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [data, setData] = useState<any>(null);
@@ -89,11 +89,13 @@ export default function DashboardPage() {
     }
   }, [status, fetchTodayData, fetchCalories]);
 
+  // Called by FastingToggle after it finishes regenerating the plan
   const handleFastingToggled = useCallback(async (newStatus: boolean) => {
     setIsFasting(newStatus);
+    // Re-fetch data so the meal list refreshes (the plan rebuild happens inside toggle)
     setTimeout(() => {
       fetchTodayData();
-    }, 1500); 
+    }, 1500); // wait a tick so the generate endpoint has finished
   }, [fetchTodayData]);
 
   if (loading || status === "loading") return (
@@ -143,6 +145,7 @@ export default function DashboardPage() {
     <div className="flex-grow bg-[#f8f7f5] p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-8">
 
+        {/* ── Page Header ────────────────────────────────────── */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -156,6 +159,7 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="flex items-center gap-3 self-start sm:self-auto">
+            {/* ── Inline Fasting Toggle ── */}
             <FastingToggle initialStatus={isFasting} onToggle={handleFastingToggled} compact />
             <button
               onClick={() => setIsModalOpen(true)}
@@ -167,6 +171,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* ── Fasting Mode Banner (visible when active) ───────── */}
         {isFasting && (
           <div className="relative overflow-hidden bg-gradient-to-r from-amber-500 to-orange-400 rounded-[24px] p-5 flex items-center justify-between gap-4 shadow-[0_8px_24px_rgba(245,158,11,0.35)]">
             <div className="absolute inset-0 opacity-10">
@@ -185,7 +190,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <Link
-              href="/meal-plan"
+              href="/nutrition/meal-plan"
               className="relative z-10 flex-shrink-0 bg-white/20 hover:bg-white/30 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition-all border border-white/30"
             >
               View Plan →
@@ -193,6 +198,7 @@ export default function DashboardPage() {
           </div>
         )}
 
+        {/* ── Calorie Progress Card ────────────────────────────── */}
         <div className="bg-white border border-gray-100 rounded-[30px] p-6 shadow-sm">
             <div className="flex flex-col sm:flex-row justify-between gap-6 items-center">
               <div className="space-y-3 w-full sm:flex-1">
@@ -225,7 +231,10 @@ export default function DashboardPage() {
             </div>
         </div>
 
+        {/* ── Two Column: Nutrition + Training ────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          {/* Nutrition */}
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-bold text-[#111111] flex items-center gap-2">
@@ -237,7 +246,7 @@ export default function DashboardPage() {
                   </span>
                 )}
               </h2>
-              <Link href="/meal-plan" className="text-sm font-semibold text-[#111111] flex items-center gap-1 hover:gap-2 transition-all">
+              <Link href="/nutrition/meal-plan" className="text-sm font-semibold text-[#111111] flex items-center gap-1 hover:gap-2 transition-all">
                 Full Plan <ChevronRightIcon className="w-4 h-4" />
               </Link>
             </div>
@@ -261,13 +270,14 @@ export default function DashboardPage() {
               ))}
 
               {!todayMeal && (
-                <Link href="/meal-plan" className="block bg-white border border-dashed border-gray-200 p-6 rounded-2xl text-center text-gray-400 hover:border-[#c1ff00] hover:text-[#111] transition-all">
+                <Link href="/nutrition/meal-plan" className="block bg-white border border-dashed border-gray-200 p-6 rounded-2xl text-center text-gray-400 hover:border-[#c1ff00] hover:text-[#111] transition-all">
                   No meals scheduled.{" "}
                   <span className="font-bold text-[#111111] underline">Generate your plan →</span>
                 </Link>
               )}
             </div>
 
+            {/* Logged meals */}
             {loggedData.mealsConsumed?.length > 0 && (
               <div className="pt-2 space-y-2">
                 <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Manually Logged</p>
@@ -284,13 +294,14 @@ export default function DashboardPage() {
             )}
           </div>
 
+          {/* Training */}
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-bold text-[#111111] flex items-center gap-2">
                 <BoltIcon className="w-5 h-5 text-[#c1ff00]" />
                 Training
               </h2>
-              <Link href="/workout" className="text-sm font-semibold text-[#111111] flex items-center gap-1 hover:gap-2 transition-all">
+              <Link href="/training/workout" className="text-sm font-semibold text-[#111111] flex items-center gap-1 hover:gap-2 transition-all">
                 Full Split <ChevronRightIcon className="w-4 h-4" />
               </Link>
             </div>
@@ -331,7 +342,7 @@ export default function DashboardPage() {
               )}
 
               {!todayWorkout && (
-                <Link href="/workout" className="block text-center text-gray-400 text-sm py-4 border border-dashed border-gray-200 rounded-xl hover:border-[#c1ff00] hover:text-[#111] transition-all">
+                <Link href="/training/workout" className="block text-center text-gray-400 text-sm py-4 border border-dashed border-gray-200 rounded-xl hover:border-[#c1ff00] hover:text-[#111] transition-all">
                   No workout found. <span className="font-bold text-[#111] underline">Generate plan →</span>
                 </Link>
               )}
@@ -340,6 +351,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {/* ── Log Meal Modal ────────────────────────────────────── */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />

@@ -29,6 +29,7 @@ export default function FastingToggle({ initialStatus, onToggle, compact = false
     done: "✓ Plan updated",
   }[phase];
 
+  // ── Compact mode: pill button for inline use in the header ────────────────
   if (compact) {
     return (
       <button
@@ -47,6 +48,7 @@ export default function FastingToggle({ initialStatus, onToggle, compact = false
         <span className="hidden sm:inline">
           {phase === "saving" ? "Saving…" : phase === "generating" ? "Updating…" : phase === "done" ? "✓ Done" : isFasting ? "Fasting ON" : "Fasting"}
         </span>
+        {/* Mini toggle switch */}
         <div className={`relative w-9 h-5 rounded-full transition-colors duration-300 ${isFasting ? "bg-amber-400" : "bg-gray-200"}`}>
           <div className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-300 ${isFasting ? "translate-x-4" : "translate-x-0"}`} />
           {isLoading && (
@@ -67,6 +69,7 @@ export default function FastingToggle({ initialStatus, onToggle, compact = false
           : "bg-white border-gray-100"
       }`}
     >
+      {/* Icon */}
       <div
         className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 transition-all ${
           isFasting ? "bg-amber-100" : "bg-gray-100"
@@ -75,6 +78,7 @@ export default function FastingToggle({ initialStatus, onToggle, compact = false
         {isFasting ? "🌙" : "🍽️"}
       </div>
 
+      {/* Labels */}
       <div className="flex-grow min-w-0">
         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">
           Special Mode
@@ -93,6 +97,7 @@ export default function FastingToggle({ initialStatus, onToggle, compact = false
         )}
       </div>
 
+      {/* Toggle switch */}
       <button
         onClick={handleToggle}
         disabled={isLoading}
@@ -108,6 +113,7 @@ export default function FastingToggle({ initialStatus, onToggle, compact = false
             isFasting ? "translate-x-6" : "translate-x-0"
           }`}
         />
+        {/* Spinner overlay when loading */}
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-3 h-3 rounded-full border-2 border-white/40 border-t-white animate-spin" />
