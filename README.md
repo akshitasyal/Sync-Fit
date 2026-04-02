@@ -26,6 +26,8 @@ A full-stack fitness web application that provides personalized **meal plans, wo
 
 Handles intelligent meal planning based on user diet preferences.
 
+![Meals](./public/Meals.png)
+
 **Features:**
 
 * Supports vegan, vegetarian, and non-vegetarian diets
@@ -45,6 +47,8 @@ Handles intelligent meal planning based on user diet preferences.
 ##  Workout System
 
 Provides structured fitness programs based on user goals.
+
+![Workout](./public/Workout.png)
 
 **Features:**
 
@@ -68,6 +72,8 @@ Provides structured fitness programs based on user goals.
 ##  Shopping List System
 
 Automatically generates grocery lists from meal plans.
+
+![Shopping](./public/Shopping.png)
 
 **Features:**
 
@@ -128,6 +134,8 @@ Handles fasting-specific meal plans.
 ##  Dashboard System
 
 Central hub for user activity and insights.
+
+![Progress](./public/Progress.png)
 
 **Features:**
 
