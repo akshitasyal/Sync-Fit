@@ -10,14 +10,16 @@ import {
   ArrowUpRightIcon
 } from '@heroicons/react/24/outline';
 
+import { PROGRAM_IMAGES } from '@/constants/program-mapping';
+
 const programs = [
   {
     id: "01",
     title: "Smart Strength Training",
     description: "AI-powered strength programs tailored to your fitness level using fuzzy logic and personalized intensity recommendations.",
     icon: BuildingLibraryIcon,
-    href: "/strength-training", // Needs to be updated to /workout or the new page
-    bgImage: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800&auto=format&fit=crop"
+    href: "/strength-training",
+    bgImage: PROGRAM_IMAGES.strength.main
   },
   {
     id: "02",
@@ -25,15 +27,15 @@ const programs = [
     description: "Dynamic fat-loss plans combining calorie optimization, adaptive workouts, and personalized meal strategies.",
     icon: ScaleIcon,
     href: "/weight-loss",
-    bgImage: "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop"
+    bgImage: PROGRAM_IMAGES.weightLoss.main
   },
   {
     id: "03",
     title: "Cardio & Endurance Optimization",
     description: "Boost stamina with smart cardio routines adjusted based on your energy levels and recovery patterns.",
     icon: HeartIcon,
-    href: "/programs",
-    bgImage: "https://images.unsplash.com/photo-1540496905036-5937c1064743?q=80&w=800&auto=format&fit=crop"
+    href: "/cardio-endurance",
+    bgImage: PROGRAM_IMAGES.cardio.main
   },
   {
     id: "04",
@@ -41,7 +43,7 @@ const programs = [
     description: "Flexible training plans that evolve with your progress, feedback, and consistency scores.",
     icon: UserGroupIcon,
     href: "/adaptive-fitness",
-    bgImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop"
+    bgImage: PROGRAM_IMAGES.adaptive.main
   },
   {
     id: "05",
@@ -49,7 +51,7 @@ const programs = [
     description: "High-protein diet integration with optimized strength training for maximum muscle growth and recovery.",
     icon: SparklesIcon,
     href: "/muscle-gain",
-    bgImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop"
+    bgImage: PROGRAM_IMAGES.muscleGain.main
   },
   {
     id: "06",
@@ -57,7 +59,7 @@ const programs = [
     description: "Safe and guided plans for beginners with simplified meals, lighter workouts, and gradual progression.",
     icon: StarIcon,
     href: "/beginner-start",
-    bgImage: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
+    bgImage: PROGRAM_IMAGES.beginner.main
   }
 ];
 

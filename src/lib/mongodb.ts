@@ -16,7 +16,7 @@ declare global {
 const cached: MongooseCache =
   global.__mongoose_cache ?? (global.__mongoose_cache = { conn: null, promise: null });
 
-async function connectToDatabase(): Promise<typeof mongoose> {
+async function connectToDatabase(retryCount = 3): Promise<typeof mongoose> {
   const MONGODB_URI = process.env.MONGODB_URI;
 
   if (!MONGODB_URI) {
@@ -38,22 +38,36 @@ async function connectToDatabase(): Promise<typeof mongoose> {
     const opts: mongoose.ConnectOptions = {
       bufferCommands: false,
       family: 4,                        // Force IPv4 — prevents ECONNREFUSED on some systems
-      serverSelectionTimeoutMS: 10_000, // 10 s to find a primary
-      socketTimeoutMS: 45_000,          // 45 s for long operations
+      serverSelectionTimeoutMS: 30_000, // Increased to 30s to handle DNS SRV sluggishness
+      connectTimeoutMS: 20_000,         // 20s for the initial connection phase
+      socketTimeoutMS: 45_000,          // 45s for long operations
+      waitQueueTimeoutMS: 10_000        // 10s wait for a connection from the pool
     };
 
-    console.log("[mongodb] 📡 Connecting to MongoDB...");
-    cached.promise = mongoose
-      .connect(MONGODB_URI, opts)
-      .then((m) => {
+    const attemptConnection = async (attempt: number): Promise<typeof mongoose> => {
+      try {
+        console.log(`[mongodb] 📡 Connecting to MongoDB (Attempt ${attempt}/${retryCount})...`);
+        const m = await mongoose.connect(MONGODB_URI, opts);
         console.log("[mongodb] ✅ MongoDB connected successfully");
         return m;
-      })
-      .catch((err) => {
-        console.error("[mongodb] ❌ MongoDB connection failed:", err.message);
-        cached.promise = null; // Reset so the next call retries
+      } catch (err: any) {
+        console.error(`[mongodb] ❌ Attempt ${attempt} failed:`, err.message);
+
+        if (attempt < retryCount) {
+          const delay = 2000 * attempt; // Cumulative backoff: 2s, 4s...
+          console.log(`[mongodb] ⏳ Retrying in ${delay}ms...`);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          return attemptConnection(attempt + 1);
+        }
+
         throw err;
-      });
+      }
+    };
+
+    cached.promise = attemptConnection(1).catch((err) => {
+      cached.promise = null; // Reset so the next call retries from scratch
+      throw err;
+    });
   }
 
   cached.conn = await cached.promise;

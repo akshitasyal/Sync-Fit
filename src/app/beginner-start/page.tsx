@@ -13,6 +13,7 @@ import {
   ArrowTrendingUpIcon,
   CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
+import { PROGRAM_IMAGES } from "@/constants/program-mapping";
 
 export const metadata = {
   title: "Beginner Smart Start | Sync-Fit",
@@ -21,11 +22,11 @@ export const metadata = {
 };
 
 const sidebarPrograms = [
-  { label: "Strength Training", href: "/strength-training" },
-  { label: "Weight Loss Program", href: "/weight-loss" },
-  { label: "Cardio & Endurance Training", href: "/programs" },
-  { label: "Group Fitness Classes", href: "/programs" },
-  { label: "Muscle Building Program", href: "/muscle-gain" },
+  { label: "Smart Strength Training", href: "/strength-training" },
+  { label: "Intelligent Weight Loss Plan", href: "/weight-loss" },
+  { label: "Cardio & Endurance Optimization", href: "/cardio-endurance" },
+  { label: "Adaptive Fitness Programs", href: "/adaptive-fitness" },
+  { label: "Muscle Gain System", href: "/muscle-gain" },
   { label: "Beginner Smart Start", href: "/beginner-start", active: true },
 ];
 
@@ -34,22 +35,19 @@ const benefits = [
     icon: <HeartIcon className="w-7 h-7 text-black" />,
     title: "Beginner-Friendly Workouts",
     desc: "Low-intensity, form-focused exercises chosen by `workoutPlanner.ts` — every movement is explained clearly so you build confidence with every session.",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.beginner.benefits[0],
   },
   {
     icon: <SparklesIcon className="w-7 h-7 text-black" />,
     title: "Simple, Easy-to-Follow Meal Plans",
     desc: "Straightforward, balanced meals from `mealPlanner.ts` — no complex macros, no extreme diets. Just clean food choices that fuel your early progress.",
-    image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.beginner.benefits[1],
   },
   {
     icon: <ArrowTrendingUpIcon className="w-7 h-7 text-black" />,
     title: "Gradual Progression System",
     desc: "Our fuzzy logic engine monitors consistency and performance, steadily increasing workout difficulty and calorie targets as your fitness improves — no sudden jumps.",
-    image:
-      "https://images.unsplash.com/photo-1540496905036-5937c1064743?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.beginner.benefits[2],
   },
 ];
 
@@ -58,29 +56,25 @@ const features = [
     number: "01",
     title: "Beginner-Friendly Workouts",
     desc: "Simple bodyweight and light-resistance exercises with clear guidance — designed to build form, confidence, and consistency from day one.",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.beginner.features[0],
   },
   {
     number: "02",
     title: "Simple Meal Plans",
     desc: "Easy, balanced diet recommendations that require no cooking expertise — just real food that keeps you energised and on track.",
-    image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.beginner.features[1],
   },
   {
     number: "03",
     title: "Gradual Progression",
     desc: "Difficulty scales up automatically as your consistency improves — the system ensures you're always challenged but never overwhelmed.",
-    image:
-      "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.beginner.features[2],
   },
   {
     number: "04",
     title: "Habit Building System",
     desc: "Streak tracking, daily reminders, and routine-forming features keep you consistent — because habits are the foundation of lasting results.",
-    image:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.beginner.features[3],
   },
 ];
 
@@ -127,8 +121,7 @@ export default function BeginnerStartPage() {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1800&auto=format&fit=crop')",
+              backgroundImage: `url('${PROGRAM_IMAGES.beginner.main}')`,
             }}
           />
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/50 to-[#0a0a0a]" />
@@ -208,7 +201,7 @@ export default function BeginnerStartPage() {
             {/* Hero Image */}
             <div className="rounded-3xl overflow-hidden mb-10 shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1400&auto=format&fit=crop"
+                src={PROGRAM_IMAGES.beginner.main}
                 alt="Beginner doing light fitness workout"
                 className="w-full h-[480px] object-cover object-center"
               />

@@ -13,6 +13,7 @@ import {
   TrophyIcon,
   BeakerIcon,
 } from "@heroicons/react/24/outline";
+import { PROGRAM_IMAGES } from "@/constants/program-mapping";
 
 export const metadata = {
   title: "Muscle Gain System | Sync-Fit",
@@ -21,11 +22,12 @@ export const metadata = {
 };
 
 const sidebarPrograms = [
-  { label: "Strength Training", href: "/strength-training" },
-  { label: "Weight Loss Program", href: "/weight-loss" },
-  { label: "Cardio & Endurance Training", href: "/programs" },
-  { label: "Group Fitness Classes", href: "/programs" },
-  { label: "Muscle Building Program", href: "/muscle-gain", active: true },
+  { label: "Smart Strength Training", href: "/strength-training" },
+  { label: "Intelligent Weight Loss Plan", href: "/weight-loss" },
+  { label: "Cardio & Endurance Optimization", href: "/cardio-endurance" },
+  { label: "Adaptive Fitness Programs", href: "/adaptive-fitness" },
+  { label: "Muscle Gain System", href: "/muscle-gain", active: true },
+  { label: "Beginner Smart Start", href: "/beginner-start" },
 ];
 
 const benefits = [
@@ -33,22 +35,19 @@ const benefits = [
     icon: <BeakerIcon className="w-7 h-7 text-black" />,
     title: "Protein-Optimized Nutrition",
     desc: "Our `mealPlanner` engine builds protein-first meal plans, calculating your exact daily target based on lean body mass and hypertrophy goals — real food, no supplements required.",
-    image:
-      "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.muscleGain.benefits[0],
   },
   {
     icon: <BoltIcon className="w-7 h-7 text-black" />,
     title: "Strength-Focused Training",
     desc: "Progressive overload is embedded into every mesocycle. The fuzzy logic engine auto-adjusts sets, reps, and load so you're always training at maximum growth stimulus.",
-    image:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.muscleGain.benefits[1],
   },
   {
     icon: <ShieldCheckIcon className="w-7 h-7 text-black" />,
     title: "Recovery-Based Planning",
     desc: "Intelligent rest day scheduling, deload week insertion, and sleep-quality weighting ensure your muscles repair fully and grow faster without overtraining risk.",
-    image:
-      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.muscleGain.benefits[2],
   },
 ];
 
@@ -57,29 +56,25 @@ const features = [
     number: "01",
     title: "Protein-Optimized Diet",
     desc: "High-protein meal plans from `mealPlanner.ts` prioritise the right macros for maximum muscle protein synthesis every day.",
-    image:
-      "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.muscleGain.features[0],
   },
   {
     number: "02",
     title: "Strength Training Plans",
     desc: "Structured compound-lift programs with auto-scaling progressive overload, built by `workoutPlanner.ts` for your experience level.",
-    image:
-      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.muscleGain.features[1],
   },
   {
     number: "03",
     title: "Recovery Optimization",
     desc: "Smart deload scheduling and rest-day allocation prevent overtraining and maximise muscle repair between sessions.",
-    image:
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.muscleGain.features[2],
   },
   {
     number: "04",
     title: "Adaptive Growth System",
     desc: "Calorie surplus, protein targets, and training intensity are recalibrated weekly as you gain muscle and get stronger.",
-    image:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.muscleGain.features[3],
   },
 ];
 
@@ -126,8 +121,7 @@ export default function MuscleGainPage() {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1800&auto=format&fit=crop')",
+              backgroundImage: `url('${PROGRAM_IMAGES.muscleGain.main}')`,
             }}
           />
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/50 to-[#0a0a0a]" />
@@ -206,7 +200,7 @@ export default function MuscleGainPage() {
             {/* Hero Image */}
             <div className="rounded-3xl overflow-hidden mb-10 shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1400&auto=format&fit=crop"
+                src={PROGRAM_IMAGES.muscleGain.main}
                 alt="Athlete performing heavy barbell lifts — muscle gain"
                 className="w-full h-[480px] object-cover object-center"
               />

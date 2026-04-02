@@ -13,6 +13,7 @@ import {
   TrophyIcon,
   ArrowPathIcon,
 } from "@heroicons/react/24/outline";
+import { PROGRAM_IMAGES } from "@/constants/program-mapping";
 
 export const metadata = {
   title: "Adaptive Fitness Programs | Sync-Fit",
@@ -21,11 +22,12 @@ export const metadata = {
 };
 
 const sidebarPrograms = [
-  { label: "Strength Training", href: "/strength-training" },
-  { label: "Weight Loss Program", href: "/weight-loss" },
-  { label: "Cardio & Endurance Training", href: "/programs" },
-  { label: "Group Fitness Classes", href: "/programs" },
-  { label: "Muscle Building Program", href: "/programs" },
+  { label: "Smart Strength Training", href: "/strength-training" },
+  { label: "Intelligent Weight Loss Plan", href: "/weight-loss" },
+  { label: "Cardio & Endurance Optimization", href: "/cardio-endurance" },
+  { label: "Adaptive Fitness Programs", href: "/adaptive-fitness", active: true },
+  { label: "Muscle Gain System", href: "/muscle-gain" },
+  { label: "Beginner Smart Start", href: "/beginner-start" },
 ];
 
 const benefits = [
@@ -33,22 +35,19 @@ const benefits = [
     icon: <AdjustmentsHorizontalIcon className="w-7 h-7 text-black" />,
     title: "Dynamic Plan Adjustments",
     desc: "Your workout intensity, volume, and meal targets are re-calculated automatically each week using fuzzy logic — no manual reprogramming needed.",
-    image:
-      "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.adaptive.benefits[0],
   },
   {
     icon: <ArrowPathIcon className="w-7 h-7 text-black" />,
     title: "Feedback-Based Optimization",
     desc: "Post-session ratings and progress check-ins feed directly into the engine, sharpening recommendations and eliminating stagnation.",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.adaptive.benefits[1],
   },
   {
     icon: <ChartBarIcon className="w-7 h-7 text-black" />,
     title: "Personalised Progress Tracking",
     desc: "Track consistency streaks, performance milestones, calorie trends, and body metrics — all in one unified real-time dashboard.",
-    image:
-      "https://images.unsplash.com/photo-1540496905036-5937c1064743?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.adaptive.benefits[2],
   },
 ];
 
@@ -57,29 +56,25 @@ const features = [
     number: "01",
     title: "Dynamic Plan Adjustments",
     desc: "Plans evolve in real-time — load, reps, calories, and macros are recalculated automatically as your fitness improves.",
-    image:
-      "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.adaptive.features[0],
   },
   {
     number: "02",
     title: "Feedback-Based Optimization",
     desc: "User-rated sessions improve future recommendations, ensuring the plan gets smarter with every workout.",
-    image:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.adaptive.features[1],
   },
   {
     number: "03",
     title: "Smart Progress Tracking",
     desc: "Monitor consistency scores, strength PRs, and calorie balance with AI-powered insights and trend analysis.",
-    image:
-      "https://images.unsplash.com/photo-1540496905036-5937c1064743?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.adaptive.features[2],
   },
   {
     number: "04",
     title: "AI-Driven Personalisation",
     desc: "Fuzzy logic adapts both your workouts and diet intelligently, treating you as an individual — not a generic template.",
-    image:
-      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.adaptive.features[3],
   },
 ];
 
@@ -126,8 +121,7 @@ export default function AdaptiveFitnessPage() {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=1800&auto=format&fit=crop')",
+              backgroundImage: `url('${PROGRAM_IMAGES.adaptive.main}')`,
             }}
           />
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/50 to-[#0a0a0a]" />
@@ -165,7 +159,10 @@ export default function AdaptiveFitnessPage() {
                     <li key={p.label}>
                       <Link
                         href={p.href}
-                        className="flex items-center justify-between px-6 py-4 text-sm font-medium text-[#333] hover:text-[#111] hover:bg-[#f8f7f5] transition-colors"
+                        className={`flex items-center justify-between px-6 py-4 text-sm font-medium transition-colors ${p.active
+                            ? "text-[#c1ff00] bg-[#111] font-bold"
+                            : "text-[#333] hover:text-[#111] hover:bg-[#f8f7f5]"
+                          }`}
                       >
                         {p.label}
                         <ArrowRightIcon className="w-4 h-4 flex-shrink-0" />
@@ -203,7 +200,7 @@ export default function AdaptiveFitnessPage() {
             {/* Hero Image */}
             <div className="rounded-3xl overflow-hidden mb-10 shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1400&auto=format&fit=crop"
+                src={PROGRAM_IMAGES.adaptive.main}
                 alt="Athlete in dynamic training session — adaptive fitness"
                 className="w-full h-[480px] object-cover object-center"
               />

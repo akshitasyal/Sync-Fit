@@ -13,6 +13,7 @@ import {
   BoltIcon,
   TrophyIcon,
 } from "@heroicons/react/24/outline";
+import { PROGRAM_IMAGES } from "@/constants/program-mapping";
 
 export const metadata = {
   title: "Intelligent Weight Loss Plan | Sync-Fit",
@@ -21,11 +22,12 @@ export const metadata = {
 };
 
 const sidebarPrograms = [
-  { label: "Strength Training", href: "/strength-training" },
-  { label: "Weight Loss Program", href: "/weight-loss", active: true },
-  { label: "Cardio & Endurance Training", href: "/programs" },
-  { label: "Group Fitness Classes", href: "/programs" },
-  { label: "Muscle Building Program", href: "/programs" },
+  { label: "Smart Strength Training", href: "/strength-training" },
+  { label: "Intelligent Weight Loss Plan", href: "/weight-loss", active: true },
+  { label: "Cardio & Endurance Optimization", href: "/cardio-endurance" },
+  { label: "Adaptive Fitness Programs", href: "/adaptive-fitness" },
+  { label: "Muscle Gain System", href: "/muscle-gain" },
+  { label: "Beginner Smart Start", href: "/beginner-start" },
 ];
 
 const benefits = [
@@ -33,22 +35,19 @@ const benefits = [
     icon: <FireIcon className="w-7 h-7 text-black" />,
     title: "Smart Calorie Deficit",
     desc: "Our fuzzy logic engine calculates the optimal calorie deficit for your BMI, metabolism, and fat loss goals — no guesswork, no extreme restriction.",
-    image:
-      "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.weightLoss.benefits[0],
   },
   {
     icon: <HeartIcon className="w-7 h-7 text-black" />,
     title: "Adaptive Fat-Burning Workouts",
     desc: "HIIT, cardio, and strength sessions are blended and auto-scaled each week to maximise fat loss while protecting lean muscle mass.",
-    image:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.weightLoss.benefits[1],
   },
   {
     icon: <ChartBarIcon className="w-7 h-7 text-black" />,
     title: "Sustainable Long-Term Results",
     desc: "Rather than crash diets, Sync-Fit builds habits — progressive calorie targets, balanced meals, and consistency-based progression that lasts.",
-    image:
-      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.weightLoss.benefits[2],
   },
 ];
 
@@ -57,29 +56,25 @@ const features = [
     number: "01",
     title: "Calorie Optimization Engine",
     desc: "Smart deficit calculation based on BMI, goals, activity level, and energy data from your profile.",
-    image:
-      "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.weightLoss.features[0],
   },
   {
     number: "02",
     title: "Fat-Burning Workout Plans",
     desc: "HIIT, cardio, and resistance training dynamically combined for maximum fat loss efficiency.",
-    image:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.weightLoss.features[1],
   },
   {
     number: "03",
     title: "Adaptive Diet Planning",
     desc: "Meal plans from our `mealPlanner` engine adjust your macros and calories weekly based on actual progress.",
-    image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.weightLoss.features[2],
   },
   {
     number: "04",
     title: "Real-Time Progress Tracking",
     desc: "Monitor weight, calories, exercise consistency, and body metrics with live dashboard updates.",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=600&auto=format&fit=crop",
+    image: PROGRAM_IMAGES.weightLoss.features[3],
   },
 ];
 
@@ -126,8 +121,7 @@ export default function WeightLossPage() {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?q=80&w=1800&auto=format&fit=crop')",
+              backgroundImage: `url('${PROGRAM_IMAGES.weightLoss.main}')`,
             }}
           />
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/50 to-[#0a0a0a]" />
@@ -207,7 +201,7 @@ export default function WeightLossPage() {
             {/* Hero Image */}
             <div className="rounded-3xl overflow-hidden mb-10 shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1400&auto=format&fit=crop"
+                src={PROGRAM_IMAGES.weightLoss.main}
                 alt="Person doing cardio — weight loss training"
                 className="w-full h-[480px] object-cover object-center"
               />

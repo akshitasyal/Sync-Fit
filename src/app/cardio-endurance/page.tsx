@@ -2,26 +2,29 @@ import Link from "next/link";
 import {
   ArrowRightIcon,
   CheckCircleIcon,
-  BoltIcon,
+  HeartIcon,
   ChartBarIcon,
-  FireIcon,
+  BoltIcon,
   SparklesIcon,
   UserGroupIcon,
   ShieldCheckIcon,
   TrophyIcon,
+  FireIcon,
+  MapIcon,
+  ClockIcon
 } from "@heroicons/react/24/outline";
 import { PROGRAM_IMAGES } from "@/constants/program-mapping";
 
 export const metadata = {
-  title: "Strength Training | Sync-Fit",
+  title: "Cardio & Endurance | Sync-Fit",
   description:
-    "AI-powered strength training plans built for maximum results using fuzzy logic and personalized workout generation.",
+    "Boost stamina and metabolic health with AI-powered cardio routines adjusted based on your energy levels and recovery patterns.",
 };
 
 const sidebarPrograms = [
-  { label: "Smart Strength Training", href: "/strength-training", active: true },
+  { label: "Smart Strength Training", href: "/strength-training" },
   { label: "Intelligent Weight Loss Plan", href: "/weight-loss" },
-  { label: "Cardio & Endurance Optimization", href: "/cardio-endurance" },
+  { label: "Cardio & Endurance Optimization", href: "/cardio-endurance", active: true },
   { label: "Adaptive Fitness Programs", href: "/adaptive-fitness" },
   { label: "Muscle Gain System", href: "/muscle-gain" },
   { label: "Beginner Smart Start", href: "/beginner-start" },
@@ -29,73 +32,73 @@ const sidebarPrograms = [
 
 const benefits = [
   {
+    icon: <HeartIcon className="w-7 h-7 text-black" />,
+    title: "Enhanced Cardiovascular Health",
+    desc: "Strengthen your heart and lungs with routines that push your aerobic capacity safely using fuzzy logic scaling.",
+    image: PROGRAM_IMAGES.cardio.benefits[0],
+  },
+  {
     icon: <FireIcon className="w-7 h-7 text-black" />,
-    title: "Increased Muscle Strength",
-    desc: "Progressive overload driven by our fuzzy logic engine ensures you build real, lasting strength — session by session.",
-    image: PROGRAM_IMAGES.strength.benefits[0],
+    title: "Maximized Calorie Burn",
+    desc: "High-intensity intervals combined with steady-state cardio to keep your metabolism elevated long after the workout.",
+    image: PROGRAM_IMAGES.cardio.benefits[1],
   },
   {
-    icon: <ShieldCheckIcon className="w-7 h-7 text-black" />,
-    title: "Better Posture & Wellness",
-    desc: "Targeted muscle group optimization corrects imbalances, improving posture and overall physical wellness.",
-    image: PROGRAM_IMAGES.strength.benefits[1],
-  },
-  {
-    icon: <ChartBarIcon className="w-7 h-7 text-black" />,
-    title: "Faster Metabolism",
-    desc: "Strength training increases lean mass, elevating your resting metabolic rate so you burn more calories around the clock.",
-    image: PROGRAM_IMAGES.strength.benefits[2],
+    icon: <TrophyIcon className="w-7 h-7 text-black" />,
+    title: "Superior Stamina",
+    desc: "Whether it's for a marathon or daily life, our endurance protocols build the aerobic engine you've always wanted.",
+    image: PROGRAM_IMAGES.cardio.benefits[2],
   },
 ];
 
 const features = [
   {
     number: "01",
-    title: "Personalized Workout Generator",
-    desc: "Fuzzy logic analyses your profile — weight, experience, goals — and builds a complete weekly plan instantly.",
-    image: PROGRAM_IMAGES.strength.features[0],
+    title: "Smart Heart Rate Zones",
+    desc: "Workouts are auto-adjusted to keep you in the optimal zone based on your real-time recovery and energy scores.",
+    image: PROGRAM_IMAGES.cardio.features[0],
   },
   {
     number: "02",
-    title: "Adaptive Intensity Scaling",
-    desc: "Volume and load auto-adjust each session based on your performance feedback, ensuring safe progressive overload.",
-    image: PROGRAM_IMAGES.strength.features[1],
+    title: "Adaptive Interval Training",
+    desc: "HIIT sessions that evolve — as you get fitter, the intervals get tougher, ensuring you never plateau.",
+    image: PROGRAM_IMAGES.cardio.features[1],
   },
   {
     number: "03",
-    title: "Smart Progress Tracking",
-    desc: "Track PRs, volume milestones, and streak consistency with real-time dashboards and AI-driven insights.",
-    image: PROGRAM_IMAGES.strength.features[2],
+    title: "Endurance Nutrition Mapping",
+    desc: "Fuel your long sessions correctly with meal plans that prioritize glycogen replenishment and sustained energy.",
+    image: PROGRAM_IMAGES.cardio.features[2],
   },
   {
     number: "04",
-    title: "Experience-Based Tiers",
-    desc: "From beginner to advanced, workouts intelligently scale with your fitness experience and long-term progression.",
-    image: PROGRAM_IMAGES.strength.features[3],
+    title: "Recovery-First Scheduling",
+    desc: "Our AI ensures you don't overtrain by intelligently spacing out high-impact cardio sessions with active recovery.",
+    image: PROGRAM_IMAGES.cardio.features[3],
   },
 ];
 
-export default function StrengthTrainingPage() {
+export default function CardioEndurancePage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f8f7f5]">
 
-      {/* ── Page Header Banner (matching programs page style) ── */}
+      {/* ── Page Header Banner ── */}
       <div className="px-4 pt-4 md:px-8 md:pt-6">
         <section className="relative w-full h-[55vh] min-h-[500px] flex flex-col items-center justify-center rounded-[30px] overflow-hidden mb-16">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: `url('${PROGRAM_IMAGES.strength.main}')`,
+              backgroundImage: `url('${PROGRAM_IMAGES.cardio.main}')`,
             }}
           />
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/55 to-[#0a0a0a]" />
           <div className="relative z-20 text-center px-4 mt-24 flex flex-col items-center justify-center">
             <h1 className="text-5xl md:text-[64px] font-bold text-white mb-4 tracking-tight">
-              Strength Training
+              Cardio & Endurance
             </h1>
             <nav aria-label="Breadcrumb" className="flex flex-col items-center">
               <p className="text-white text-base md:text-lg font-medium tracking-wide">
-                Home <span className="mx-2 text-white">/</span> Strength Training
+                Home <span className="mx-2 text-white">/</span> Programs <span className="mx-2 text-white">/</span> Cardio
               </p>
               <div className="w-2 h-2 rounded-full bg-[#c1ff00] mt-10" />
             </nav>
@@ -140,13 +143,13 @@ export default function StrengthTrainingPage() {
               <div className="bg-[#0b0c10] rounded-2xl p-8 text-center relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-[#c1ff00]/10 blur-[40px] rounded-full" />
                 <div className="w-16 h-16 bg-[#c1ff00] rounded-full mx-auto flex items-center justify-center mb-5 shadow-[0_0_20px_rgba(193,255,0,0.3)]">
-                  <TrophyIcon className="w-8 h-8 text-black" />
+                  <BoltIcon className="w-8 h-8 text-black" />
                 </div>
                 <h4 className="text-white font-bold text-lg mb-3 leading-snug">
-                  Ready to Start Training?
+                  Boost Your Stamina
                 </h4>
                 <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                  Generate your personalised strength plan in seconds.
+                  Generate your personalised cardio plan in seconds.
                 </p>
                 <Link
                   href="/workout"
@@ -164,25 +167,23 @@ export default function StrengthTrainingPage() {
             {/* Hero Image */}
             <div className="rounded-3xl overflow-hidden mb-10 shadow-lg">
               <img
-                src={PROGRAM_IMAGES.strength.main}
-                alt="Athlete doing battle ropes — strength training"
-                className="w-full h-[480px] object-cover object-top"
+                src={PROGRAM_IMAGES.cardio.main}
+                alt="Athlete running on trail — cardio training"
+                className="w-full h-[480px] object-cover object-center"
               />
             </div>
 
             {/* Description */}
             <div className="mb-14">
               <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                <span className="text-[#111] font-semibold">Strength training</span> is more than just lifting weights — it's a structured approach to building muscle, increasing endurance, and enhancing overall body performance.{" "}
+                <span className="text-[#111] font-semibold">Cardio & Endurance training</span> isn't just about logging miles — it's about optimizing your oxygen intake, enhancing mitochondrial density, and building a heart that can handle anything.{" "}
                 <span className="text-[#c1ff00] font-semibold" style={{ color: "#7cb900" }}>
-                  At Sync-Fit, our programs
+                  At Sync-Fit, our cardio programs
                 </span>{" "}
-                combine <span style={{ color: "#7cb900" }} className="font-medium">science-based exercises</span>, adaptive load management, and{" "}
-                <span style={{ color: "#7cb900" }} className="font-medium">expert-guided progressions</span> to help you train smarter, stay consistent, and achieve{" "}
-                <span style={{ color: "#7cb900" }} className="font-medium">lasting results</span>.
+                leverage <span style={{ color: "#7cb900" }} className="font-medium">biological feedback loops</span> to ensure you're always training in the right intensity zone for your specific goals.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Whether you're a complete beginner or a seasoned lifter, our fuzzy logic engine continuously adapts your plan — analysing your fitness level, recovery, and goals to deliver the most effective training stimulus at every session.
+                Whether you're prepping for a triathlon or just want to climb stairs without getting winded, our AI engine designs a progression that builds base aerobic capacity while layering on the explosive power needed for true high-performance conditioning.
               </p>
             </div>
 
@@ -190,10 +191,10 @@ export default function StrengthTrainingPage() {
             <div className="mb-16">
               <div className="inline-flex items-center gap-2 mb-3">
                 <div className="w-2 h-2 rounded-full bg-[#c1ff00]" />
-                <span className="text-[#111] font-bold tracking-widest uppercase text-xs">Why Strength Training</span>
+                <span className="text-[#111] font-bold tracking-widest uppercase text-xs">Why Cardio Matters</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#111] mb-10 leading-tight">
-                Benefits of strength training
+                Stamina & performance benefits
               </h2>
 
               <div className="space-y-8">
@@ -229,10 +230,10 @@ export default function StrengthTrainingPage() {
             <div>
               <div className="inline-flex items-center gap-2 mb-3">
                 <div className="w-2 h-2 rounded-full bg-[#c1ff00]" />
-                <span className="text-[#111] font-bold tracking-widest uppercase text-xs">What You Get</span>
+                <span className="text-[#111] font-bold tracking-widest uppercase text-xs">The Tech Behind The Sweat</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#111] mb-10 leading-tight">
-                Program features
+                Intelligent cardio features
               </h2>
 
               <div className="grid sm:grid-cols-2 gap-8 mb-12">
@@ -263,10 +264,10 @@ export default function StrengthTrainingPage() {
               <div className="relative border-2 border-[#c1ff00] rounded-3xl p-8 bg-white mb-10">
                 <ul className="space-y-4">
                   {[
-                    "Goal-based training with AI-driven plan generation",
-                    "Progressive overload built into every mesocycle",
-                    "Recovery optimization to eliminate burnout",
-                    "Muscle group targeting based on your weak points",
+                    "Personalized HIIT & LISS interval generation",
+                    "Aerobic base building via Zone 2 training protocols",
+                    "Fat-burning optimization driven by metabolic insights",
+                    "Real-time volume adjustments based on recovery score",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3 text-[#111] font-medium text-base">
                       <CheckCircleIcon className="w-6 h-6 text-[#83b800] fill-none flex-shrink-0 mt-0.5" />
@@ -274,11 +275,10 @@ export default function StrengthTrainingPage() {
                     </li>
                   ))}
                 </ul>
-                {/* Spinning stamp */}
                 <div className="absolute -bottom-6 -right-6 w-28 h-28 bg-[#c1ff00] rounded-full flex items-center justify-center text-center font-bold text-xs uppercase shadow-xl animate-[spin_10s_linear_infinite]">
                   <span className="tracking-widest absolute inset-0 rounded-full border border-black border-dashed m-2 opacity-30" />
-                  Train
-                  <br />Smarter
+                  No
+                  <br />Platea
                 </div>
               </div>
 
@@ -287,16 +287,16 @@ export default function StrengthTrainingPage() {
                 <div className="absolute -top-16 -right-16 w-56 h-56 bg-[#c1ff00]/10 blur-[70px] rounded-full" />
                 <div className="relative z-10">
                   <h3 className="text-white text-2xl md:text-3xl font-bold mb-3">
-                    Start Building Strength the Smart Way
+                    Unlock Your Maximum Aerobic Capacity
                   </h3>
                   <p className="text-gray-400 mb-8 text-base">
-                    Your AI-powered personalised strength plan is one click away.
+                    Start training with the most sophisticated cardio engine available.
                   </p>
                   <Link
                     href="/workout"
                     className="inline-flex items-center gap-3 bg-[#c1ff00] hover:bg-[#a9e000] text-black font-bold py-4 px-10 rounded-full text-base transition-all hover:scale-105 shadow-[0_8px_30px_-8px_rgba(193,255,0,0.5)]"
                   >
-                    Generate My Workout Plan <ArrowRightIcon className="w-5 h-5" />
+                    Generate My Cardio Plan <ArrowRightIcon className="w-5 h-5" />
                   </Link>
                 </div>
               </div>
