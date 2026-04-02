@@ -23,6 +23,7 @@ export default function Login() {
       redirect: false,
       email,
       password,
+      callbackUrl: "/dashboard",
     });
 
     if (res?.error) {
@@ -42,14 +43,14 @@ export default function Login() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] pointer-events-none" />
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="max-w-md w-full space-y-8 glass-panel-dark p-10 rounded-[40px] border border-white/5 shadow-2xl relative z-10"
       >
         <div className="flex flex-col items-center">
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
@@ -57,7 +58,7 @@ export default function Login() {
           >
             <BoltIcon className="h-8 w-8 text-black" />
           </motion.div>
-          
+
           <h2 className="text-center text-4xl font-black text-white tracking-tighter">
             Welcome back
           </h2>
@@ -69,7 +70,7 @@ export default function Login() {
         <form className="mt-10 space-y-6" onSubmit={handleSubmit}>
           <AnimatePresence>
             {error && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
@@ -95,7 +96,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            
+
             <div className="space-y-1.5">
               <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-4" htmlFor="password">
                 Password
@@ -127,7 +128,7 @@ export default function Login() {
               )}
             </motion.button>
           </div>
-          
+
           <div className="text-center pt-2">
             <p className="text-sm text-gray-500 font-medium">
               New to SyncFit?{" "}

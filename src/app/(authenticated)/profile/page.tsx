@@ -14,7 +14,7 @@ import {
   ChartBarIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import FastingToggle from "@/app/(authenticated)/dashboard/FastingToggle";
+import FastingToggle from "@/app/dashboard/FastingToggle";
 
 const inputCls =
   "w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-[#111111] placeholder-gray-300 focus:ring-2 focus:ring-[#c1ff00]/50 focus:border-[#c1ff00] focus:outline-none transition-all text-sm";
