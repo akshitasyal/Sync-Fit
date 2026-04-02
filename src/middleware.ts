@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import defaultAuthMiddleware from "next-auth/middleware";
 
-export function proxy(req: NextRequest, ctx: any) {
-  // Redirect legacy /dashboard/today to /dashboard
-  if (req.nextUrl.pathname === "/dashboard/today" || req.nextUrl.pathname === "/today") {
+export default function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  // ✅ Fix wrong routes
+  if (pathname === "/dashboard/today" || pathname === "/today") {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  return (defaultAuthMiddleware as any)(req, ctx);
+  // ✅ Run auth middleware
+  return (defaultAuthMiddleware as any)(req);
 }
 
 export const config = {
