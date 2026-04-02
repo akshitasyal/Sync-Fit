@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import defaultAuthMiddleware from "next-auth/middleware";
 
 export function proxy(req: NextRequest, ctx: any) {
+  // Redirect legacy /dashboard/today to /dashboard
+  if (req.nextUrl.pathname === "/dashboard/today" || req.nextUrl.pathname === "/today") {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
+  }
+
   return (defaultAuthMiddleware as any)(req, ctx);
 }
 
