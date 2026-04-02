@@ -25,7 +25,6 @@ const navGroups: NavGroup[] = [
   {
     label: "Overview",
     links: [
-      { name: "Today", href: "/dashboard/today", icon: CalendarDaysIcon },
       { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
     ],
   },
@@ -47,7 +46,6 @@ const navGroups: NavGroup[] = [
     label: "Account",
     links: [
       { name: "My Profile", href: "/profile", icon: UserCircleIcon },
-      { name: "Profile Setup", href: "/onboarding/setup", icon: Cog6ToothIcon },
     ],
   },
 ];
@@ -67,8 +65,8 @@ export default function Sidebar() {
     <div className="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 shadow-sm z-40 hidden md:flex flex-col">
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-6 py-5 border-b border-gray-100">
-        <div className="w-8 h-8 bg-[#c1ff00] rounded-lg flex items-center justify-center flex-shrink-0">
-          <BoltIcon className="h-5 w-5 text-black" />
+        <div className="w-10 h-10 rounded-full bg-[#c1ff00] flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(193,255,0,0.5)]">
+          <BoltIcon className="h-6 w-6 text-black" />
         </div>
         <Link href="/" className="font-bold text-xl tracking-tight text-[#111111] hover:opacity-70 transition-opacity">
           Sync<span className="text-[#111111]">Fit</span>

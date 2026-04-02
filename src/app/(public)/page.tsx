@@ -96,7 +96,7 @@ export default function Home() {
                 <div className="flex -space-x-3 mt-4 justify-center">
                   <img src="/images/avatar-1.jpg" alt="User" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
                   <img src="/images/avatar-2.jpg" alt="User" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
-                  <div className="w-10 h-10 rounded-full border-2 border-white bg-emerald-500 shadow-sm flex items-center justify-center text-xs font-bold text-white">★★★★★</div>
+                  <div className="w-10 h-10 rounded-full border-2 border-white bg-[#c1ff00] shadow-sm flex items-center justify-center text-xs font-bold text-black">★★★★★</div>
                   <p className="text-sm font-bold text-gray-900 leading-tight">Trusted by<br/>4.9/5 Users</p>
                 </div>
               </div>

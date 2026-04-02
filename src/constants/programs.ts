@@ -49,9 +49,9 @@ export const PROGRAMS = [
     label: "Adaptive",
     emoji: "♿",
     desc: "Low-impact mobility and resistance band work",
-    color: "from-teal-400 to-emerald-500",
-    accent: "bg-teal-50 border-teal-200 text-teal-700",
-    badge: "bg-teal-100 text-teal-700",
+    color: "from-[#c1ff00] to-lime-600",
+    accent: "bg-lime-50 border-lime-200 text-lime-700",
+    badge: "bg-lime-100 text-lime-700",
   },
 ] as const;
 

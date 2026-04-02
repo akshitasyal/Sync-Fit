@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { BoltIcon } from "@heroicons/react/24/solid";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Login() {
   const router = useRouter();
@@ -28,50 +29,82 @@ export default function Login() {
       setError("Invalid email or password");
       setLoading(false);
     } else {
-      router.push("/dashboard/today");
+      router.push("/dashboard");
     }
   };
 
   return (
-    <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-950 relative overflow-hidden">
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div className="max-w-md w-full space-y-8 glass-panel-dark p-8 rounded-3xl border border-white/10 shadow-2xl relative z-10">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#020617] relative overflow-hidden font-sans">
+      {/* ── Background Elements ── */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-[#c1ff00]/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-[#c1ff00]/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] pointer-events-none" />
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="max-w-md w-full space-y-8 glass-panel-dark p-10 rounded-[40px] border border-white/5 shadow-2xl relative z-10"
+      >
         <div className="flex flex-col items-center">
-          <BoltIcon className="h-12 w-12 text-emerald-400 mb-2" />
-          <h2 className="text-center text-3xl font-extrabold text-white tracking-tight">Welcome back</h2>
-          <p className="mt-2 text-center text-sm text-slate-400">
-            Log in to continue your fitness journey
+          <motion.div 
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            className="w-14 h-14 bg-[#c1ff00] rounded-full flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(193,255,0,0.4)]"
+          >
+            <BoltIcon className="h-8 w-8 text-black" />
+          </motion.div>
+          
+          <h2 className="text-center text-4xl font-black text-white tracking-tighter">
+            Welcome back
+          </h2>
+          <p className="mt-3 text-center text-sm text-gray-400 font-medium">
+            Continue your journey to peak performance
           </p>
         </div>
-        
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg p-3 text-center filter backdrop-blur-sm">
-              {error}
-            </div>
-          )}
-          
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1" htmlFor="email">Email address</label>
+
+        <form className="mt-10 space-y-6" onSubmit={handleSubmit}>
+          <AnimatePresence>
+            {error && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold rounded-2xl p-4 text-center overflow-hidden"
+              >
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="space-y-5">
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-4" htmlFor="email">
+                Email Address
+              </label>
               <input
                 id="email"
                 type="email"
                 required
-                className="appearance-none relative block w-full px-4 py-3 border border-white/10 bg-slate-900/50 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm transition-all"
+                className="appearance-none block w-full px-5 py-4 bg-white/5 border border-white/10 text-white rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#c1ff00]/50 focus:border-[#c1ff00] sm:text-sm transition-all placeholder:text-gray-600"
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1" htmlFor="password">Password</label>
+            
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-4" htmlFor="password">
+                Password
+              </label>
               <input
                 id="password"
                 type="password"
                 required
-                className="appearance-none relative block w-full px-4 py-3 border border-white/10 bg-slate-900/50 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm transition-all"
+                className="appearance-none block w-full px-5 py-4 bg-white/5 border border-white/10 text-white rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#c1ff00]/50 focus:border-[#c1ff00] sm:text-sm transition-all placeholder:text-gray-600"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -79,24 +112,33 @@ export default function Login() {
             </div>
           </div>
 
-          <div>
-            <button
+          <div className="pt-2">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-emerald-500 hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-emerald-500 disabled:opacity-50 transition-all shadow-lg shadow-emerald-500/20"
+              className="w-full flex justify-center py-4 px-4 text-sm font-black rounded-2xl text-black bg-[#c1ff00] hover:bg-[#a9e000] focus:outline-none transition-all shadow-[0_8px_20px_rgba(193,255,0,0.25)] disabled:opacity-50 disabled:grayscale uppercase tracking-widest"
             >
-              {loading ? "Signing in..." : "Sign in"}
-            </button>
+              {loading ? (
+                <div className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+              ) : (
+                "Access Account"
+              )}
+            </motion.button>
           </div>
           
-          <div className="text-center text-sm text-slate-400">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="font-medium text-emerald-400 hover:text-emerald-300 transition-colors">
-              Sign up now
-            </Link>
+          <div className="text-center pt-2">
+            <p className="text-sm text-gray-500 font-medium">
+              New to SyncFit?{" "}
+              <Link href="/signup" className="text-[#c1ff00] font-bold hover:underline transition-all">
+                Join the elite
+              </Link>
+            </p>
           </div>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }
+

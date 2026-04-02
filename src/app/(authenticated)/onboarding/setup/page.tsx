@@ -112,7 +112,7 @@ export default function OnboardingSetup() {
       });
       if (!res.ok) throw new Error("Failed to save profile");
       setSaved(true);
-      setTimeout(() => router.push("/dashboard/today"), 1500);
+      setTimeout(() => router.push("/dashboard"), 1500);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -154,8 +154,8 @@ export default function OnboardingSetup() {
         {/* Header */}
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 bg-[#c1ff00] rounded-lg flex items-center justify-center flex-shrink-0">
-              <BoltIcon className="w-4 h-4 text-black" />
+            <div className="w-10 h-10 bg-[#c1ff00] rounded-full flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(193,255,0,0.5)]">
+              <BoltIcon className="w-5 h-5 text-black" />
             </div>
             <span className="font-bold text-[#111111] text-lg tracking-tight">
               Sync<span className="text-gray-400">Fit</span>

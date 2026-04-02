@@ -29,8 +29,8 @@ export default function Navbar() {
 
           {/* ── LEFT: Logo ── */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-            <div className="w-10 h-10 rounded-full bg-[#c1ff00] flex items-center justify-center shadow-[0_0_12px_rgba(193,255,0,0.4)]">
-              <BoltIcon className="w-5 h-5 text-black" />
+            <div className="w-10 h-10 rounded-full bg-[#c1ff00] flex items-center justify-center shadow-[0_0_15px_rgba(193,255,0,0.5)]">
+              <BoltIcon className="w-6 h-6 text-black" />
             </div>
             <span className="text-white font-bold text-xl tracking-tight drop-shadow-sm">
               Sync<span className="text-[#c1ff00]">Fit</span><span className="text-[#c1ff00]">.</span>
@@ -64,7 +64,7 @@ export default function Navbar() {
                   Logout
                 </button>
                 <Link
-                  href="/dashboard/today"
+                  href="/dashboard"
                   className="inline-flex items-center gap-2 bg-[#c1ff00] hover:bg-[#aadf00] text-black font-bold text-sm px-6 py-2.5 rounded-full transition-all duration-200 hover:scale-105 shadow-[0_4px_20px_rgba(193,255,0,0.3)]"
                 >
                   Dashboard <ArrowRightIcon className="w-4 h-4" />
@@ -120,7 +120,7 @@ export default function Navbar() {
           {session ? (
             <>
               <Link
-                href="/dashboard/today"
+                href="/dashboard"
                 onClick={() => setMobileOpen(false)}
                 className="text-white/80 hover:text-white font-medium text-base py-3 px-3 rounded-lg hover:bg-white/5 transition-colors"
               >

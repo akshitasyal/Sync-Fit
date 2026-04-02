@@ -11,7 +11,6 @@ export const PUBLIC_NAV_LINKS = [
 ] as const;
 
 export const AUTH_NAV_LINKS = [
-  { label: "Today", href: "/dashboard/today", icon: "CalendarIcon" },
   { label: "Dashboard", href: "/dashboard", icon: "ChartBarIcon" },
   { label: "Meal Plan", href: "/meal-plan", icon: "UserIcon" },
   { label: "Shopping List", href: "/grocery-list", icon: "ListBulletIcon" },

@@ -147,7 +147,7 @@ export default function ProfilePage() {
 
   const dietBadgeColor: Record<string, string> = {
     Vegan: "bg-green-50 text-green-700 border-green-100",
-    Vegetarian: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    Vegetarian: "bg-[#c1ff00]/10 text-[#111111] border-[#c1ff00]/30",
     "Non-Vegetarian": "bg-red-50 text-red-600 border-red-100",
     Keto: "bg-purple-50 text-purple-700 border-purple-100",
     "Balanced Diet": "bg-[#c1ff00]/10 text-[#111111] border-[#c1ff00]/30",
@@ -316,8 +316,8 @@ export default function ProfilePage() {
             {/* Quick link to full setup */}
             <div className="bg-white border border-dashed border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#c1ff00] rounded-lg flex items-center justify-center flex-shrink-0">
-                  <BoltIcon className="w-4 h-4 text-black" />
+                <div className="w-10 h-10 bg-[#c1ff00] rounded-full flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(193,255,0,0.5)]">
+                  <BoltIcon className="w-5 h-5 text-black" />
                 </div>
                 <div>
                   <p className="font-bold text-[#111111] text-sm">Need to redo your full onboarding?</p>
