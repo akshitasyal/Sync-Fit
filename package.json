@@ -6,12 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "seed": "tsx src/scripts/seed-meals-v2.ts",
-    "seed:fasting": "tsx src/scripts/seed-fasting.ts",
-    "seed:all": "npm run seed && npm run seed:fasting",
-    "fix-db": "tsx src/scripts/fix-db.ts",
-    "clean-eggs": "tsx src/scripts/clean-eggs.ts"
+    "lint": "eslint"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
