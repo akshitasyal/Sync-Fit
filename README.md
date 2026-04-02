@@ -116,6 +116,8 @@ Stores and manages user data for personalization.
 
 Handles fasting-specific meal plans.
 
+![Fasting](./public/Fasting.png)
+
 **Features:**
 
 * Toggle-based fasting mode
