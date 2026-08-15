@@ -1,8 +1,6 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
+# ── Next.js & Node.js Dependencies ─────────────────────────────────────────
+node_modules/
+.pnp/
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -10,32 +8,45 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# ── Build & Production Artifacts ───────────────────────────────────────────
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
 
-# next.js
-/.next/
-/out/
+# ── Testing & Coverage ─────────────────────────────────────────────────────
+coverage/
 
-# production
-/build
+# ── Environment & Secret Files ─────────────────────────────────────────────
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
 
-# misc
+# Keep .env.example tracked for repository template
+!.env.example
+
+# ── Operating System & Editor Files ────────────────────────────────────────
 .DS_Store
+Thumbs.db
 *.pem
+*.key
+*.cert
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 
-# debug
+# ── Logs & Debug Files ─────────────────────────────────────────────────────
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# ── Deployment Platforms ───────────────────────────────────────────────────
+.vercel/

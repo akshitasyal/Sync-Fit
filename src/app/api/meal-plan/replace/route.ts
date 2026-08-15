@@ -5,6 +5,7 @@ import connectToDatabase from "@/lib/mongodb";
 import MealPlan from "@/models/MealPlan";
 import User from "@/models/User";
 import Meal from "@/models/Meal";
+import { normalizeDiet, dietTypeFilter } from "@/services/mealService";
 
 export async function POST(req: Request) {
   try {
@@ -15,7 +16,11 @@ export async function POST(req: Request) {
 
     await connectToDatabase();
     const user = await User.findOne({ email: session.user.email }).lean() as any;
-    const dietPref = user.dietPreference || "Balanced Diet";
+    // Normalize the stored dietPreference (e.g. "Non-Vegetarian") to the lowercase
+    // values used by Meal.dietType (e.g. "non-vegetarian"). The same helpers used
+    // by mealService ensure consistent behaviour across the whole app.
+    const dietTier = normalizeDiet(user.dietPreference || "Non-Vegetarian");
+    const allowedTypes = dietTypeFilter(dietTier);
 
     const mp = await MealPlan.findById(mealPlanId);
     if (!mp) return NextResponse.json({ message: "Not found" }, { status: 404 });
@@ -23,7 +28,7 @@ export async function POST(req: Request) {
 
     const categoryMatcher = slot === "snack" ? { $in: ["snack", "pre-workout", "post-workout"] } : slot;
 
-    let candidates = await Meal.find({ dietType: dietPref, category: categoryMatcher, _id: { $ne: oldMealId } }).lean() as any[];
+    let candidates = await Meal.find({ dietType: { $in: allowedTypes }, category: categoryMatcher, _id: { $ne: oldMealId } }).lean() as any[];
     
     if (candidates.length === 0) {
       candidates = await Meal.find({ _id: { $ne: oldMealId }, category: categoryMatcher }).lean() as any[];

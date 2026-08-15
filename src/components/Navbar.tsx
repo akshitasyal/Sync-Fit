@@ -5,11 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { BoltIcon, ArrowRightIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Programs", href: "/programs" },
-];
+import { PUBLIC_NAV_LINKS } from "@/constants/app";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -39,7 +35,7 @@ export default function Navbar() {
 
           {/* ── CENTER: Nav links (desktop) ── */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {PUBLIC_NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
@@ -106,7 +102,7 @@ export default function Navbar() {
         }`}
       >
         <div className="bg-black/90 backdrop-blur-md border-t border-white/10 px-4 pb-6 pt-4 flex flex-col gap-1">
-          {navLinks.map((link) => (
+          {PUBLIC_NAV_LINKS.map((link) => (
             <Link
               key={link.label}
               href={link.href}

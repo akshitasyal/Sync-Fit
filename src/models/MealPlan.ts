@@ -26,9 +26,11 @@ const MealPlanSchema = new Schema(
 // Ensure one weekly meal plan per user per week start date
 MealPlanSchema.index({ userEmail: 1, weekStartDate: 1 }, { unique: true });
 
-// Clear the model if it exists to pick up schema changes during development
-if (mongoose.models.MealPlan) {
+// Only clear the cached model in development so hot-reload picks up schema changes.
+// In production this must NOT run — re-creating the model on every import causes
+// OverwriteModelError and discards buffered Mongoose operations.
+if (process.env.NODE_ENV !== "production" && mongoose.models.MealPlan) {
   delete mongoose.models.MealPlan;
 }
 
-export default mongoose.model<IMealPlan>("MealPlan", MealPlanSchema);
+export default mongoose.models.MealPlan || mongoose.model<IMealPlan>("MealPlan", MealPlanSchema);

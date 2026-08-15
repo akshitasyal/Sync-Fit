@@ -31,7 +31,11 @@ export async function POST(req: Request) {
     }
 
     if (query.includes("meal") || query.includes("food") || query.includes("eat") || query.includes("suggest") || query.includes("hungry")) {
-      const meals = await Meal.find({ type: recs.dietType }).lean() as any[];
+      // The Meal.type field is optional — many seeded meals may not have it set.
+      // Use $or so we prefer matching meals first but always get a result.
+      const meals = await Meal.find({
+        $or: [{ type: recs.dietType }, { type: { $exists: false } }],
+      }).limit(10).lean() as any[];
       if (meals.length > 0) {
         const suggestion = meals[Math.floor(Math.random() * meals.length)];
         return NextResponse.json({ reply: `Since you are on a ${recs.dietType} diet, I highly recommend trying our **${suggestion.name}**! It packs ${suggestion.protein}g of protein for only ${suggestion.calories} kcal.` }, { status: 200 });

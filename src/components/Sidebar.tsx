@@ -26,6 +26,7 @@ const navGroups: NavGroup[] = [
     label: "Overview",
     links: [
       { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
+      { name: "Body Metrics", href: "/metrics", icon: ChartBarIcon },
     ],
   },
   {

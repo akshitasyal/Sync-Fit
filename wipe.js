@@ -1,5 +1,12 @@
+require("dotenv").config({ path: ".env.local" });
 const mongoose = require("mongoose");
-const URI = "mongodb+srv://akshitasyal09:akshitasyal8@cluster0.vhrwss5.mongodb.net/syncfit?retryWrites=true&w=majority";
+
+const URI = process.env.MONGODB_URI;
+
+if (!URI) {
+  console.error("❌ MONGODB_URI is missing from environment variables (.env.local)");
+  process.exit(1);
+}
 
 async function totalWipe() {
   try {

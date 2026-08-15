@@ -41,8 +41,8 @@ export function useWorkoutPlan() {
         const d = await res.json();
         throw new Error(d.message || "Generation failed");
       }
-      const result = await res.json();
-      setPlan(result.data);
+      // Use fetchPlan so activeDayIdx is correctly reset to today
+      await fetchPlan();
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -62,7 +62,9 @@ export function useWorkoutPlan() {
       if (res.ok) {
         const updated = { ...plan };
         const day = updated.days[activeDayIdx];
-        const ex = day.exercises.find((e: any) => (e.exerciseId._id || e.exerciseId) === exerciseId);
+        const ex = day.exercises.find((e: any) =>
+          (e.exerciseId?._id?.toString() ?? e.exerciseId?.toString()) === exerciseId
+        );
         if (ex) {
           ex.completed = !ex.completed;
           day.isCompleted = day.exercises.every((e: any) => e.completed);

@@ -8,6 +8,7 @@ export const APP_CONFIG = {
 export const PUBLIC_NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Programs", href: "/programs" },
+  { label: "Body Metrics", href: "/metrics" },
 ] as const;
 
 export const AUTH_NAV_LINKS = [
