@@ -14,6 +14,7 @@ import {
 import { CheckCircleIcon as CheckCircleSolid } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import FastingToggle from "./FastingToggle";
+import { getMealImage } from "@/constants/mealImages";
 
 export default function TodayPage() {
   const { data: session, status } = useSession();
@@ -252,22 +253,30 @@ export default function TodayPage() {
             </div>
 
             <div className="space-y-3">
-              {todayMeal?.meals.map((m: any, i: number) => (
-                <div key={i} className={`border p-4 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow ${
-                  isFasting ? "bg-amber-50/50 border-amber-100" : "bg-white border-gray-100"
-                }`}>
-                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${
-                    isFasting ? "bg-amber-100" : "bg-[#c1ff00]/10"
+              {todayMeal?.meals.map((m: any, i: number) => {
+                const mealName = m.mealId?.name || "Meal";
+                const img = m.mealId?.imageUrl || getMealImage(mealName, m.slot);
+                return (
+                  <div key={i} className={`border p-3.5 rounded-2xl flex items-center gap-3.5 shadow-sm hover:shadow-md transition-all ${
+                    isFasting ? "bg-amber-50/50 border-amber-100" : "bg-white border-gray-100"
                   }`}>
-                    {slotIcon[m.slot] || "🍽️"}
+                    <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 border border-gray-200">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={img}
+                        alt={mealName}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="flex-grow min-w-0">
+                      <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-0.5">{m.slot}</p>
+                      <h4 className="text-[#111111] font-bold text-sm truncate">{mealName}</h4>
+                      <p className="text-gray-400 text-xs">{m.mealId?.calories} kcal · {m.mealId?.protein}g protein</p>
+                    </div>
                   </div>
-                  <div className="flex-grow min-w-0">
-                    <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-0.5">{m.slot}</p>
-                    <h4 className="text-[#111111] font-bold truncate">{m.mealId?.name}</h4>
-                    <p className="text-gray-400 text-xs">{m.mealId?.calories} kcal · {m.mealId?.protein}g protein</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
 
               {!todayMeal && (
                 <Link href="/nutrition/meal-plan" className="block bg-white border border-dashed border-gray-200 p-6 rounded-2xl text-center text-gray-400 hover:border-[#c1ff00] hover:text-[#111] transition-all">

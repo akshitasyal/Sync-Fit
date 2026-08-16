@@ -68,7 +68,10 @@ export async function GET() {
   try {
     await connectToDatabase();
     await Meal.deleteMany({}); // Wipe DB for the Phase 3 seed upgrade
-    const newMeals = generateMeals();
+    const newMeals = generateMeals().map((meal) => {
+      const slug = meal.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      return { ...meal, imageUrl: `/images/meals/${slug}.jpg` };
+    });
     await Meal.insertMany(newMeals);
     return NextResponse.json({ message: `Successfully seeded ${newMeals.length} weekly robust meals!` }, { status: 201 });
   } catch (error) {

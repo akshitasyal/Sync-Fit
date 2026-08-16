@@ -40,7 +40,7 @@ const benefits = [
   {
     icon: <BoltIcon className="w-7 h-7 text-black" />,
     title: "Strength-Focused Training",
-    desc: "Progressive overload is embedded into every mesocycle. The fuzzy logic engine auto-adjusts sets, reps, and load so you're always training at maximum growth stimulus.",
+    desc: "Progressive overload is embedded into every mesocycle. The adaptive AI engine auto-adjusts sets, reps, and load so you're always training at maximum growth stimulus.",
     image: PROGRAM_IMAGES.muscleGain.benefits[1],
   },
   {
@@ -87,7 +87,7 @@ const workflowSteps = [
   },
   {
     step: "02",
-    title: "Apply Fuzzy Logic for Intensity and Calories",
+    title: "Apply Adaptive AI for Intensity and Calories",
     desc: "The engine infers your ideal caloric surplus and training stress — enough to build muscle without excessive fat gain.",
     icon: <CpuChipIcon className="w-5 h-5 text-black" />,
   },
@@ -213,7 +213,7 @@ export default function MuscleGainPage() {
                 <span className="font-medium" style={{ color: "#7cb900" }}>
                   At Sync-Fit, our Muscle Gain System
                 </span>{" "}
-                combines <span style={{ color: "#7cb900" }} className="font-medium">fuzzy logic-driven intensity calibration</span>, high-protein meal generation, and{" "}
+                combines <span style={{ color: "#7cb900" }} className="font-medium">intelligent intensity calibration</span>, high-protein meal generation, and{" "}
                 <span style={{ color: "#7cb900" }} className="font-medium">adaptive progressive overload programming</span> to accelerate hypertrophy safely and sustainably.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
@@ -231,7 +231,7 @@ export default function MuscleGainPage() {
                 Engineered for Real Muscle Growth
               </h2>
               <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-2xl">
-                Sync-Fit combines <span style={{ color: "#7cb900" }}>strength training</span>, protein-focused nutrition, and fuzzy logic to deliver structured muscle-building plans. The system{" "}
+                Sync-Fit combines <span style={{ color: "#7cb900" }}>strength training</span>, protein-focused nutrition, and adaptive intelligence to deliver structured muscle-building plans. The system{" "}
                 <span style={{ color: "#7cb900" }}>continuously adapts</span> based on your progress, ensuring consistent hypertrophy.
               </p>
 

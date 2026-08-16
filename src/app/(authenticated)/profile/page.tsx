@@ -256,7 +256,7 @@ export default function ProfilePage() {
                       <SparklesIcon className="w-5 h-5 text-black" />
                     </div>
                     <div>
-                      <p className="font-black text-[#111111]">Fuzzy Logic Engine Output</p>
+                      <p className="font-black text-[#111111]">Adaptive AI Engine Output</p>
                       <p className="text-xs text-gray-400">Auto-recalculates when you update your profile</p>
                     </div>
                   </div>

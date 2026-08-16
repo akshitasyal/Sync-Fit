@@ -15,7 +15,7 @@ import { PROGRAM_IMAGES } from "@/constants/program-mapping";
 export const metadata = {
   title: "Strength Training | Sync-Fit",
   description:
-    "AI-powered strength training plans built for maximum results using fuzzy logic and personalized workout generation.",
+    "AI-powered strength training plans built for maximum results using adaptive intelligence and personalized workout generation.",
 };
 
 const sidebarPrograms = [
@@ -31,7 +31,7 @@ const benefits = [
   {
     icon: <FireIcon className="w-7 h-7 text-black" />,
     title: "Increased Muscle Strength",
-    desc: "Progressive overload driven by our fuzzy logic engine ensures you build real, lasting strength — session by session.",
+    desc: "Progressive overload driven by our adaptive AI engine ensures you build real, lasting strength — session by session.",
     image: PROGRAM_IMAGES.strength.benefits[0],
   },
   {
@@ -52,7 +52,7 @@ const features = [
   {
     number: "01",
     title: "Personalized Workout Generator",
-    desc: "Fuzzy logic analyses your profile — weight, experience, goals — and builds a complete weekly plan instantly.",
+    desc: "Our adaptive engine analyses your profile — weight, experience, goals — and builds a complete weekly plan instantly.",
     image: PROGRAM_IMAGES.strength.features[0],
   },
   {
@@ -182,7 +182,7 @@ export default function StrengthTrainingPage() {
                 <span style={{ color: "#7cb900" }} className="font-medium">lasting results</span>.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Whether you're a complete beginner or a seasoned lifter, our fuzzy logic engine continuously adapts your plan — analysing your fitness level, recovery, and goals to deliver the most effective training stimulus at every session.
+                Whether you're a complete beginner or a seasoned lifter, our adaptive AI engine continuously adapts your plan — analysing your fitness level, recovery, and goals to deliver the most effective training stimulus at every session.
               </p>
             </div>
 

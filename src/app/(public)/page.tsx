@@ -48,7 +48,7 @@ export default function Home() {
             </h1>
 
             <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">
-              Sync-Fit combines fuzzy logic, smart nutrition planning, and adaptive workouts to deliver personalized fitness results based on your body, goals, and habits.
+              Sync-Fit combines intelligent personalization, smart nutrition planning, and adaptive workouts to deliver personalized fitness results based on your body, goals, and habits.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
@@ -122,7 +122,7 @@ export default function Home() {
                     <SparklesIcon className="w-7 h-7 text-black"/>
                   </div>
                   <h4 className="text-xl font-bold text-[#111111] mb-2">Intelligent Recommendations</h4>
-                  <p className="text-gray-600 leading-relaxed">Fuzzy logic-based system that adjusts your workouts and calorie intake dynamically.</p>
+                  <p className="text-gray-600 leading-relaxed">Smart adaptive system that adjusts your workouts and calorie intake dynamically.</p>
                 </div>
                 <div>
                   <div className="w-14 h-14 rounded-full bg-[#f8f7f5] border border-gray-200 flex items-center justify-center mb-5">
@@ -198,8 +198,8 @@ export default function Home() {
                <div className="w-16 h-16 rounded-2xl bg-[#f0f0f0] group-hover:bg-[#c1ff00] flex items-center justify-center mb-6 transition-colors">
                  <LightBulbIcon className="w-8 h-8 text-[#111]" />
                </div>
-               <h3 className="text-xl font-bold text-[#111] mb-3">Fuzzy Logic Engine</h3>
-               <p className="text-gray-600">Human-like decision system that adapts recommendations intelligently.</p>
+               <h3 className="text-xl font-bold text-[#111] mb-3">Adaptive AI Engine</h3>
+               <p className="text-gray-600">Smart decision system that adapts recommendations dynamically.</p>
             </div>
           </div>
         </div>
@@ -214,7 +214,7 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">Why Sync-Fit is Different</h2>
               
               {[
-                { title: "AI + Fuzzy Logic based decisions", desc: "Our core intelligence doesn't just guess; it infers from complex biometrics." },
+                { title: "AI-Powered Adaptive Decisions", desc: "Our core intelligence doesn't just guess; it infers from complex biometrics." },
                 { title: "Personalized, not generic plans", desc: "Your plan is yours alone. Calculated dynamically based on your unique profile." },
                 { title: "Adaptive system that learns from user", desc: "Stagnation is eliminated as routines automatically shift as you grow stronger." },
                 { title: "Complete fitness ecosystem", desc: "Seamlessly blending diet tracking and workout milestones into one platform." },

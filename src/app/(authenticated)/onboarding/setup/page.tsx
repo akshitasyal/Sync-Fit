@@ -325,7 +325,7 @@ export default function OnboardingSetup() {
               <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4">
                 <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">Why this matters</p>
                 <p className="text-sm text-gray-600">
-                  Your energy level and sleep quality feed our Fuzzy Logic Engine — it dynamically adapts your workout intensity so you never overtrain or underperform.
+                  Your energy level and sleep quality feed our Adaptive AI Engine — it dynamically adapts your workout intensity so you never overtrain or underperform.
                 </p>
               </div>
             </>

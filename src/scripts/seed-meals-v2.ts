@@ -184,12 +184,15 @@ const seedMeals = async () => {
     let inserted = 0, skipped = 0;
 
     for (const meal of allMeals) {
+      const slug = meal.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      const imageUrl = `/images/meals/${slug}.jpg`;
       const exists = await Meal.findOne({ name: meal.name }).lean();
       if (exists) {
+        await Meal.updateOne({ _id: exists._id }, { $set: { imageUrl } });
         skipped++;
         continue;
       }
-      await Meal.create(meal);
+      await Meal.create({ ...meal, imageUrl });
       inserted++;
     }
 

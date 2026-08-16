@@ -15,7 +15,7 @@ export default function Footer() {
         </div>
         <span className="font-bold text-xl tracking-tight text-white">Sync<span className="text-[#c1ff00]">Fit</span></span>
       </div>
-      <p className="text-sm mb-2">Empowering your health with Fuzzy Logic precision.</p>
+      <p className="text-sm mb-2">Empowering your health with smart adaptive precision.</p>
       <p className="text-xs text-slate-500">© {new Date().getFullYear()} Sync-Fit. All rights reserved.</p>
     </footer>
   );

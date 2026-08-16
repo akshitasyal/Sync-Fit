@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sync-Fit | Intelligent Fitness & Diet Planning",
   description:
-    "Personalized diet planning and meal preparation using a fuzzy logic recommendation system.",
+    "Personalized diet planning and meal preparation using an intelligent adaptive recommendation system.",
 };
 
 export default function RootLayout({

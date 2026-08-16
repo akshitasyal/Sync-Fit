@@ -34,7 +34,7 @@ const benefits = [
   {
     icon: <AdjustmentsHorizontalIcon className="w-7 h-7 text-black" />,
     title: "Dynamic Plan Adjustments",
-    desc: "Your workout intensity, volume, and meal targets are re-calculated automatically each week using fuzzy logic — no manual reprogramming needed.",
+    desc: "Your workout intensity, volume, and meal targets are re-calculated automatically each week using adaptive AI — no manual reprogramming needed.",
     image: PROGRAM_IMAGES.adaptive.benefits[0],
   },
   {
@@ -73,7 +73,7 @@ const features = [
   {
     number: "04",
     title: "AI-Driven Personalisation",
-    desc: "Fuzzy logic adapts both your workouts and diet intelligently, treating you as an individual — not a generic template.",
+    desc: "Our adaptive engine scales both your workouts and diet intelligently, treating you as an individual — not a generic template.",
     image: PROGRAM_IMAGES.adaptive.features[3],
   },
 ];
@@ -94,7 +94,7 @@ const workflowSteps = [
   {
     step: "03",
     title: "Collect Feedback and Progress Data",
-    desc: "After each session you rate difficulty and log results — this data streams directly into the fuzzy logic engine.",
+    desc: "After each session you rate difficulty and log results — this data streams directly into the adaptive AI engine.",
     icon: <ChartBarIcon className="w-5 h-5 text-black" />,
   },
   {
@@ -213,7 +213,7 @@ export default function AdaptiveFitnessPage() {
                 <span className="font-medium" style={{ color: "#7cb900" }}>
                   At Sync-Fit, our adaptive programs
                 </span>{" "}
-                use <span style={{ color: "#7cb900" }} className="font-medium">fuzzy logic-driven feedback loops</span>, real-time progress monitoring, and{" "}
+                use <span style={{ color: "#7cb900" }} className="font-medium">intelligent feedback loops</span>, real-time progress monitoring, and{" "}
                 <span style={{ color: "#7cb900" }} className="font-medium">intelligent meal and workout recalibration</span> to eliminate plateaus and keep you progressing toward{" "}
                 <span style={{ color: "#7cb900" }} className="font-medium">consistent, lasting results</span>.
               </p>

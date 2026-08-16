@@ -18,7 +18,7 @@ import { PROGRAM_IMAGES } from "@/constants/program-mapping";
 export const metadata = {
   title: "Intelligent Weight Loss Plan | Sync-Fit",
   description:
-    "AI-powered weight loss plans built with fuzzy logic, calorie optimization, and adaptive fat-burning workouts tailored to your body.",
+    "AI-powered weight loss plans built with adaptive intelligence, calorie optimization, and fat-burning workouts tailored to your body.",
 };
 
 const sidebarPrograms = [
@@ -34,7 +34,7 @@ const benefits = [
   {
     icon: <FireIcon className="w-7 h-7 text-black" />,
     title: "Smart Calorie Deficit",
-    desc: "Our fuzzy logic engine calculates the optimal calorie deficit for your BMI, metabolism, and fat loss goals — no guesswork, no extreme restriction.",
+    desc: "Our adaptive AI engine calculates the optimal calorie deficit for your BMI, metabolism, and fat loss goals — no guesswork, no extreme restriction.",
     image: PROGRAM_IMAGES.weightLoss.benefits[0],
   },
   {
@@ -87,8 +87,8 @@ const workflowSteps = [
   },
   {
     step: "02",
-    title: "Calculate Calorie Deficit via Fuzzy Logic",
-    desc: "Our engine infers your optimal daily deficit by weighing multiple soft variables — no one-size-fits-all approach.",
+    title: "Calculate Calorie Deficit via Adaptive AI",
+    desc: "Our engine infers your optimal daily deficit by weighing multiple personal variables — no one-size-fits-all approach.",
     icon: <CpuChipIcon className="w-5 h-5 text-black" />,
   },
   {
@@ -214,7 +214,7 @@ export default function WeightLossPage() {
                 <span className="font-medium" style={{ color: "#7cb900" }}>
                   At Sync-Fit, our programs
                 </span>{" "}
-                use <span style={{ color: "#7cb900" }} className="font-medium">fuzzy logic-driven calorie analysis</span>, adaptive workout planning, and{" "}
+                use <span style={{ color: "#7cb900" }} className="font-medium">intelligent adaptive calorie analysis</span>, adaptive workout planning, and{" "}
                 <span style={{ color: "#7cb900" }} className="font-medium">personalised meal strategies</span> to help you lose fat safely, stay consistent, and achieve{" "}
                 <span style={{ color: "#7cb900" }} className="font-medium">lasting results</span>.
               </p>
@@ -352,7 +352,7 @@ export default function WeightLossPage() {
                     "Smart calorie tracking system with real-time deficit calculation",
                     "Balanced nutrition planning — no extreme dieting",
                     "Adaptive fat-loss strategy that evolves with your progress",
-                    "Weekly progress optimization powered by fuzzy logic",
+                    "Weekly progress optimization powered by adaptive AI",
                   ].map((item) => (
                     <li
                       key={item}

@@ -16,7 +16,7 @@ const programs = [
   {
     id: "01",
     title: "Smart Strength Training",
-    description: "AI-powered strength programs tailored to your fitness level using fuzzy logic and personalized intensity recommendations.",
+    description: "AI-powered strength programs tailored to your fitness level using intelligent adaptive scaling and personalized intensity recommendations.",
     icon: BuildingLibraryIcon,
     href: "/strength-training",
     bgImage: PROGRAM_IMAGES.strength.main

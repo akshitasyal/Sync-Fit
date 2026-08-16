@@ -46,7 +46,7 @@ const benefits = [
   {
     icon: <ArrowTrendingUpIcon className="w-7 h-7 text-black" />,
     title: "Gradual Progression System",
-    desc: "Our fuzzy logic engine monitors consistency and performance, steadily increasing workout difficulty and calorie targets as your fitness improves — no sudden jumps.",
+    desc: "Our adaptive AI engine monitors consistency and performance, steadily increasing workout difficulty and calorie targets as your fitness improves — no sudden jumps.",
     image: PROGRAM_IMAGES.beginner.benefits[2],
   },
 ];
@@ -106,7 +106,7 @@ const workflowSteps = [
   {
     step: "05",
     title: "Gradually Increase Difficulty",
-    desc: "Once consistency thresholds are met, the fuzzy logic engine promotes you to the next tier — adding volume, intensity, or complexity incrementally.",
+    desc: "Once consistency thresholds are met, the adaptive engine promotes you to the next tier — adding volume, intensity, or complexity incrementally.",
     icon: <AdjustmentsHorizontalIcon className="w-5 h-5 text-black" />,
   },
 ];
@@ -214,7 +214,7 @@ export default function BeginnerStartPage() {
                 <span className="font-medium" style={{ color: "#7cb900" }}>
                   Beginner Smart Start program
                 </span>{" "}
-                uses <span style={{ color: "#7cb900" }} className="font-medium">fuzzy logic to assess your current fitness level</span> and assigns{" "}
+                uses <span style={{ color: "#7cb900" }} className="font-medium">adaptive intelligence to assess your current fitness level</span> and assigns{" "}
                 <span style={{ color: "#7cb900" }} className="font-medium">safe, manageable workouts and simple meal plans</span> so you build real habits and{" "}
                 <span style={{ color: "#7cb900" }} className="font-medium">gain confidence from day one</span>.
               </p>
@@ -233,7 +233,7 @@ export default function BeginnerStartPage() {
                 Designed for Beginners, Built for Confidence
               </h2>
               <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-2xl">
-                Sync-Fit helps beginners build <span style={{ color: "#7cb900" }}>consistency without confusion</span>. Using fuzzy logic, the system assigns light workouts, simple meals, and{" "}
+                Sync-Fit helps beginners build <span style={{ color: "#7cb900" }}>consistency without confusion</span>. Using adaptive intelligence, the system assigns light workouts, simple meals, and{" "}
                 <span style={{ color: "#7cb900" }}>gradually increases difficulty</span> as your fitness improves.
               </p>
 

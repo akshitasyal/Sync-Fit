@@ -34,7 +34,7 @@ const benefits = [
   {
     icon: <HeartIcon className="w-7 h-7 text-black" />,
     title: "Enhanced Cardiovascular Health",
-    desc: "Strengthen your heart and lungs with routines that push your aerobic capacity safely using fuzzy logic scaling.",
+    desc: "Strengthen your heart and lungs with routines that push your aerobic capacity safely using adaptive intensity scaling.",
     image: PROGRAM_IMAGES.cardio.benefits[0],
   },
   {
