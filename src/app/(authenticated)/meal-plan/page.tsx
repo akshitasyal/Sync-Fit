@@ -247,19 +247,19 @@ export default function MealPlanPage() {
   }
 
   return (
-    <div className="flex-grow bg-[#fbfbf9] p-5 md:p-8 lg:p-10 overflow-y-auto min-h-screen text-[#111111]">
-      <div className="max-w-[1440px] mx-auto space-y-6">
+    <div className="flex-grow bg-[#fbfbf9] p-3.5 sm:p-6 md:p-8 lg:p-10 overflow-y-auto min-h-screen text-[#111111]">
+      <div className="max-w-[1440px] mx-auto space-y-5 sm:space-y-6">
         
         {/* ── 1. Top Header Area with Salad Illustration ── */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 relative">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full bg-[#8bb900] inline-block" />
-              <span className="text-[11px] font-black tracking-[0.16em] text-gray-500 uppercase">
+              <span className="text-[10px] sm:text-[11px] font-black tracking-[0.16em] text-gray-500 uppercase">
                 NUTRITION
               </span>
             </div>
-            <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-[#111111]">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#111111]">
               Weekly Meal Plan
             </h1>
             <p className="text-gray-500 text-xs md:text-sm font-medium mt-0.5">
@@ -285,16 +285,16 @@ export default function MealPlanPage() {
         </div>
 
         {/* ── 2. 7-Day Carousel Selector ── */}
-        <div className="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-1 scrollbar-none no-scrollbar -mx-3.5 px-3.5 sm:mx-0 sm:px-0">
           <button
             onClick={() => setSelectedDayIndex((prev) => Math.max(0, prev - 1))}
             disabled={selectedDayIndex === 0}
-            className="w-10 h-10 rounded-2xl bg-white border border-gray-200/80 flex items-center justify-center text-gray-600 hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-white flex-shrink-0 transition-all shadow-sm cursor-pointer"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-white border border-gray-200/80 flex items-center justify-center text-gray-600 hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-white flex-shrink-0 transition-all shadow-xs cursor-pointer"
           >
             <ChevronLeftIcon className="w-4 h-4" />
           </button>
 
-          <div className="flex items-center gap-2.5 flex-1 min-w-0">
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-1 min-w-0">
             {mealPlan?.days?.map((day, idx) => {
               const isSelected = selectedDayIndex === idx;
               const dateObj = new Date(day.date);
@@ -304,14 +304,14 @@ export default function MealPlanPage() {
                 <button
                   key={idx}
                   onClick={() => setSelectedDayIndex(idx)}
-                  className={`flex-1 min-w-[115px] py-2.5 px-3 rounded-2xl text-center transition-all duration-200 cursor-pointer ${
+                  className={`flex-1 min-w-[100px] sm:min-w-[115px] py-2 sm:py-2.5 px-2.5 sm:px-3 rounded-xl sm:rounded-2xl text-center transition-all duration-200 cursor-pointer ${
                     isSelected
-                      ? "bg-[#dcf836] text-[#111111] font-black shadow-sm"
+                      ? "bg-[#dcf836] text-[#111111] font-black shadow-xs"
                       : "bg-white border border-gray-200/70 text-gray-700 hover:border-gray-300 hover:bg-gray-50/80 font-medium"
                   }`}
                 >
                   <p className="text-xs font-bold leading-tight">{day.dayOfWeek}</p>
-                  <p className={`text-[11px] mt-0.5 ${isSelected ? "text-black/75 font-bold" : "text-gray-400"}`}>
+                  <p className={`text-[10px] sm:text-[11px] mt-0.5 ${isSelected ? "text-black/75 font-bold" : "text-gray-400"}`}>
                     {formattedDate}
                   </p>
                 </button>
@@ -322,14 +322,14 @@ export default function MealPlanPage() {
           <button
             onClick={() => setSelectedDayIndex((prev) => Math.min((mealPlan?.days?.length || 1) - 1, prev + 1))}
             disabled={!mealPlan?.days || selectedDayIndex === mealPlan.days.length - 1}
-            className="w-10 h-10 rounded-2xl bg-white border border-gray-200/80 flex items-center justify-center text-gray-600 hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-white flex-shrink-0 transition-all shadow-sm cursor-pointer"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-white border border-gray-200/80 flex items-center justify-center text-gray-600 hover:bg-gray-50 disabled:opacity-30 disabled:hover:bg-white flex-shrink-0 transition-all shadow-xs cursor-pointer"
           >
             <ChevronRightIcon className="w-4 h-4" />
           </button>
         </div>
 
         {/* ── 3. Macro KPI Row (5 Stat Cards) ── */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5">
           {/* Total Calories */}
           <div className="bg-white p-4 rounded-2xl border border-gray-200/70 shadow-sm flex flex-col justify-between">
             <div className="flex items-center gap-1.5 text-gray-400 text-[10px] font-black tracking-wider uppercase mb-1">
@@ -501,22 +501,22 @@ export default function MealPlanPage() {
                       </p>
 
                       {/* Macro Line: Stacked as per Mockup */}
-                      <div className="grid grid-cols-4 gap-1 text-center mt-3 pt-2.5 border-t border-gray-100">
+                      <div className="grid grid-cols-4 gap-0.5 sm:gap-1 text-center mt-2.5 sm:mt-3 pt-2 sm:pt-2.5 border-t border-gray-100">
                         <div>
-                          <p className="text-xs font-black text-gray-900 leading-tight">🔥 {meal.calories}</p>
-                          <p className="text-[9px] text-gray-400 font-bold uppercase">kcal</p>
+                          <p className="text-[11px] sm:text-xs font-black text-gray-900 leading-tight">🔥 {meal.calories}</p>
+                          <p className="text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase">kcal</p>
                         </div>
                         <div>
-                          <p className="text-xs font-black text-gray-900 leading-tight">{meal.protein}g</p>
-                          <p className="text-[9px] text-gray-400 font-bold uppercase">Protein</p>
+                          <p className="text-[11px] sm:text-xs font-black text-gray-900 leading-tight">{meal.protein}g</p>
+                          <p className="text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase">Protein</p>
                         </div>
                         <div>
-                          <p className="text-xs font-black text-gray-900 leading-tight">{meal.carbs}g</p>
-                          <p className="text-[9px] text-gray-400 font-bold uppercase">Carbs</p>
+                          <p className="text-[11px] sm:text-xs font-black text-gray-900 leading-tight">{meal.carbs}g</p>
+                          <p className="text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase">Carbs</p>
                         </div>
                         <div>
-                          <p className="text-xs font-black text-gray-900 leading-tight">{meal.fat}g</p>
-                          <p className="text-[9px] text-gray-400 font-bold uppercase">Fat</p>
+                          <p className="text-[11px] sm:text-xs font-black text-gray-900 leading-tight">{meal.fat}g</p>
+                          <p className="text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase">Fat</p>
                         </div>
                       </div>
                     </div>
@@ -524,7 +524,7 @@ export default function MealPlanPage() {
                     {/* View Details Action Button */}
                     <button
                       onClick={() => setSelectedMealSlot({ meal, slot: item.slot, dayDate: activeDay.date })}
-                      className="mt-3.5 w-full bg-[#f4fae6] hover:bg-[#e8f5cc] text-[#3b4e00] font-bold text-xs py-2 rounded-xl text-center transition-all flex items-center justify-center gap-1 cursor-pointer"
+                      className="mt-3 sm:mt-3.5 w-full bg-[#f4fae6] hover:bg-[#e8f5cc] text-[#3b4e00] font-bold text-xs py-2 rounded-xl text-center transition-all flex items-center justify-center gap-1 cursor-pointer"
                     >
                       View Details <span>→</span>
                     </button>
@@ -650,10 +650,10 @@ export default function MealPlanPage() {
 
       {/* ── 6. Interactive Meal Detail & Swap Modal ── */}
       {selectedMealSlot && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col">
             {/* Modal Image */}
-            <div className="h-52 w-full relative overflow-hidden bg-gray-100">
+            <div className="h-44 sm:h-52 w-full relative overflow-hidden bg-gray-100 flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={selectedMealSlot.meal.imageUrl || getMealImage(selectedMealSlot.meal.name, selectedMealSlot.slot)}
@@ -662,7 +662,7 @@ export default function MealPlanPage() {
               />
               <button
                 onClick={() => setSelectedMealSlot(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-black/60 text-white hover:bg-black transition-all cursor-pointer"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-full bg-black/60 text-white hover:bg-black transition-all cursor-pointer"
               >
                 <XMarkIcon className="w-5 h-5" />
               </button>
@@ -674,9 +674,9 @@ export default function MealPlanPage() {
             </div>
 
             {/* Modal Content */}
-            <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
+            <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
               <div>
-                <h2 className="text-xl font-black text-[#111111]">
+                <h2 className="text-lg sm:text-xl font-black text-[#111111]">
                   {selectedMealSlot.meal.name}
                 </h2>
                 <p className="text-xs text-gray-500 mt-1">
@@ -688,22 +688,22 @@ export default function MealPlanPage() {
               </div>
 
               {/* Macro Pills */}
-              <div className="grid grid-cols-4 gap-2 bg-gray-50 p-3 rounded-2xl text-center">
+              <div className="grid grid-cols-4 gap-1.5 sm:gap-2 bg-gray-50 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl text-center">
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">Calories</p>
-                  <p className="text-sm font-black text-gray-800">{selectedMealSlot.meal.calories}</p>
+                  <p className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase">Calories</p>
+                  <p className="text-xs sm:text-sm font-black text-gray-800">{selectedMealSlot.meal.calories}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">Protein</p>
-                  <p className="text-sm font-black text-gray-800">{selectedMealSlot.meal.protein}g</p>
+                  <p className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase">Protein</p>
+                  <p className="text-xs sm:text-sm font-black text-gray-800">{selectedMealSlot.meal.protein}g</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">Carbs</p>
-                  <p className="text-sm font-black text-gray-800">{selectedMealSlot.meal.carbs}g</p>
+                  <p className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase">Carbs</p>
+                  <p className="text-xs sm:text-sm font-black text-gray-800">{selectedMealSlot.meal.carbs}g</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">Fat</p>
-                  <p className="text-sm font-black text-gray-800">{selectedMealSlot.meal.fat}g</p>
+                  <p className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase">Fat</p>
+                  <p className="text-xs sm:text-sm font-black text-gray-800">{selectedMealSlot.meal.fat}g</p>
                 </div>
               </div>
 
@@ -739,14 +739,14 @@ export default function MealPlanPage() {
             </div>
 
             {/* Modal Actions */}
-            <div className="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between gap-3">
+            <div className="p-3 sm:p-4 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 flex-shrink-0">
               <button
                 type="button"
                 onClick={() => {
                   const key = `${selectedMealSlot.dayDate}-${selectedMealSlot.slot}-${selectedMealSlot.meal._id}`;
                   toggleEatenMeal(key);
                 }}
-                className="flex-1 bg-white hover:bg-gray-100 text-gray-800 border border-gray-200 font-bold text-xs py-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                className="w-full sm:flex-1 bg-white hover:bg-gray-100 text-gray-800 border border-gray-200 font-bold text-xs py-2.5 sm:py-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
               >
                 {eatenMealKeys.includes(`${selectedMealSlot.dayDate}-${selectedMealSlot.slot}-${selectedMealSlot.meal._id}`) ? (
                   <>
@@ -765,7 +765,7 @@ export default function MealPlanPage() {
                 type="button"
                 disabled={isReplacing}
                 onClick={handleReplaceMeal}
-                className="flex-1 bg-[#dcf836] hover:bg-[#cbf018] text-[#111111] font-bold text-xs py-3 rounded-xl transition-all shadow-sm disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5"
+                className="w-full sm:flex-1 bg-[#dcf836] hover:bg-[#cbf018] text-[#111111] font-bold text-xs py-2.5 sm:py-3 rounded-xl transition-all shadow-sm disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <ArrowPathIcon className={`w-4 h-4 ${isReplacing ? "animate-spin" : ""}`} />
                 <span>{isReplacing ? "Swapping..." : "Swap / Replace Meal"}</span>

@@ -156,18 +156,18 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="flex-grow bg-[#f8f7f5] p-6 md:p-10">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="flex-grow bg-[#f8f7f5] p-3.5 sm:p-6 md:p-10">
+      <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
 
         {/* ── Header ──────────────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 sm:gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-1 sm:mb-2">
               <div className="w-2 h-2 rounded-full bg-[#c1ff00]" />
               <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Account</span>
             </div>
 
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="text-gray-500 text-xs sm:text-sm mt-0.5">
               {session?.user?.email}
             </p>
           </div>
@@ -175,7 +175,7 @@ export default function ProfilePage() {
           {!editing ? (
             <button
               onClick={() => setEditing(true)}
-              className="flex items-center gap-2 px-6 py-3 bg-[#c1ff00] hover:bg-[#a9e000] text-[#111111] font-bold rounded-xl transition-all shadow-[0_4px_14px_rgba(193,255,0,0.35)] hover:-translate-y-0.5 text-sm self-start sm:self-auto"
+              className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#c1ff00] hover:bg-[#a9e000] text-[#111111] font-bold rounded-xl transition-all shadow-[0_4px_14px_rgba(193,255,0,0.35)] hover:-translate-y-0.5 text-xs sm:text-sm self-start sm:self-auto cursor-pointer"
             >
               <PencilSquareIcon className="w-4 h-4" />
               Edit Profile
@@ -183,7 +183,7 @@ export default function ProfilePage() {
           ) : (
             <button
               onClick={() => setEditing(false)}
-              className="flex items-center gap-2 px-5 py-3 bg-white border border-gray-200 rounded-xl text-gray-600 hover:text-[#111] font-semibold transition-all text-sm shadow-sm self-start sm:self-auto"
+              className="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-white border border-gray-200 rounded-xl text-gray-600 hover:text-[#111] font-semibold transition-all text-xs sm:text-sm shadow-xs self-start sm:self-auto cursor-pointer"
             >
               <XMarkIcon className="w-4 h-4" /> Cancel
             </button>
@@ -192,36 +192,36 @@ export default function ProfilePage() {
 
         {/* ── Success banner ──────────────────────────────── */}
         {saved && (
-          <div className="p-4 bg-[#c1ff00]/10 border border-[#c1ff00]/30 rounded-2xl flex items-center gap-3 text-sm font-semibold text-[#111111]">
+          <div className="p-3.5 sm:p-4 bg-[#c1ff00]/10 border border-[#c1ff00]/30 rounded-xl sm:rounded-2xl flex items-center gap-3 text-xs sm:text-sm font-semibold text-[#111111]">
             <CheckCircleIcon className="w-5 h-5 text-black flex-shrink-0" />
             Profile updated and AI blueprint recalibrated successfully!
           </div>
         )}
         {error && (
-          <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm">{error}</div>
+          <div className="p-3.5 sm:p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-xs sm:text-sm">{error}</div>
         )}
 
         {/* ── VIEW MODE ───────────────────────────────────── */}
         {!editing && (
           <>
             {/* Identity card */}
-            <div className="bg-white border border-gray-100 rounded-[30px] p-6 shadow-sm flex items-center gap-5">
-              <div className="w-16 h-16 bg-[#c1ff00] rounded-2xl flex items-center justify-center flex-shrink-0">
+            <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-[30px] p-4 sm:p-6 shadow-xs flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-5">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-[#c1ff00] rounded-2xl flex items-center justify-center flex-shrink-0">
                 <UserCircleIcon className="w-8 h-8 text-black" />
               </div>
-              <div>
-                <h2 className="text-xl font-black text-[#111111]">{user?.name || "—"}</h2>
-                <p className="text-gray-400 text-sm">{user?.email}</p>
-                <div className="flex items-center gap-2 mt-2 flex-wrap">
-                  <span className="text-[10px] font-bold capitalize bg-gray-100 px-2.5 py-1 rounded-full text-gray-600">{user?.gender || "—"}</span>
-                  <span className="text-[10px] font-bold capitalize bg-gray-100 px-2.5 py-1 rounded-full text-gray-600">{user?.experienceLevel || "—"}</span>
+              <div className="min-w-0">
+                <h2 className="text-lg sm:text-xl font-black text-[#111111] truncate">{user?.name || "—"}</h2>
+                <p className="text-gray-400 text-xs sm:text-sm truncate">{user?.email}</p>
+                <div className="flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 mt-2 flex-wrap">
+                  <span className="text-[10px] font-bold capitalize bg-gray-100 px-2.5 py-0.5 sm:py-1 rounded-full text-gray-600">{user?.gender || "—"}</span>
+                  <span className="text-[10px] font-bold capitalize bg-gray-100 px-2.5 py-0.5 sm:py-1 rounded-full text-gray-600">{user?.experienceLevel || "—"}</span>
                   {user?.dietPreference && (
-                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${dietBadgeColor[user.dietPreference] || "bg-gray-100 text-gray-600"}`}>
+                    <span className={`text-[10px] font-bold px-2.5 py-0.5 sm:py-1 rounded-full border ${dietBadgeColor[user.dietPreference] || "bg-gray-100 text-gray-600"}`}>
                       {user.dietPreference}
                     </span>
                   )}
                   {user?.dietGoal && (
-                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${dietBadgeColor[user.dietGoal] || "bg-gray-100 text-gray-600"}`}>
+                    <span className={`text-[10px] font-bold px-2.5 py-0.5 sm:py-1 rounded-full border ${dietBadgeColor[user.dietGoal] || "bg-gray-100 text-gray-600"}`}>
                       {user.dietGoal}
                     </span>
                   )}

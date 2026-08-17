@@ -4,7 +4,7 @@ import Meal from "@/models/Meal";
 
 const vratMeals = [
   {
-    name: "Sabudana Khichdi",
+    name: "Sabudana Khichdi", imageUrl: "/images/meals/sabudana-khichdi.jpg",
     type: "maintenance",
     dietType: ["Fasting", "Vegetarian"],
     category: "breakfast",
@@ -16,7 +16,7 @@ const vratMeals = [
     preparationSteps: ["Soak Sabudana for 4 hours", "Roast and crush peanuts", "Sauté chillies and curry leaves in ghee", "Add sabudana, peanuts and salt", "Cook until translucent"]
   },
   {
-    name: "Kuttu Ki Puri with Aloo Zeera",
+    name: "Kuttu Ki Puri with Aloo Zeera", imageUrl: "/images/meals/kuttu-ki-puri-with-aloo-zeera.jpg",
     type: "maintenance",
     dietType: ["Fasting", "Vegetarian"],
     category: "lunch",
@@ -28,7 +28,7 @@ const vratMeals = [
     preparationSteps: ["Knead Kuttu atta with mashed potatoes", "Make small balls and fry as puris", "Sauté potatoes with cumin and salt for Aloo Zeera"]
   },
   {
-    name: "Singhara Halwa",
+    name: "Singhara Halwa", imageUrl: "/images/meals/singhara-halwa.jpg",
     type: "bulking",
     dietType: ["Fasting", "Vegetarian"],
     category: "snack",
@@ -40,7 +40,7 @@ const vratMeals = [
     preparationSteps: ["Roast flour in ghee until fragrant", "Add warm water and sugar", "Stir until thick", "Garnish with nuts"]
   },
   {
-    name: "Makhana Kheer",
+    name: "Makhana Kheer", imageUrl: "/images/meals/makhana-kheer.jpg",
     type: "maintenance",
     dietType: ["Fasting", "Vegetarian"],
     category: "dinner",
@@ -52,7 +52,7 @@ const vratMeals = [
     preparationSteps: ["Roast makhana in ghee and crush slightly", "Boil milk and reduce", "Add makhana and sugar", "Simmer until creamy"]
   },
   {
-    name: "Fruit & Nut Bowl",
+    name: "Fruit & Nut Bowl", imageUrl: "/images/meals/fruit-and-nut-bowl.jpg",
     type: "cutting",
     dietType: ["Fasting", "Vegetarian", "Vegan"],
     category: "snack",
@@ -64,7 +64,7 @@ const vratMeals = [
     preparationSteps: ["Chop fruits into equal sizes", "Toss with crushed nuts", "Optional: sprinkle some Sendha Namak and lemon"]
   },
   {
-    name: "Rajgira Paratha",
+    name: "Rajgira Paratha", imageUrl: "/images/meals/rajgira-paratha.jpg",
     type: "maintenance",
     dietType: ["Fasting", "Vegetarian"],
     category: "breakfast",
@@ -76,7 +76,7 @@ const vratMeals = [
     preparationSteps: ["Mix flour and potato to form dough", "Roll out parathas", "Cook on griddle with ghee"]
   },
   {
-    name: "Vrat Wali Paneer Curry",
+    name: "Vrat Wali Paneer Curry", imageUrl: "/images/meals/vrat-wali-paneer-curry.jpg",
     type: "bulking",
     dietType: ["Fasting", "Vegetarian"],
     category: "lunch",
@@ -88,7 +88,7 @@ const vratMeals = [
     preparationSteps: ["Sauté cumin and ginger", "Add tomato puree and cook", "Add paneer cubes and salt", "Finish with a splash of cream"]
   },
   {
-    name: "Baked Sweet Potato Wedges",
+    name: "Baked Sweet Potato Wedges", imageUrl: "/images/meals/baked-sweet-potato-wedges.jpg",
     type: "maintenance",
     dietType: ["Fasting", "Vegetarian", "Vegan"],
     category: "snack",
@@ -100,7 +100,7 @@ const vratMeals = [
     preparationSteps: ["Slice potatoes into wedges", "Season with salt and pepper", "Bake at 200°C until crispy", "Drizzle with lemon"]
   },
   {
-    name: "Samak Rice Khichdi",
+    name: "Samak Rice Khichdi", imageUrl: "/images/meals/samak-rice-khichdi.jpg",
     type: "maintenance",
     dietType: ["Fasting", "Vegetarian"],
     category: "dinner",
@@ -112,7 +112,7 @@ const vratMeals = [
     preparationSteps: ["Wash Samak rice", "Sauté potatoes and ginger in ghee", "Add rice and water (1:2 ratio)", "Pressure cook or simmer until soft"]
   },
   {
-    name: "Cucumber Raita (Fasting Style)",
+    name: "Cucumber Raita (Fasting Style)", imageUrl: "/images/meals/cucumber-raita-fasting-style.jpg",
     type: "cutting",
     dietType: ["Fasting", "Vegetarian"],
     category: "snack",

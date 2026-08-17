@@ -20,7 +20,7 @@ import Meal from "../models/Meal";
 const fastingMeals = [
   // ── VEGETARIAN  Breakfast ─────────────────────────────────────────────────
   {
-    name: "Fruit Bowl with Nuts",
+    name: "Fruit Bowl with Nuts", imageUrl: "/images/meals/fruit-bowl-with-nuts.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "breakfast",
     calories: 250, protein: 5, carbs: 45, fat: 8,
@@ -28,7 +28,7 @@ const fastingMeals = [
     preparationSteps: ["Chop all fruits.", "Mix in bowl.", "Top with chopped almonds and walnuts."],
   },
   {
-    name: "Sabudana Kheer",
+    name: "Sabudana Kheer", imageUrl: "/images/meals/sabudana-kheer.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "breakfast",
     calories: 320, protein: 6, carbs: 60, fat: 7,
@@ -36,7 +36,7 @@ const fastingMeals = [
     preparationSteps: ["Soak sabudana 2 hrs.", "Boil milk, add sabudana.", "Add jaggery, cardamom, nuts. Serve warm."],
   },
   {
-    name: "Makhana Milk with Dates",
+    name: "Makhana Milk with Dates", imageUrl: "/images/meals/makhana-milk-with-dates.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "breakfast",
     calories: 280, protein: 8, carbs: 40, fat: 10,
@@ -44,7 +44,7 @@ const fastingMeals = [
     preparationSteps: ["Lightly roast makhana.", "Boil milk with dates and saffron.", "Add makhana, simmer 5 min."],
   },
   {
-    name: "Dry Fruits Mix and Apple",
+    name: "Dry Fruits Mix and Apple", imageUrl: "/images/meals/dry-fruits-mix-and-apple.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "breakfast",
     calories: 220, protein: 4, carbs: 35, fat: 8,
@@ -52,7 +52,7 @@ const fastingMeals = [
     preparationSteps: ["Slice the apple.", "Serve alongside a mix of dry fruits."],
   },
   {
-    name: "Sabudana Khichdi (Vrat Specials)",
+    name: "Sabudana Khichdi (Vrat Specials)", imageUrl: "/images/meals/sabudana-khichdi-vrat-specials.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "breakfast",
     calories: 320, protein: 5, carbs: 64, fat: 8,
@@ -60,7 +60,7 @@ const fastingMeals = [
     preparationSteps: ["Soak sabudana.", "Sauté cumin + chilies in ghee.", "Add peanuts + sabudana. Cook until translucent."],
   },
   {
-    name: "Kuttu ka Chilla",
+    name: "Kuttu ka Chilla", imageUrl: "/images/meals/kuttu-ka-chilla.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "breakfast",
     calories: 280, protein: 7, carbs: 45, fat: 8,
@@ -68,7 +68,7 @@ const fastingMeals = [
     preparationSteps: ["Mix flour with yogurt and water.", "Cook thin pancakes on tawa."],
   },
   {
-    name: "Rajgira (Amaranth) Porridge",
+    name: "Rajgira (Amaranth) Porridge", imageUrl: "/images/meals/rajgira-amaranth-porridge.jpg",
     type: "bulking", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "High-Protein"], category: "breakfast",
     calories: 290, protein: 10, carbs: 48, fat: 6,
@@ -76,7 +76,7 @@ const fastingMeals = [
     preparationSteps: ["Roast flour in ghee.", "Add milk and simmer.", "Sweeten with jaggery."],
   },
   {
-    name: "Singhare ki Puri",
+    name: "Singhare ki Puri", imageUrl: "/images/meals/singhare-ki-puri.jpg",
     type: "bulking", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "breakfast",
     calories: 355, protein: 6, carbs: 52, fat: 14,
@@ -84,7 +84,7 @@ const fastingMeals = [
     preparationSteps: ["Knead flour with potato + salt.", "Roll and fry in ghee."],
   },
   {
-    name: "Makhana Porridge",
+    name: "Makhana Porridge", imageUrl: "/images/meals/makhana-porridge.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "High-Protein"], category: "breakfast",
     calories: 220, protein: 8, carbs: 28, fat: 8,
@@ -94,7 +94,7 @@ const fastingMeals = [
 
   // ── VEGAN  Breakfast ──────────────────────────────────────────────────────
   {
-    name: "Papaya and Apple Bowl",
+    name: "Papaya and Apple Bowl", imageUrl: "/images/meals/papaya-and-apple-bowl.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Low-Carb"], category: "breakfast",
     calories: 150, protein: 1, carbs: 38, fat: 0,
@@ -102,7 +102,7 @@ const fastingMeals = [
     preparationSteps: ["Dice fruits.", "Sprinkle with lemon juice."],
   },
   {
-    name: "Coconut Water and Banana Bowl",
+    name: "Coconut Water and Banana Bowl", imageUrl: "/images/meals/coconut-water-and-banana-bowl.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Low-Carb"], category: "breakfast",
     calories: 170, protein: 2, carbs: 40, fat: 0,
@@ -110,7 +110,7 @@ const fastingMeals = [
     preparationSteps: ["Slice banana into bowl.", "Pour coconut water.", "Top with chia and pomegranate."],
   },
   {
-    name: "Sabudana Tikki Vegan",
+    name: "Sabudana Tikki Vegan", imageUrl: "/images/meals/sabudana-tikki-vegan.jpg",
     type: "maintenance", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "breakfast",
     calories: 280, protein: 4, carbs: 52, fat: 7,
@@ -118,7 +118,7 @@ const fastingMeals = [
     preparationSteps: ["Mix soaked sabudana with mashed potato and rock salt.", "Shape into flat tikkis and pan-fry in coconut oil."],
   },
   {
-    name: "Mango and Chia Parfait",
+    name: "Mango and Chia Parfait", imageUrl: "/images/meals/mango-and-chia-parfait.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting"], category: "breakfast",
     calories: 185, protein: 3, carbs: 38, fat: 4,
@@ -128,7 +128,7 @@ const fastingMeals = [
 
   // ── VEGETARIAN  Lunch ─────────────────────────────────────────────────────
   {
-    name: "Sabudana Khichdi",
+    name: "Sabudana Khichdi", imageUrl: "/images/meals/sabudana-khichdi.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "lunch",
     calories: 450, protein: 6, carbs: 70, fat: 16,
@@ -136,7 +136,7 @@ const fastingMeals = [
     preparationSteps: ["Soak sabudana overnight.", "Heat ghee, add cumin+potatoes.", "Add peanuts, chilies, sabudana. Season with rock salt."],
   },
   {
-    name: "Kuttu Puri with Aloo Sabzi",
+    name: "Kuttu Puri with Aloo Sabzi", imageUrl: "/images/meals/kuttu-puri-with-aloo-sabzi.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "lunch",
     calories: 520, protein: 8, carbs: 75, fat: 20,
@@ -144,7 +144,7 @@ const fastingMeals = [
     preparationSteps: ["Knead kuttu dough, fry puris in ghee.", "Make aloo sabzi with tomatoes and cumin."],
   },
   {
-    name: "Rajgira Roti with Curd",
+    name: "Rajgira Roti with Curd", imageUrl: "/images/meals/rajgira-roti-with-curd.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "lunch",
     calories: 350, protein: 10, carbs: 55, fat: 8,
@@ -152,7 +152,7 @@ const fastingMeals = [
     preparationSteps: ["Mix rajgira flour with mashed potatoes and salt.", "Roll and cook rotis on tawa.", "Serve with curd."],
   },
   {
-    name: "Sama Rice Khichdi",
+    name: "Sama Rice Khichdi", imageUrl: "/images/meals/sama-rice-khichdi.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "lunch",
     calories: 310, protein: 7, carbs: 50, fat: 9,
@@ -160,7 +160,7 @@ const fastingMeals = [
     preparationSteps: ["Soak sama rice 20 min.", "Heat ghee, add cumin+potatoes+peanuts.", "Add rice and water. Cook until soft."],
   },
   {
-    name: "Kuttu Roti with Aloo Sabzi",
+    name: "Kuttu Roti with Aloo Sabzi", imageUrl: "/images/meals/kuttu-roti-with-aloo-sabzi.jpg",
     type: "bulking", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "lunch",
     calories: 420, protein: 9, carbs: 68, fat: 12,
@@ -168,7 +168,7 @@ const fastingMeals = [
     preparationSteps: ["Knead kuttu dough, make rotis.", "Prepare potato and tomato sabzi."],
   },
   {
-    name: "Makhana Curry with Kuttu Paratha",
+    name: "Makhana Curry with Kuttu Paratha", imageUrl: "/images/meals/makhana-curry-with-kuttu-paratha.jpg",
     type: "bulking", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "lunch",
     calories: 450, protein: 12, carbs: 58, fat: 18,
@@ -176,7 +176,7 @@ const fastingMeals = [
     preparationSteps: ["Prepare rich tomato cashew gravy for makhana.", "Serve with kuttu parathas."],
   },
   {
-    name: "Sama Rice Pulao",
+    name: "Sama Rice Pulao", imageUrl: "/images/meals/sama-rice-pulao.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "lunch",
     calories: 380, protein: 6, carbs: 70, fat: 8,
@@ -186,7 +186,7 @@ const fastingMeals = [
 
   // ── VEGAN  Lunch ─────────────────────────────────────────────────────────
   {
-    name: "Sweet Potato and Peanut Curry",
+    name: "Sweet Potato and Peanut Curry", imageUrl: "/images/meals/sweet-potato-and-peanut-curry.jpg",
     type: "maintenance", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "lunch",
     calories: 340, protein: 8, carbs: 52, fat: 11,
@@ -194,7 +194,7 @@ const fastingMeals = [
     preparationSteps: ["Cube and boil sweet potatoes.", "Make gravy with roasted peanuts and coconut milk.", "Simmer together."],
   },
   {
-    name: "Vegan Sama Rice Khichdi",
+    name: "Vegan Sama Rice Khichdi", imageUrl: "/images/meals/vegan-sama-rice-khichdi.jpg",
     type: "maintenance", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "lunch",
     calories: 290, protein: 5, carbs: 58, fat: 5,
@@ -202,7 +202,7 @@ const fastingMeals = [
     preparationSteps: ["Cook sama with diced pumpkin in coconut oil.", "Season with rock salt and cumin."],
   },
   {
-    name: "Raw Banana Sabzi",
+    name: "Raw Banana Sabzi", imageUrl: "/images/meals/raw-banana-sabzi.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Low-Carb"], category: "lunch",
     calories: 210, protein: 3, carbs: 38, fat: 5,
@@ -212,7 +212,7 @@ const fastingMeals = [
 
   // ── VEGETARIAN  Dinner ────────────────────────────────────────────────────
   {
-    name: "Lauki Sabzi with Singhara Roti",
+    name: "Lauki Sabzi with Singhara Roti", imageUrl: "/images/meals/lauki-sabzi-with-singhara-roti.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "dinner",
     calories: 280, protein: 6, carbs: 45, fat: 7,
@@ -220,7 +220,7 @@ const fastingMeals = [
     preparationSteps: ["Cook lauki with cumin and chilies in ghee.", "Knead singhara flour, roll rotis and cook."],
   },
   {
-    name: "Makhana Curry",
+    name: "Makhana Curry", imageUrl: "/images/meals/makhana-curry.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "dinner",
     calories: 320, protein: 8, carbs: 35, fat: 15,
@@ -228,7 +228,7 @@ const fastingMeals = [
     preparationSteps: ["Roast makhana lightly.", "Blend tomatoes and cashews into paste.", "Cook paste in ghee, make gravy, add makhana."],
   },
   {
-    name: "Sweet Potato Chaat",
+    name: "Sweet Potato Chaat", imageUrl: "/images/meals/sweet-potato-chaat.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "dinner",
     calories: 240, protein: 4, carbs: 55, fat: 1,
@@ -236,7 +236,7 @@ const fastingMeals = [
     preparationSteps: ["Boil sweet potatoes.", "Cube and toss with salt, cumin, lemon juice."],
   },
   {
-    name: "Fasting Thali Light Meal",
+    name: "Fasting Thali Light Meal", imageUrl: "/images/meals/fasting-thali-light-meal.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "dinner",
     calories: 380, protein: 9, carbs: 65, fat: 12,
@@ -244,7 +244,7 @@ const fastingMeals = [
     preparationSteps: ["Prepare paneer curry with tomatoes and ghee.", "Cook sama rice.", "Serve with plain curd."],
   },
   {
-    name: "Dahi Aloo Fasting",
+    name: "Dahi Aloo Fasting", imageUrl: "/images/meals/dahi-aloo-fasting.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "dinner",
     calories: 290, protein: 8, carbs: 45, fat: 8,
@@ -252,7 +252,7 @@ const fastingMeals = [
     preparationSteps: ["Boil and dice potatoes.", "Mix with beaten yogurt.", "Temper with cumin in ghee."],
   },
   {
-    name: "Paneer and Tomato Sabzi Vrat",
+    name: "Paneer and Tomato Sabzi Vrat", imageUrl: "/images/meals/paneer-and-tomato-sabzi-vrat.jpg",
     type: "maintenance", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "High-Protein"], category: "dinner",
     calories: 340, protein: 18, carbs: 12, fat: 24,
@@ -260,7 +260,7 @@ const fastingMeals = [
     preparationSteps: ["Sauté tomatoes until soft.", "Add paneer cubes and simmer."],
   },
   {
-    name: "Dry Fruit Milk",
+    name: "Dry Fruit Milk", imageUrl: "/images/meals/dry-fruit-milk.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting"], category: "dinner",
     calories: 260, protein: 12, carbs: 22, fat: 14,
@@ -270,7 +270,7 @@ const fastingMeals = [
 
   // ── VEGAN  Dinner ────────────────────────────────────────────────────────
   {
-    name: "Mashed Sweet Potato Bowl",
+    name: "Mashed Sweet Potato Bowl", imageUrl: "/images/meals/mashed-sweet-potato-bowl.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Low-Carb"], category: "dinner",
     calories: 250, protein: 3, carbs: 58, fat: 1,
@@ -278,7 +278,7 @@ const fastingMeals = [
     preparationSteps: ["Boil and mash sweet potatoes.", "Season with salt, cumin, and lime."],
   },
   {
-    name: "Lauki Bottle Gourd Sabzi",
+    name: "Lauki Bottle Gourd Sabzi", imageUrl: "/images/meals/lauki-bottle-gourd-sabzi.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Low-Carb"], category: "dinner",
     calories: 150, protein: 3, carbs: 25, fat: 5,
@@ -286,7 +286,7 @@ const fastingMeals = [
     preparationSteps: ["Dice lauki.", "Sauté with tomato and cumin in coconut oil.", "Pressure cook until soft."],
   },
   {
-    name: "Vegan Makhana Coconut Soup",
+    name: "Vegan Makhana Coconut Soup", imageUrl: "/images/meals/vegan-makhana-coconut-soup.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Low-Carb"], category: "dinner",
     calories: 180, protein: 5, carbs: 22, fat: 8,
@@ -296,7 +296,7 @@ const fastingMeals = [
 
   // ── Snacks (vegetarian + vegan) ───────────────────────────────────────────
   {
-    name: "Roasted Masala Makhana Vrat",
+    name: "Roasted Masala Makhana Vrat", imageUrl: "/images/meals/roasted-masala-makhana-vrat.jpg",
     type: "cutting", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "Low-Carb"], category: "snack",
     calories: 180, protein: 6, carbs: 20, fat: 8,
@@ -304,7 +304,7 @@ const fastingMeals = [
     preparationSteps: ["Dry roast makhana in ghee.", "Toss with spices."],
   },
   {
-    name: "Mixed Fruit Bowl Fasting",
+    name: "Mixed Fruit Bowl Fasting", imageUrl: "/images/meals/mixed-fruit-bowl-fasting.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting"], category: "snack",
     calories: 120, protein: 1, carbs: 30, fat: 0,
@@ -312,7 +312,7 @@ const fastingMeals = [
     preparationSteps: ["Dice all fruits and serve fresh."],
   },
   {
-    name: "Rajgira Ladoo",
+    name: "Rajgira Ladoo", imageUrl: "/images/meals/rajgira-ladoo.jpg",
     type: "bulking", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "Gluten-Free"], category: "snack",
     calories: 240, protein: 5, carbs: 38, fat: 9,
@@ -320,7 +320,7 @@ const fastingMeals = [
     preparationSteps: ["Pop amaranth.", "Mix with melted jaggery.", "Shape into ladoos."],
   },
   {
-    name: "Sweet Potato Chaat Snack",
+    name: "Sweet Potato Chaat Snack", imageUrl: "/images/meals/sweet-potato-chaat-snack.jpg",
     type: "cutting", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting"], category: "snack",
     calories: 190, protein: 4, carbs: 42, fat: 1,
@@ -328,7 +328,7 @@ const fastingMeals = [
     preparationSteps: ["Boil and dice.", "Toss with lemon and rock salt."],
   },
   {
-    name: "Almonds and Walnuts Mix",
+    name: "Almonds and Walnuts Mix", imageUrl: "/images/meals/almonds-and-walnuts-mix.jpg",
     type: "maintenance", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting", "Keto"], category: "snack",
     calories: 210, protein: 6, carbs: 8, fat: 18,
@@ -336,7 +336,7 @@ const fastingMeals = [
     preparationSteps: ["Serve raw or soaked overnight."],
   },
   {
-    name: "Banana Chips Rock Salt",
+    name: "Banana Chips Rock Salt", imageUrl: "/images/meals/banana-chips-rock-salt.jpg",
     type: "bulking", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting"], category: "snack",
     calories: 280, protein: 2, carbs: 35, fat: 14,
@@ -344,7 +344,7 @@ const fastingMeals = [
     preparationSteps: ["Slice banana ultra-thin.", "Deep fry in coconut oil.", "Season with rock salt."],
   },
   {
-    name: "Vrat Peanut Chikki",
+    name: "Vrat Peanut Chikki", imageUrl: "/images/meals/vrat-peanut-chikki.jpg",
     type: "bulking", dietType: "vegetarian", isFastingMeal: true,
     tags: ["Fasting", "High-Protein"], category: "snack",
     calories: 265, protein: 8, carbs: 30, fat: 13,
@@ -352,7 +352,7 @@ const fastingMeals = [
     preparationSteps: ["Roast peanuts.", "Melt jaggery with ghee.", "Mix and press into slabs, cut when cooled."],
   },
   {
-    name: "Dry Fig and Almond Trail Mix",
+    name: "Dry Fig and Almond Trail Mix", imageUrl: "/images/meals/dry-fig-and-almond-trail-mix.jpg",
     type: "maintenance", dietType: "vegan", isFastingMeal: true,
     tags: ["Fasting"], category: "snack",
     calories: 220, protein: 5, carbs: 28, fat: 11,

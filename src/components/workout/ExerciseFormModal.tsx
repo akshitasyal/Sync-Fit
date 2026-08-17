@@ -21,7 +21,7 @@ export default function ExerciseFormModal({ exercise, onClose }: ExerciseFormMod
   const media = getExerciseMedia(exercise.name);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
@@ -29,32 +29,32 @@ export default function ExerciseFormModal({ exercise, onClose }: ExerciseFormMod
       />
 
       {/* Modal Container */}
-      <div className="relative bg-white rounded-[32px] w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl z-10 space-y-6 animate-in zoom-in-95 duration-200">
+      <div className="relative bg-white rounded-2xl sm:rounded-[32px] w-full max-w-2xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 md:p-8 shadow-2xl z-10 space-y-4 sm:space-y-6 animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-gray-100 pb-4">
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[10px] font-black uppercase tracking-widest bg-[#c1ff00]/20 text-[#111111] px-2.5 py-0.5 rounded-full border border-[#c1ff00]/40">
-                Technique &amp; Form Guide
+        <div className="flex items-start justify-between gap-3 sm:gap-4 border-b border-gray-100 pb-3 sm:pb-4">
+          <div className="space-y-1 sm:space-y-1.5 min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest bg-[#c1ff00]/20 text-[#111111] px-2 sm:px-2.5 py-0.5 rounded-full border border-[#c1ff00]/40">
+                Technique Guide
               </span>
-              <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md uppercase">
+              <span className="text-[9px] sm:text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md uppercase">
                 {media.category}
               </span>
-              <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100 uppercase">
-                Pos: {media.bodyPosition}
+              <span className="text-[9px] sm:text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100 uppercase">
+                {media.bodyPosition}
               </span>
-              <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-100 uppercase">
+              <span className="text-[9px] sm:text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-100 uppercase">
                 {media.equipment}
               </span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-[#111111] tracking-tight truncate">
               {exercise.name}
             </h3>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0"
+            className="p-1.5 sm:p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0 cursor-pointer"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>

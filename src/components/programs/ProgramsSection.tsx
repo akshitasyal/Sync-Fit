@@ -65,14 +65,14 @@ const programs = [
 
 export default function ProgramsSection() {
   return (
-    <section className="py-24 bg-white relative">
+    <section className="py-12 sm:py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {programs.map((program) => (
             <Link
               key={program.id}
               href={program.href}
-              className="group relative overflow-hidden bg-[#f8f7f5] rounded-[30px] p-10 min-h-[420px] flex flex-col transition-all duration-300"
+              className="group relative overflow-hidden bg-[#f8f7f5] rounded-2xl sm:rounded-[30px] p-6 sm:p-10 min-h-[340px] sm:min-h-[420px] flex flex-col transition-all duration-300"
             >
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-0 group-hover:opacity-100 z-0"
@@ -81,9 +81,9 @@ export default function ProgramsSection() {
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />
 
               <div className="relative z-10 flex flex-col h-full">
-                <div className="flex justify-between items-start mb-10">
-                  <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#c1ff00] transition-transform duration-300 group-hover:-translate-y-1">
-                    <program.icon className="w-8 h-8 text-[#111111]" />
+                <div className="flex justify-between items-start mb-6 sm:mb-10">
+                  <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-2xl sm:rounded-full bg-[#c1ff00] transition-transform duration-300 group-hover:-translate-y-1">
+                    <program.icon className="w-6 h-6 sm:w-8 sm:h-8 text-[#111111]" />
                   </div>
                   <span className="text-xl font-bold text-[#111111] group-hover:text-white transition-colors duration-300 font-sans">
                     {program.id}.

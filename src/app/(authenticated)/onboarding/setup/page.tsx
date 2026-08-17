@@ -134,13 +134,15 @@ export default function OnboardingSetup() {
 
   if (saved) {
     return (
-      <div className="flex-grow flex items-center justify-center bg-[#f8f7f5]">
-        <div className="text-center space-y-4">
-          <div className="w-20 h-20 bg-[#c1ff00] rounded-full flex items-center justify-center mx-auto">
-            <CheckCircleIcon className="w-10 h-10 text-black" />
+      <div className="min-h-screen bg-[#f8f7f5] flex items-center justify-center p-3.5 sm:p-6 md:p-10">
+        <div className="w-full max-w-2xl space-y-6 sm:space-y-8 my-4 sm:my-8">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 bg-[#c1ff00] rounded-full flex items-center justify-center mx-auto">
+              <CheckCircleIcon className="w-10 h-10 text-black" />
+            </div>
+            <h2 className="text-2xl font-black text-[#111111]">Profile Saved!</h2>
+            <p className="text-gray-400 text-sm">Redirecting to your dashboard…</p>
           </div>
-          <h2 className="text-2xl font-black text-[#111111]">Profile Saved!</h2>
-          <p className="text-gray-400 text-sm">Redirecting to your dashboard…</p>
         </div>
       </div>
     );
@@ -148,73 +150,56 @@ export default function OnboardingSetup() {
 
   // ── Main render ─────────────────────────────────────────────────────────────
   return (
-    <div className="flex-grow bg-[#f8f7f5] py-10 px-4 sm:px-6">
-      <div className="max-w-2xl mx-auto space-y-8">
+    <div className="min-h-screen bg-[#f8f7f5] flex items-center justify-center p-3.5 sm:p-6 md:p-10">
+      <div className="w-full max-w-2xl space-y-6 sm:space-y-8 my-4 sm:my-8">
 
-        {/* Header */}
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-10 h-10 bg-[#c1ff00] rounded-full flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(193,255,0,0.5)]">
-              <BoltIcon className="w-5 h-5 text-black" />
+        {/* Brand */}
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center gap-2.5">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#c1ff00] flex items-center justify-center shadow-[0_0_12px_rgba(193,255,0,0.5)]">
+              <BoltIcon className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
             </div>
-            <span className="font-bold text-[#111111] text-lg tracking-tight">
-              Sync<span className="text-gray-400">Fit</span>
+            <span className="font-bold text-lg sm:text-xl tracking-tight text-[#111111]">
+              Sync<span className="text-[#111111]">Fit</span>
             </span>
           </div>
-          <h1 className="text-3xl font-black text-[#111111] tracking-tight mt-4">
-            {form.age ? "Edit Your Profile" : "Build Your Profile"}
-          </h1>
-          <p className="text-gray-500 text-sm mt-1">
-            Our AI uses this data to calibrate your personal fitness blueprint.
-          </p>
+          <h1 className="text-2xl sm:text-3xl font-black text-[#111111] tracking-tight">Set Up Your Profile</h1>
+          <p className="text-gray-400 text-xs sm:text-sm">Personalize your AI meal and training blueprint.</p>
         </div>
 
-        {/* Step indicator */}
-        <div className="flex items-center gap-0">
+        {/* Stepper */}
+        <div className="flex items-center justify-between px-2 sm:px-6">
           {STEPS.map((s, i) => {
-            const Icon = s.icon;
             const isDone = step > s.id;
             const isCurrent = step === s.id;
+            const Icon = s.icon;
             return (
               <div key={s.id} className="flex items-center flex-1 last:flex-none">
-                <div className="flex flex-col items-center gap-1.5">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all border-2 ${
+                <div className="flex flex-col items-center gap-1 sm:gap-1.5">
+                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all border-2 ${
                     isDone ? "bg-[#c1ff00] border-[#c1ff00]"
                     : isCurrent ? "bg-white border-[#c1ff00] shadow-[0_0_0_4px_rgba(193,255,0,0.15)]"
                     : "bg-white border-gray-200"
                   }`}>
                     {isDone
-                      ? <CheckCircleIcon className="w-5 h-5 text-black" />
-                      : <Icon className={`w-5 h-5 ${isCurrent ? "text-[#111111]" : "text-gray-300"}`} />
+                      ? <CheckCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
+                      : <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isCurrent ? "text-[#111111]" : "text-gray-300"}`} />
                     }
                   </div>
-                  <span className={`text-[10px] font-bold uppercase tracking-wider ${isCurrent ? "text-[#111111]" : "text-gray-400"}`}>
+                  <span className={`text-[8px] sm:text-[10px] font-bold uppercase tracking-wider text-center ${isCurrent ? "text-[#111111]" : "text-gray-400"}`}>
                     {s.label}
                   </span>
                 </div>
                 {i < STEPS.length - 1 && (
-                  <div className={`flex-1 h-0.5 mb-5 mx-2 rounded-full transition-all ${step > s.id ? "bg-[#c1ff00]" : "bg-gray-200"}`} />
+                  <div className={`flex-1 h-0.5 mb-4 sm:mb-5 mx-1.5 sm:mx-2 rounded-full transition-all ${step > s.id ? "bg-[#c1ff00]" : "bg-gray-200"}`} />
                 )}
               </div>
             );
           })}
         </div>
 
-        {/* Error */}
-        {error && (
-          <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm">{error}</div>
-        )}
-
-        {/* 
-          ╔══════════════════════════════════════════════╗
-          ║  NO <form> wrapper here — that was the bug.  ║
-          ║  Each step is plain divs. Only the Save      ║
-          ║  button calls handleSave() explicitly.       ║
-          ╚══════════════════════════════════════════════╝
-        */}
-
         {/* Step content card */}
-        <div className="bg-white border border-gray-100 rounded-[30px] p-8 shadow-sm space-y-6">
+        <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-[30px] p-4 sm:p-6 md:p-8 shadow-xs space-y-5 sm:space-y-6">
 
           {/* ── STEP 1: Body Metrics ──────────────────────── */}
           {step === 1 && (

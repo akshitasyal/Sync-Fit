@@ -243,7 +243,7 @@ export default function WorkoutPage() {
 
         {/* 3. Active Workout Plan Flow */}
         {plan && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {/* Weekly Progress Calendar */}
             <WeeklyProgress
               days={plan.days}
@@ -267,26 +267,26 @@ export default function WorkoutPage() {
 
             {/* Exercises Section */}
             {activeDay?.focus === "Rest" ? (
-              <div className="py-20 text-center bg-white border border-gray-100 rounded-[32px] p-8 shadow-sm space-y-4">
-                <p className="text-6xl">😴</p>
-                <h3 className="text-2xl font-black text-[#111111]">Active Recovery Day</h3>
-                <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
+              <div className="py-12 sm:py-20 text-center bg-white border border-gray-100 rounded-2xl sm:rounded-[32px] p-6 sm:p-8 shadow-xs space-y-4">
+                <p className="text-4xl sm:text-6xl">😴</p>
+                <h3 className="text-xl sm:text-2xl font-black text-[#111111]">Active Recovery Day</h3>
+                <p className="text-gray-400 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
                   Your muscles rebuild and synthesize protein during recovery. Prioritize hydration, 8+ hours of restful sleep, and gentle mobility.
                 </p>
               </div>
             ) : (
-              <div className="space-y-5">
+              <div className="space-y-4 sm:space-y-5">
                 {/* Exercise Section Progress Bar Header */}
-                <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="bg-white border border-gray-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="space-y-1">
                     <span className="text-[10px] font-black uppercase tracking-[0.18em] text-gray-400">
                       Today's Execution Progress
                     </span>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-xl font-black text-[#111111]">
+                      <span className="text-lg sm:text-xl font-black text-[#111111]">
                         {completedExercisesCount} / {totalExercisesCount}
                       </span>
-                      <span className="text-xs font-bold text-gray-500 uppercase">
+                      <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase">
                         Exercises Completed
                       </span>
                     </div>
@@ -297,7 +297,7 @@ export default function WorkoutPage() {
                       <span>Progress</span>
                       <span className="text-[#111111] font-black">{exerciseProgressPercent}%</span>
                     </div>
-                    <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                    <div className="w-full bg-gray-100 rounded-full h-2 sm:h-2.5 overflow-hidden">
                       <div
                         className="bg-[#c1ff00] h-full rounded-full transition-all duration-500"
                         style={{ width: `${exerciseProgressPercent}%` }}
@@ -307,7 +307,7 @@ export default function WorkoutPage() {
                 </div>
 
                 {/* Exercise Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {exercises.map((ex, idx) => {
                     const exercise = ex.exerciseId as IExercise;
                     const exId = (exercise._id || "").toString();

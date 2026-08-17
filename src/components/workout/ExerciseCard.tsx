@@ -101,10 +101,10 @@ export default function ExerciseCard({
 
   return (
     <div
-      className={`bg-white rounded-[28px] p-5 border transition-all duration-300 flex flex-col justify-between gap-4 relative overflow-hidden group hover:-translate-y-1 ${
+      className={`bg-white rounded-2xl sm:rounded-[28px] p-3.5 sm:p-5 border transition-all duration-300 flex flex-col justify-between gap-3.5 sm:gap-4 relative overflow-hidden group hover:-translate-y-1 ${
         isCompleted || allSetsComplete
           ? "border-[#c1ff00]/60 bg-[#c1ff00]/5 shadow-md"
-          : "border-gray-100 hover:border-gray-300 hover:shadow-xl shadow-sm"
+          : "border-gray-100 hover:border-gray-300 hover:shadow-xl shadow-xs"
       }`}
     >
       {/* ── 1. Compact Looping Exercise Demonstration Video (30-40% height) ── */}
@@ -117,11 +117,11 @@ export default function ExerciseCard({
           category={exercise.category}
         />
 
-        {/* Floating Quick Action over video */}
+        {/* Floating Quick Action over video - Accessible on mobile & hover on desktop */}
         <button
           type="button"
           onClick={() => onViewForm(exercise)}
-          className="absolute top-2.5 right-2.5 bg-black/60 hover:bg-black/90 backdrop-blur-md text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full border border-white/20 transition-all opacity-0 group-hover:opacity-100 flex items-center gap-1 shadow-md"
+          className="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 bg-black/60 hover:bg-black/90 backdrop-blur-md text-white text-[9px] sm:text-[10px] font-black uppercase px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-white/20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100 flex items-center gap-1 shadow-md cursor-pointer"
         >
           <PlayCircleIcon className="w-3.5 h-3.5 text-[#c1ff00]" />
           <span>Technique</span>

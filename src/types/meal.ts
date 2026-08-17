@@ -38,8 +38,11 @@ export interface IMealPlan {
 export interface IShoppingListItem {
   name: string;
   quantity: number;
+  unit?: string;
   category: string;
-  isChecked: boolean;
+  isChecked?: boolean;
+  alreadyHave?: boolean;
+  notes?: string;
 }
 
 export interface IShoppingList {

@@ -114,10 +114,9 @@ const workflowSteps = [
 export default function BeginnerStartPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f8f7f5]">
-
       {/* ── Page Header Banner ── */}
-      <div className="px-4 pt-4 md:px-8 md:pt-6">
-        <section className="relative w-full h-[55vh] min-h-[500px] flex flex-col items-center justify-center rounded-[30px] overflow-hidden mb-16">
+      <div className="px-4 pt-4">
+        <section className="relative w-full min-h-[300px] sm:min-h-[420px] md:min-h-[500px] flex flex-col items-center justify-center rounded-2xl sm:rounded-[30px] overflow-hidden mb-8 sm:mb-16">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -125,32 +124,31 @@ export default function BeginnerStartPage() {
             }}
           />
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/50 to-[#0a0a0a]" />
-          <div className="relative z-20 text-center px-4 mt-24 flex flex-col items-center justify-center">
-            <h1 className="text-5xl md:text-[64px] font-bold text-white mb-4 tracking-tight">
+          <div className="relative z-20 text-center px-4 mt-12 sm:mt-24 flex flex-col items-center justify-center">
+            <h1 className="text-3xl sm:text-5xl md:text-[64px] font-bold text-white mb-2 sm:mb-4 tracking-tight">
               Beginner Smart Start
             </h1>
             <nav aria-label="Breadcrumb" className="flex flex-col items-center">
-              <p className="text-white text-base md:text-lg font-medium tracking-wide">
-                Home <span className="mx-2 text-white">/</span> Beginner Smart Start
+              <p className="text-white/80 text-xs sm:text-base md:text-lg font-medium tracking-wide">
+                Home <span className="mx-2 text-white/50">/</span> Beginner Smart Start
               </p>
-              <div className="w-2 h-2 rounded-full bg-[#c1ff00] mt-10" />
+              <div className="w-2 h-2 rounded-full bg-[#c1ff00] mt-4 sm:mt-8" />
             </nav>
           </div>
         </section>
       </div>
 
       {/* ── Main Content: Sidebar + Article ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 w-full">
-        <div className="flex flex-col lg:flex-row gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-32 w-full">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-10">
 
           {/* ── LEFT SIDEBAR ── */}
           <aside className="w-full lg:w-[300px] flex-shrink-0">
             <div className="sticky top-24">
-
               {/* Program List Card */}
-              <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100 mb-6">
-                <div className="bg-[#c1ff00] px-6 py-5">
-                  <h3 className="text-[#111] font-bold text-lg tracking-tight">
+              <div className="rounded-2xl overflow-hidden shadow-xs border border-gray-100 mb-6">
+                <div className="bg-[#c1ff00] px-5 sm:px-6 py-4 sm:py-5">
+                  <h3 className="text-[#111] font-bold text-base sm:text-lg tracking-tight">
                     Explore Our Programs
                   </h3>
                 </div>
@@ -159,7 +157,7 @@ export default function BeginnerStartPage() {
                     <li key={p.label}>
                       <Link
                         href={p.href}
-                        className={`flex items-center justify-between px-6 py-4 text-sm font-medium transition-colors ${
+                        className={`flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 text-xs sm:text-sm font-medium transition-colors ${
                           p.active
                             ? "text-[#c1ff00] bg-[#111] font-bold"
                             : "text-[#333] hover:text-[#111] hover:bg-[#f8f7f5]"

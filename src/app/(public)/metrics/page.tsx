@@ -235,67 +235,66 @@ export default function MetricsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0c10] text-white pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0b0c10] text-white pt-20 sm:pt-24 pb-16 sm:pb-20 px-3.5 sm:px-6 lg:px-8">
       {/* Background glow effects */}
       <div className="fixed top-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-[#c1ff00]/5 blur-[140px] pointer-events-none rounded-full" />
 
-      <div className="max-w-7xl mx-auto relative z-10 space-y-10">
+      <div className="max-w-7xl mx-auto relative z-10 space-y-8 sm:space-y-10">
 
         {/* ── Section Header ────────────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 bg-[#1a1c23] border border-white/10 px-4 py-1.5 rounded-full">
+          <div className="inline-flex items-center gap-2 bg-[#1a1c23] border border-white/10 px-3.5 sm:px-4 py-1.5 rounded-full">
             <div className="w-2 h-2 rounded-full bg-[#c1ff00] animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest text-[#c1ff00]">
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#c1ff00]">
               Biometric Intelligence Engine
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
-            Body Composition &amp; Fitness Direction
+            Calculate Your Body Metrics &amp; Get Your Direction
           </h1>
-          <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-            SyncFit interprets your biometrics to calculate your BMI, daily energy expenditure, and a personalized fitness strategy tailored to your exact physique goal.
+          <p className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed">
+            Adjust your metrics in real-time. SyncFit instantly derives your body composition, daily calorie target, and recommended training protocol.
           </p>
         </div>
 
-        {/* ── Two Column Layout ─────────────────────────────────────── */}
+        {/* ── Two-Column Interactive Layout ─────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
           {/* ════════════════════════════════════════════════════════════
-              LEFT PANEL: Form Controls & Biometrics Input (5 Cols)
+              LEFT PANEL: Biometric Interactive Controls (5 Cols)
              ════════════════════════════════════════════════════════════ */}
-          <div className="lg:col-span-5 bg-[#14161d] border border-white/10 rounded-[28px] p-6 sm:p-8 space-y-7 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#c1ff00]/5 blur-3xl pointer-events-none" />
-
-            {/* Header + Unit System Toggle */}
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <ScaleIcon className="w-5 h-5 text-[#c1ff00]" />
-                <h2 className="font-bold text-lg text-white">Your Metrics</h2>
+          <div className="lg:col-span-5 bg-[#14161d] border border-white/10 rounded-2xl sm:rounded-[28px] p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6 shadow-2xl">
+            
+            {/* Header: Title + Unit Switcher */}
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4 flex-wrap">
+              <div>
+                <h2 className="text-base sm:text-lg font-black text-white">Your Biometrics</h2>
+                <p className="text-gray-500 text-[11px] sm:text-xs">Adjust values to see live recalibration</p>
               </div>
 
-              {/* Toggle Metric / Imperial */}
-              <div className="flex bg-[#0b0c10] p-1 rounded-xl border border-white/10">
+              {/* Unit Switcher */}
+              <div className="flex bg-[#1a1c23] p-1 rounded-xl border border-white/10 text-xs">
                 <button
                   type="button"
                   onClick={() => setUnitSystem("metric")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
                     unitSystem === "metric"
-                      ? "bg-[#c1ff00] text-black shadow-md"
+                      ? "bg-[#c1ff00] text-black shadow-xs"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
-                  Metric (kg/cm)
+                  Metric
                 </button>
                 <button
                   type="button"
                   onClick={() => setUnitSystem("imperial")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
                     unitSystem === "imperial"
-                      ? "bg-[#c1ff00] text-black shadow-md"
+                      ? "bg-[#c1ff00] text-black shadow-xs"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
-                  Imperial (lbs/ft)
+                  Imperial
                 </button>
               </div>
             </div>
@@ -303,62 +302,55 @@ export default function MetricsPage() {
             {/* Gender Selection */}
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                Gender
+                Biological Sex
               </label>
-              <div className="grid grid-cols-3 gap-2">
-                {(["male", "female", "other"] as Gender[]).map((g) => (
-                  <button
-                    key={g}
-                    type="button"
-                    onClick={() => setGender(g)}
-                    className={`py-2.5 rounded-xl text-xs font-bold capitalize transition-all border ${
-                      gender === g
-                        ? "bg-[#c1ff00]/15 border-[#c1ff00] text-[#c1ff00] shadow-[0_0_12px_rgba(193,255,0,0.2)]"
-                        : "bg-[#1a1c23] border-white/5 text-gray-400 hover:text-white hover:border-white/20"
-                    }`}
-                  >
-                    {g === "male" ? "♂ Male" : g === "female" ? "♀ Female" : "⚧ Other"}
-                  </button>
-                ))}
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setGender("male")}
+                  className={`py-3 px-4 rounded-xl border font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 ${
+                    gender === "male"
+                      ? "bg-[#c1ff00] text-black border-[#c1ff00] shadow-[0_0_15px_rgba(193,255,0,0.3)]"
+                      : "bg-[#1a1c23] text-gray-300 border-white/10 hover:border-white/20"
+                  }`}
+                >
+                  <span>♂</span>
+                  <span>Male</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setGender("female")}
+                  className={`py-3 px-4 rounded-xl border font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 ${
+                    gender === "female"
+                      ? "bg-[#c1ff00] text-black border-[#c1ff00] shadow-[0_0_15px_rgba(193,255,0,0.3)]"
+                      : "bg-[#1a1c23] text-gray-300 border-white/10 hover:border-white/20"
+                  }`}
+                >
+                  <span>♀</span>
+                  <span>Female</span>
+                </button>
               </div>
             </div>
 
-            {/* Age & Activity Level Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Age */}
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-center">
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                    Age
-                  </label>
-                  <span className="text-xs font-black text-[#c1ff00]">{age} yrs</span>
-                </div>
-                <input
-                  type="number"
-                  min={14}
-                  max={90}
-                  value={age}
-                  onChange={(e) => setAge(Math.max(14, Math.min(90, Number(e.target.value) || 20)))}
-                  className="w-full bg-[#1a1c23] border border-white/10 rounded-xl px-4 py-2.5 text-white font-semibold focus:border-[#c1ff00] focus:outline-none text-sm"
-                />
-              </div>
-
-              {/* Activity Level */}
-              <div className="space-y-1.5">
+            {/* Age Slider + Input */}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
                 <label className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                  Activity Level
+                  Age (years)
                 </label>
-                <select
-                  value={activityLevel}
-                  onChange={(e) => setActivityLevel(e.target.value as ActivityLevel)}
-                  className="w-full bg-[#1a1c23] border border-white/10 rounded-xl px-3 py-2.5 text-white font-medium text-xs focus:border-[#c1ff00] focus:outline-none truncate"
-                >
-                  {ACTIVITY_OPTIONS.map((opt) => (
-                    <option key={opt.id} value={opt.id} className="bg-[#14161d] text-white">
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
+                <span className="text-xs font-black text-[#c1ff00]">{age} yrs</span>
+              </div>
+              <input
+                type="range"
+                min={16}
+                max={85}
+                value={age}
+                onChange={(e) => setAge(Number(e.target.value))}
+                className="w-full accent-[#c1ff00] cursor-pointer"
+              />
+              <div className="flex justify-between text-[10px] text-gray-500 font-bold">
+                <span>16 yrs</span>
+                <span>85 yrs</span>
               </div>
             </div>
 
@@ -485,7 +477,7 @@ export default function MetricsPage() {
               )}
             </div>
 
-            {/* ── NEW FEATURE 1: What's your primary goal? ────────────── */}
+            {/* ── GOAL SELECTION ────────────── */}
             <div className="space-y-3 pt-2">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold uppercase tracking-widest text-[#c1ff00]">
@@ -502,7 +494,7 @@ export default function MetricsPage() {
                       key={g.id}
                       type="button"
                       onClick={() => setGoal(g.id)}
-                      className={`w-full text-left p-3.5 rounded-2xl border transition-all duration-200 flex items-center justify-between gap-3 ${
+                      className={`w-full text-left p-3.5 rounded-2xl border transition-all duration-200 flex items-center justify-between gap-3 cursor-pointer ${
                         isSelected
                           ? "bg-[#c1ff00]/10 border-[#c1ff00] shadow-[0_0_15px_rgba(193,255,0,0.15)] ring-1 ring-[#c1ff00]/40"
                           : "bg-[#1a1c23]/70 border-white/5 hover:border-white/20 hover:bg-[#1a1c23]"
@@ -536,7 +528,7 @@ export default function MetricsPage() {
             <button
               onClick={handleGenerateBlueprint}
               disabled={savingBlueprint}
-              className="w-full bg-[#c1ff00] hover:bg-[#aadf00] text-black font-extrabold py-4 px-6 rounded-2xl transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(193,255,0,0.35)] flex items-center justify-center gap-2 group disabled:opacity-50"
+              className="w-full bg-[#c1ff00] hover:bg-[#aadf00] text-black font-extrabold py-3.5 sm:py-4 px-6 rounded-2xl transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(193,255,0,0.35)] flex items-center justify-center gap-2 group disabled:opacity-50 cursor-pointer text-xs sm:text-sm"
             >
               {savingBlueprint ? (
                 <>
@@ -559,7 +551,7 @@ export default function MetricsPage() {
           <div className="lg:col-span-7 space-y-6">
 
             {/* 1. YOUR BODY COMPOSITION & BMI Scale */}
-            <div className="bg-[#14161d] border border-white/10 rounded-[28px] p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">
+            <div className="bg-[#14161d] border border-white/10 rounded-2xl sm:rounded-[28px] p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6 shadow-2xl relative overflow-hidden">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -583,11 +575,11 @@ export default function MetricsPage() {
 
               {/* BMI Visual Scale */}
               <div className="space-y-2 pt-2">
-                <div className="flex justify-between text-[11px] font-bold text-gray-400">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 text-[10px] sm:text-[11px] font-bold text-gray-400">
                   <span>Underweight (&lt;18.5)</span>
-                  <span className="text-[#c1ff00]">Healthy (18.5–24.9)</span>
+                  <span className="text-[#c1ff00] text-right sm:text-left">Healthy (18.5–24.9)</span>
                   <span className="text-amber-400">Overweight (25–29.9)</span>
-                  <span className="text-rose-400">Obese (30+)</span>
+                  <span className="text-rose-400 text-right sm:text-left">Obese (30+)</span>
                 </div>
 
                 {/* Multi-segmented Gradient Track */}

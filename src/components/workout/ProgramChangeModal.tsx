@@ -21,7 +21,7 @@ export default function ProgramChangeModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
@@ -29,13 +29,13 @@ export default function ProgramChangeModal({
       />
 
       {/* Modal Container */}
-      <div className="relative bg-white rounded-[32px] w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 sm:p-8 shadow-2xl z-10 space-y-6 animate-in zoom-in-95 duration-200">
-        <div className="flex items-start justify-between border-b border-gray-100 pb-4">
-          <div>
+      <div className="relative bg-white rounded-2xl sm:rounded-[32px] w-full max-w-2xl max-h-[85vh] overflow-y-auto p-4 sm:p-6 md:p-8 shadow-2xl z-10 space-y-4 sm:space-y-6 animate-in zoom-in-95 duration-200">
+        <div className="flex items-start justify-between border-b border-gray-100 pb-3 sm:pb-4 gap-3">
+          <div className="min-w-0">
             <span className="text-[10px] font-black uppercase tracking-widest text-[#8bb900]">
               Training Architecture
             </span>
-            <h3 className="text-xl sm:text-2xl font-black text-[#111111]">
+            <h3 className="text-lg sm:text-2xl font-black text-[#111111] truncate">
               Choose Your Fitness Program
             </h3>
             <p className="text-gray-400 text-xs sm:text-sm mt-0.5">
@@ -45,14 +45,14 @@ export default function ProgramChangeModal({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"
+            className="p-1.5 sm:p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0 cursor-pointer"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
 
         {/* Program Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
           {PROGRAMS.map((prog) => {
             const isActive = selectedProgram === prog.id;
             const isLoading = changingProgram === prog.id;
@@ -63,13 +63,13 @@ export default function ProgramChangeModal({
                 type="button"
                 onClick={() => onSelectProgram(prog.id)}
                 disabled={!!changingProgram}
-                className={`relative text-left p-4 sm:p-5 rounded-2xl border-2 transition-all flex flex-col justify-between min-h-[110px] ${
+                className={`relative text-left p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border-2 transition-all flex flex-col justify-between min-h-[100px] cursor-pointer ${
                   isActive
-                    ? "border-[#111111] bg-[#f8f8f5] shadow-md ring-1 ring-[#111111]"
-                    : "border-gray-100 bg-white hover:border-gray-300 hover:shadow-sm"
+                    ? "border-[#111111] bg-[#f8f8f5] shadow-xs ring-1 ring-[#111111]"
+                    : "border-gray-100 bg-white hover:border-gray-300 hover:shadow-xs"
                 }`}
               >
-                <div className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-gradient-to-b ${prog.color}`} />
+                <div className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl sm:rounded-l-2xl bg-gradient-to-b ${prog.color}`} />
 
                 <div className="flex items-start justify-between gap-3 w-full">
                   <div className="space-y-1 flex-1">

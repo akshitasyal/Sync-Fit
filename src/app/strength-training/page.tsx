@@ -80,8 +80,8 @@ export default function StrengthTrainingPage() {
     <div className="flex flex-col min-h-screen bg-[#f8f7f5]">
 
       {/* ── Page Header Banner (matching programs page style) ── */}
-      <div className="px-4 pt-4 md:px-8 md:pt-6">
-        <section className="relative w-full h-[55vh] min-h-[500px] flex flex-col items-center justify-center rounded-[30px] overflow-hidden mb-16">
+      <div className="px-4 pt-4">
+        <section className="relative w-full min-h-[300px] sm:min-h-[420px] md:min-h-[500px] flex flex-col items-center justify-center rounded-2xl sm:rounded-[30px] overflow-hidden mb-8 sm:mb-16">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -89,32 +89,32 @@ export default function StrengthTrainingPage() {
             }}
           />
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/55 to-[#0a0a0a]" />
-          <div className="relative z-20 text-center px-4 mt-24 flex flex-col items-center justify-center">
-            <h1 className="text-5xl md:text-[64px] font-bold text-white mb-4 tracking-tight">
+          <div className="relative z-20 text-center px-4 mt-12 sm:mt-24 flex flex-col items-center justify-center">
+            <h1 className="text-3xl sm:text-5xl md:text-[64px] font-bold text-white mb-2 sm:mb-4 tracking-tight">
               Strength Training
             </h1>
             <nav aria-label="Breadcrumb" className="flex flex-col items-center">
-              <p className="text-white text-base md:text-lg font-medium tracking-wide">
-                Home <span className="mx-2 text-white">/</span> Strength Training
+              <p className="text-white/80 text-xs sm:text-base md:text-lg font-medium tracking-wide">
+                Home <span className="mx-2 text-white/50">/</span> Strength Training
               </p>
-              <div className="w-2 h-2 rounded-full bg-[#c1ff00] mt-10" />
+              <div className="w-2 h-2 rounded-full bg-[#c1ff00] mt-4 sm:mt-8" />
             </nav>
           </div>
         </section>
       </div>
 
       {/* ── Main Content: Sidebar + Article ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 w-full">
-        <div className="flex flex-col lg:flex-row gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-32 w-full">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-10">
 
           {/* ── LEFT SIDEBAR ── */}
           <aside className="w-full lg:w-[300px] flex-shrink-0">
             <div className="sticky top-24">
 
               {/* Program List Card */}
-              <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100 mb-6">
-                <div className="bg-[#c1ff00] px-6 py-5">
-                  <h3 className="text-[#111] font-bold text-lg tracking-tight">
+              <div className="rounded-2xl overflow-hidden shadow-xs border border-gray-100 mb-6">
+                <div className="bg-[#c1ff00] px-5 sm:px-6 py-4 sm:py-5">
+                  <h3 className="text-[#111] font-bold text-base sm:text-lg tracking-tight">
                     Explore Our Programs
                   </h3>
                 </div>
@@ -123,7 +123,7 @@ export default function StrengthTrainingPage() {
                     <li key={p.label}>
                       <Link
                         href={p.href}
-                        className={`flex items-center justify-between px-6 py-4 text-sm font-medium transition-colors ${p.active
+                        className={`flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 text-xs sm:text-sm font-medium transition-colors ${p.active
                             ? "text-[#c1ff00] bg-[#111] font-bold"
                             : "text-[#333] hover:text-[#111] hover:bg-[#f8f7f5]"
                           }`}
@@ -137,20 +137,20 @@ export default function StrengthTrainingPage() {
               </div>
 
               {/* CTA Card */}
-              <div className="bg-[#0b0c10] rounded-2xl p-8 text-center relative overflow-hidden">
+              <div className="bg-[#0b0c10] rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-[#c1ff00]/10 blur-[40px] rounded-full" />
-                <div className="w-16 h-16 bg-[#c1ff00] rounded-full mx-auto flex items-center justify-center mb-5 shadow-[0_0_20px_rgba(193,255,0,0.3)]">
-                  <TrophyIcon className="w-8 h-8 text-black" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-[#c1ff00] rounded-full mx-auto flex items-center justify-center mb-4 sm:mb-5 shadow-[0_0_20px_rgba(193,255,0,0.3)]">
+                  <TrophyIcon className="w-7 h-7 sm:w-8 sm:h-8 text-black" />
                 </div>
-                <h4 className="text-white font-bold text-lg mb-3 leading-snug">
+                <h4 className="text-white font-bold text-base sm:text-lg mb-2 sm:mb-3 leading-snug">
                   Ready to Start Training?
                 </h4>
-                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                <p className="text-gray-400 text-xs sm:text-sm mb-5 sm:mb-6 leading-relaxed">
                   Generate your personalised strength plan in seconds.
                 </p>
                 <Link
                   href="/workout"
-                  className="inline-flex items-center justify-center gap-2 bg-[#c1ff00] hover:bg-[#a9e000] text-black font-bold py-3 px-6 rounded-xl text-sm transition-all hover:-translate-y-0.5 w-full"
+                  className="inline-flex items-center justify-center gap-2 bg-[#c1ff00] hover:bg-[#a9e000] text-black font-bold py-3 px-6 rounded-xl text-xs sm:text-sm transition-all hover:-translate-y-0.5 w-full cursor-pointer"
                 >
                   Get My Plan <ArrowRightIcon className="w-4 h-4" />
                 </Link>
