@@ -466,7 +466,7 @@ export default function MealPlanPage() {
                       </div>
 
                       {/* Food Photography Image */}
-                      <div className="relative aspect-[16/11] w-full rounded-2xl overflow-hidden bg-gray-100 mb-3 border border-gray-100">
+                      <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-gray-100 mb-3 border border-gray-100">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={mealImg}
@@ -653,7 +653,7 @@ export default function MealPlanPage() {
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
           <div className="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col">
             {/* Modal Image */}
-            <div className="h-44 sm:h-52 w-full relative overflow-hidden bg-gray-100 flex-shrink-0">
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100 flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={selectedMealSlot.meal.imageUrl || getMealImage(selectedMealSlot.meal.name, selectedMealSlot.slot)}

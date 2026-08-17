@@ -1212,7 +1212,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Food Image */}
-            <div className="relative aspect-[16/9] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
+            <div className="relative aspect-[16/10] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={selectedMealForDetail.meal.imageUrl || getMealImage(selectedMealForDetail.meal.name, selectedMealForDetail.slot)}
